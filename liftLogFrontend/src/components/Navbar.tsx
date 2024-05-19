@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 const Navbar = () => {
-    // State to manage the navbar's visibility
     const [nav, setNav] = useState(false);
 
-    // Toggle function to handle the navbar's display
     const handleNav = () => {
         setNav(!nav);
     };
 
-    // Array containing navigation items
     const navItems = [
-        { id: 1, text: 'Home' },
-        { id: 2, text: 'Company' },
-        { id: 3, text: 'Resources' },
-        { id: 4, text: 'About' },
-        { id: 5, text: 'Contact' },
+        { id: 1, text: 'Home', location: '/' },
+        { id: 2, text: 'Log In', location: '/login' },
     ];
 
     return (
@@ -30,11 +24,8 @@ const Navbar = () => {
             {/* Desktop Navigation */}
             <ul className='hidden md:flex'>
                 {navItems.map(item => (
-                    <li
-                        key={item.id}
-                        className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'
-                    >
-                        {item.text}
+                    <li key={item.id}>
+                        <a href={item.location} className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'>{item.text}</a>
                     </li>
                 ))}
             </ul>
@@ -60,11 +51,8 @@ const Navbar = () => {
 
                 {/* Mobile Navigation Items */}
                 {navItems.map(item => (
-                    <li
-                        key={item.id}
-                        className='p-4 border-b rounded-xl hover:bg-[#00df9a] duration-300 hover:text-black cursor-pointer border-gray-600'
-                    >
-                        {item.text}
+                    <li key={item.id}>
+                        <a href={item.location} className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'>{item.text}</a>
                     </li>
                 ))}
             </ul>
