@@ -1,23 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
 function LoginForm() {
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // TODO: SEND FORM INFO TO BACKEND LATER ON
+    }
 
     return (
         <div className="flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
             <p className="text-lg font-bold p-4">Account Login</p>
 
             <form className="flex flex-col w-11/12">
+                {/* EMAIL INPUT */}
                 <div>
                     <label className="absolute bg-white ml-4 text-md" htmlFor="email">Email Address</label>
-                    <input className="mt-3 p-3 w-full border-solid border-4 border-light-grey-500" type="text" />
+                    <input
+                        value={formData.email} onChange={handleChange}
+                        className="mt-3 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        type="email"
+                        name="email" />
                 </div>
-                
-                <div className="mt-8">
+
+                {/* PASSWORD INPUT */}
+                <div className="mt-3">
                     <label className="absolute bg-white ml-4 text-md" htmlFor="email">Password</label>
-                    <input className="mt-3 p-3 w-full border-solid border-4 border-light-grey-500" type="text" />
+                    <input
+                        value={formData.password} onChange={handleChange}
+                        className="mt-3 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        type="password"
+                        name="password" />
                 </div>
-                
-                <button className="mt-10 h-12 rounded-md bg-[#00df9a]">Log In</button>
+
+
+                <button onClick={handleSubmit} className="mt-10 h-12 rounded-md bg-[#00df9a]">Log In</button>
             </form>
 
             <small className="text-center m-5">Not a member? <a className="text-blue-700" href="/account/create">Sign up</a> here!</small>
