@@ -10,7 +10,7 @@ const Navbar = () => {
 
     const navItems = [
         { id: 1, text: 'Home', location: '/' },
-        { id: 2, text: 'Log In', location: '/login' },
+        { id: 2, text: 'Log In', location: '/account/login' },
     ];
 
     return (
