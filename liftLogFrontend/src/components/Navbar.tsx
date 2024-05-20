@@ -14,7 +14,7 @@ const Navbar = () => {
     ];
 
     return (
-        <div className='bg-black flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
+        <nav className='bg-black flex justify-between items-center h-24 mx-auto px-4 text-white'>
             {/* Logo */}
             <div className='flex justify-start items-center'>
                 <img className='object-scale-down h-24 w-54' src='../public/icons/beardedLifter.png' />
@@ -56,7 +56,7 @@ const Navbar = () => {
                     </li>
                 ))}
             </ul>
-        </div>
+        </nav>
     );
 };
 
