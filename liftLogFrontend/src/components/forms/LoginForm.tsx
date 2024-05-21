@@ -25,11 +25,12 @@ function LoginForm() {
 
     return (
         <div className="flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
-            <p className="text-lg font-bold p-4">Account Login</p>
+            <p className="text-lg font-bold p-5">Account Login</p>
 
-            <form className="flex flex-col w-11/12" onSubmit={handleSubmit}>
+            <form className="flex flex-col w-full p-12 md:shadow-custom" onSubmit={handleSubmit}>
+
                 {/* EMAIL INPUT */}
-                <div className="mt-6">
+                <div>
                     <label
                         className="absolute bg-white ml-4 text-md p-1"
                         htmlFor="email">
@@ -46,7 +47,7 @@ function LoginForm() {
                 {/* PASSWORD INPUT */}
                 <div className="mt-6">
                     <label
-                        className="absolute bg-white ml-4 text-md p-1"
+                        className="absolute bg-white ml-4 p-1 text-md"
                         htmlFor="password">
                         Password
                     </label>
@@ -61,12 +62,12 @@ function LoginForm() {
                 {/* SUBMIT BUTTON */}
                 <button
                     type="submit"
-                    className="mt-8 h-12 rounded-md bg-[#00df9a]">
+                    className="mt-8 p-3 rounded-md bg-[#00df9a] hover:bg-[#10B981] text-white font-bold text-xl">
                     Log In
                 </button>
             </form>
 
-            <small className="text-center m-5">Not a member? <a className="text-blue-700" href="/account/create">Sign up</a> here!</small>
+            <small className="text-center m-5">Not a member? <a className="text-blue-700" href="/account/create">Sign up here!</a></small>
         </div>
     );
 }
