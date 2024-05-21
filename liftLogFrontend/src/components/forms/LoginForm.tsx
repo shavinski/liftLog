@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-interface FormData {
+interface LoginFormData {
     email: string;
     password: string;
 }
 
 function LoginForm() {
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<LoginFormData>({
         email: "",
         password: "",
     });
@@ -29,30 +29,30 @@ function LoginForm() {
 
             <form className="flex flex-col w-11/12" onSubmit={handleSubmit}>
                 {/* EMAIL INPUT */}
-                <div>
+                <div className="mt-6">
                     <label
-                        className="absolute bg-white ml-4 text-md"
+                        className="absolute bg-white ml-4 text-md p-1"
                         htmlFor="email">
                         Email Address
                     </label>
                     <input
                         value={formData.email} onChange={handleChange}
-                        className="mt-3 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
                         type="email"
                         name="email"
                         id="email" />
                 </div>
 
                 {/* PASSWORD INPUT */}
-                <div className="mt-3">
+                <div className="mt-6">
                     <label
-                        className="absolute bg-white ml-4 text-md"
+                        className="absolute bg-white ml-4 text-md p-1"
                         htmlFor="password">
                         Password
                     </label>
                     <input
                         value={formData.password} onChange={handleChange}
-                        className="mt-3 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
                         type="password"
                         name="password"
                         id="password" />
@@ -61,7 +61,7 @@ function LoginForm() {
                 {/* SUBMIT BUTTON */}
                 <button
                     type="submit"
-                    className="mt-10 h-12 rounded-md bg-[#00df9a]">
+                    className="mt-8 h-12 rounded-md bg-[#00df9a]">
                     Log In
                 </button>
             </form>
