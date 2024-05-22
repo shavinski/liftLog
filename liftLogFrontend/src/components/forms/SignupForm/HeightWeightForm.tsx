@@ -1,37 +1,49 @@
-import FormLayout from "./FormLayout";
+interface UserData {
+    height: number | "",
+    weight: number | "",
+}
 
-function HeightWeightForm() {
+interface HeightWeightProps extends UserData {
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+}
+
+function HeightWeightForm({ height, weight, handleChange }: HeightWeightProps) {
     return (
         <>
-            {/* FIRST NAME INPUT */}
+            {/* HEIGHT INPUT */}
             <div>
                 <label
                     className="absolute bg-white ml-4 text-md p-1"
-                    htmlFor="firstName">
+                    htmlFor="height">
                     Height
                 </label>
-                <input
-                    // value={formData.firstName} onChange={handleChange}
-                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
-                    type="firstName"
-                    name="firstName"
-                    id="firstName"
-                    required />
+                <div>
+                    <input
+                        value={height}
+                        onChange={handleChange}
+                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        type="number"
+                        name="height"
+                        id="height"
+                        required />
+                    <div className="border-solid border-4 border-light-grey-500">ft</div>
+                </div>
             </div>
 
-            {/* LAST NAME INPUT */}
+            {/* WEIGHT INPUT */}
             <div className="mt-6">
                 <label
                     className="absolute bg-white ml-4 p-1 text-md"
-                    htmlFor="lastName">
+                    htmlFor="weight">
                     Weight
                 </label>
                 <input
-                    // value={formData.lastName} onChange={handleChange}
+                    value={weight}
+                    onChange={handleChange}
                     className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
-                    type="lastName"
-                    name="lastName"
-                    id="lastName"
+                    type="number"
+                    name="weight"
+                    id="weight"
                     required />
             </div>
         </>

@@ -28,6 +28,7 @@ function SignupForm() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+        console.log(name, value)
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
@@ -39,10 +40,10 @@ function SignupForm() {
         // TODO: SEND FORM INFO TO BACKEND LATER ON
     }
 
-    const { steps, currentStep, step, next, back } = useMultistepForm(
+    const { steps, currentStep, form, next, back } = useMultistepForm(
         [
             <FirsLastNameForm {...formData} handleChange={handleChange} />,
-            <HeightWeightForm {...formData} />
+            <HeightWeightForm {...formData} handleChange={handleChange} />
         ]
     );
 
@@ -65,7 +66,7 @@ function SignupForm() {
 
             <form onSubmit={handleSubmit} className="flex flex-col w-full p-12 md:shadow-custom">
 
-                {step}
+                {form}
 
                 <div className="flex w-full mt-8">
                     {/* BACK BUTTONS */}

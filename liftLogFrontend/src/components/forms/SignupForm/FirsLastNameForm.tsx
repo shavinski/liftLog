@@ -1,15 +1,11 @@
-import FormLayout from "./FormLayout";
-
 interface UserData {
     firstName: string,
     lastName: string,
 }
 
 interface FirsLastNameProps extends UserData {
-    handleChange: () => void,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
-
-
 
 function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNameProps) {
     return (
@@ -22,7 +18,8 @@ function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNamePro
                     First Name
                 </label>
                 <input
-                    value={firstName} onChange={handleChange}
+                    value={firstName}
+                    onChange={handleChange}
                     className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
                     type="firstName"
                     name="firstName"
@@ -38,7 +35,8 @@ function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNamePro
                     Last Name
                 </label>
                 <input
-                    value={lastName} onChange={handleChange}
+                    value={lastName}
+                    onChange={handleChange}
                     className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
                     type="lastName"
                     name="lastName"

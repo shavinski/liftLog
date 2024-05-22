@@ -31,7 +31,7 @@ function useMultistepForm(steps: ReactElement[]) {
 
     return {
         currentStep,
-        step: steps[currentStep],
+        form: steps[currentStep],
         steps,
         next,
         back,
