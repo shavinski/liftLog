@@ -20,22 +20,21 @@ function SignupForm() {
     });
 
     const calculateProgressBarWidth = () => {
-        console.log(((currentStep + 1) / steps.length) * 100);
-        console.log(currentStep)
-
         return `${((currentStep + 1) / steps.length) * 100}%`;
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        console.log(name, value)
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        next();
+
+        if (currentStep !== steps.length - 1) return next();
+
         console.log("Sending to server...");
+        alert("Account Created")
         console.log(formData);
         // TODO: SEND FORM INFO TO BACKEND LATER ON
     }
