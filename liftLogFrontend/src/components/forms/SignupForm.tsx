@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useMultistepForm from "../../hooks/useMultistepForm";
 
 interface SingupFormData {
     firstName: string;
@@ -11,6 +12,19 @@ function SignupForm() {
         firstName: "",
         lastName: "",
     });
+
+    const {steps, currentStep} = useMultistepForm(
+        [
+            <div>One</div>,
+            <div>Two</div>,
+        ]
+    )
+
+    const calculateProgressBarWidth = () => {
+        console.log(((currentStep + 1) / steps.length) * 100)
+
+        return `${((currentStep + 1) / steps.length) * 100}%`;
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -26,17 +40,19 @@ function SignupForm() {
 
     return (
         <div className="flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
-            <div className="sm:invisible absolute top-24 w-full bg-gray-300 h-2.5">
-                <div className="sm:invisible absolute top-12 w-1/4 bg-[#00df9a] h-2.5 -mt-12"></div>
+            {/* MOBILE PROGRESS BAR */}
+            <div className="w-full bg-gray-300 rounded-t-lg h-2.5 hidden sm:block">
+                <div className="bg-[#00df9a] h-2.5 rounded-t-lg hidden sm:block" style={{width: calculateProgressBarWidth()}}></div>
             </div>
 
             <div className="flex flex-col justify-center items-center" >
                 <p className="text-4x1 font-bold pt-4">Welcome to</p>
                 <p className="text-3xl font-bold text-[#00df9a] pb-2">Lift Log</p>
             </div>
-
-            <div className="w-full bg-gray-300 rounded-t-lg h-2.5 hidden sm:block">
-                <div className="bg-[#00df9a] h-2.5 rounded-t-lg w-1/4 hidden sm:block"></div>
+            
+            {/* NON MOBILE PROGRESS BAR */}
+            <div className="sm:invisible absolute top-24 w-full bg-gray-300 h-2.5">
+                <div className="sm:invisible absolute top-12 bg-[#00df9a] h-2.5 -mt-12" style={{width: calculateProgressBarWidth()}}></div>
             </div>
 
             <form className="flex flex-col w-full p-12 md:shadow-custom">
