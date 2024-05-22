@@ -8,7 +8,7 @@ import App from './App.tsx'
 
 import Navbar from './components/Navbar.tsx';
 import LoginForm from './components/forms/LoginForm.tsx';
-import SignupForm from './components/forms/SignupForm.tsx';
+import SignupForm from './components/forms/SignupForm/SignupForm.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,15 +20,15 @@ const router = createBrowserRouter([
     element: <LoginForm />
   },
   {
-    path:"/account/create",
+    path: "/account/create",
     element: <SignupForm />
   }
 ])
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <>
-      <Navbar />
-      <RouterProvider router={router} />
-    </>
+  <>
+    <Navbar />
+    <RouterProvider router={router} />
+  </>
 )
