@@ -11,9 +11,9 @@ function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps
     return (
         <>
             {/* FIRST NAME INPUT */}
-            <div>
+            <div className="relative">
                 <label
-                    className="absolute bg-white ml-4 text-md p-1"
+                    className="absolute bg-white text-md p-1 left-3"
                     htmlFor="email">
                     Email
                 </label>
@@ -28,9 +28,9 @@ function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps
             </div>
 
             {/* LAST NAME INPUT */}
-            <div className="mt-6">
+            <div className="relative mt-6">
                 <label
-                    className="absolute bg-white ml-4 p-1 text-md"
+                    className="absolute bg-white p-1 text-md left-3"
                     htmlFor="password">
                     Password
                 </label>

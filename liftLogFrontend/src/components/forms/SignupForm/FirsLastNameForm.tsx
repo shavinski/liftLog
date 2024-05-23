@@ -10,6 +10,7 @@ interface FirsLastNameProps extends UserData {
 function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNameProps) {
     return (
         <>
+            <h1 className="font-bold text-center m-6 text-lg">Account Information</h1>
             {/* FIRST NAME INPUT */}
             <div className="relative">
                 <label

@@ -56,19 +56,20 @@ function SignupForm() {
 
     return (
         <div className="flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
+
             {/* MOBILE PROGRESS BAR */}
-            <div className="w-full bg-gray-300 rounded-t-lg h-2.5 hidden sm:block">
-                <div className="bg-[#00df9a] h-2.5 rounded-t-lg hidden sm:block" style={{ width: calculateProgressBarWidth() }}></div>
-            </div>
-
-            <div className="flex flex-col justify-center items-center" >
-                <p className="text-4x1 font-bold pt-4">Welcome to</p>
-                <p className="text-3xl font-bold text-[#00df9a] pb-2">Lift Log</p>
-            </div>
-
-            {/* NON MOBILE PROGRESS BAR */}
             <div className="sm:invisible absolute top-24 w-full bg-gray-300 h-2.5">
                 <div className="sm:invisible absolute top-12 bg-[#00df9a] h-2.5 -mt-12" style={{ width: calculateProgressBarWidth() }}></div>
+            </div>
+
+            <div className="flex flex-col justify-center items-center sm:m-10" >
+                <p className="text-4x1 font-bold">Welcome to</p>
+                <p className="text-3xl font-bold text-[#00df9a]">Lift Log</p>
+            </div>
+
+             {/* NON MOBILE PROGRESS BAR */}
+             <div className="w-full bg-gray-300 rounded-t-lg h-2.5 hidden sm:block">
+                <div className="bg-[#00df9a] h-2.5 rounded-t-lg hidden sm:block" style={{ width: calculateProgressBarWidth() }}></div>
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col w-full p-4 md:shadow-custom">
