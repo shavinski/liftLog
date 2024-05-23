@@ -11,6 +11,8 @@ interface HeightWeightProps extends UserData {
 function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: HeightWeightProps) {
     return (
         <>
+            <h1 className="font-bold text-left mt-3 mb-3 text-lg">How tall are you?</h1>
+
             {/* HEIGHT INPUT */}
             <div className="flex justify-between">
                 <div className="flex relative">
@@ -23,7 +25,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                     <input
                         value={heightFeet}
                         onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                         type="number"
                         name="heightFeet"
                         id="heightFeet"
@@ -31,7 +33,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                 </div>
 
                 <div className="w-3"></div>
-
+                
                 <div className="flex relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
@@ -42,7 +44,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                         <input
                             value={heightInches}
                             onChange={handleChange}
-                            className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                            className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                             type="number"
                             name="heightInches"
                             id="heightInches"
@@ -51,9 +53,12 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                 </div>
             </div>
 
+
+            <h1 className="font-bold text-left mb-3 mt-3 text-lg">What is your current weight?</h1>
+
             {/* WEIGHT INPUT */}
             <div>
-                <div className="flex relative mt-6">
+                <div className="flex relative">
                     <label
                         className="absolute bg-white p-1 left-3 text-md"
                         htmlFor="weight">
@@ -62,7 +67,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                     <input
                         value={weight}
                         onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                         type="number"
                         name="weight"
                         id="weight"

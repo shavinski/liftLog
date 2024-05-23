@@ -30,9 +30,9 @@ function LoginForm() {
             <form className="flex flex-col w-full p-4 md:shadow-custom" onSubmit={handleSubmit}>
 
                 {/* EMAIL INPUT */}
-                <div>
+                <div className="relative">
                     <label
-                        className="absolute bg-white ml-4 text-md p-1"
+                        className="absolute bg-white text-md left-3 p-1"
                         htmlFor="email">
                         Email Address
                     </label>
@@ -45,9 +45,9 @@ function LoginForm() {
                 </div>
 
                 {/* PASSWORD INPUT */}
-                <div className="mt-6">
+                <div className="relative mt-6">
                     <label
-                        className="absolute bg-white ml-4 p-1 text-md"
+                        className="absolute bg-white text-md left-3 p-1"
                         htmlFor="password">
                         Password
                     </label>

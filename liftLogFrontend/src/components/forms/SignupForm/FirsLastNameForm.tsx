@@ -10,7 +10,8 @@ interface FirsLastNameProps extends UserData {
 function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNameProps) {
     return (
         <>
-            <h1 className="font-bold text-center m-6 text-lg">Account Information</h1>
+            <h1 className="font-bold text-left mt-3 mb-3 text-lg">Account Information</h1>
+            
             {/* FIRST NAME INPUT */}
             <div className="relative">
                 <label
@@ -21,7 +22,7 @@ function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNamePro
                 <input
                     value={firstName}
                     onChange={handleChange}
-                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="firstName"
                     name="firstName"
                     id="firstName"
@@ -38,7 +39,7 @@ function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNamePro
                 <input
                     value={lastName}
                     onChange={handleChange}
-                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="lastName"
                     name="lastName"
                     id="lastName"

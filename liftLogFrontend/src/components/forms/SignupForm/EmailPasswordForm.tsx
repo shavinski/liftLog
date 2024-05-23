@@ -9,8 +9,10 @@ interface EmailPasswordProps extends UserData {
 
 function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps) {
     return (
-        <>
-            {/* FIRST NAME INPUT */}
+        <>  
+            <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
+
+            {/* EMAIL INPUT */}
             <div className="relative">
                 <label
                     className="absolute bg-white text-md p-1 left-3"
@@ -20,14 +22,14 @@ function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps
                 <input
                     value={email}
                     onChange={handleChange}
-                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="email"
                     name="email"
                     id="email"
                     required />
             </div>
 
-            {/* LAST NAME INPUT */}
+            {/* PASSWORD INPUT */}
             <div className="relative mt-6">
                 <label
                     className="absolute bg-white p-1 text-md left-3"
@@ -37,7 +39,7 @@ function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps
                 <input
                     value={password}
                     onChange={handleChange}
-                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="password"
                     name="password"
                     id="password"
