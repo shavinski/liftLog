@@ -71,7 +71,7 @@ function SignupForm() {
                 <div className="sm:invisible absolute top-12 bg-[#00df9a] h-2.5 -mt-12" style={{ width: calculateProgressBarWidth() }}></div>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col w-full p-12 md:shadow-custom">
+            <form onSubmit={handleSubmit} className="flex flex-col w-full p-4 md:shadow-custom">
 
                 {form}
 
