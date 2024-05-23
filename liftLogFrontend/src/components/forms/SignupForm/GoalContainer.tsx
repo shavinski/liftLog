@@ -1,33 +1,26 @@
 import React, { FC, useState } from "react";
 
-interface GoalContainerProps {
+interface UserData {
     goal: string;
 }
 
-const GoalContainer: FC<GoalContainerProps> = ({ goal }) => {
-    const [activeGoal, setActiveGoal] = useState<string>("");
+interface GoalContainerProps extends UserData {
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+}
 
-    const changeActiveGoal = (e: React.MouseEvent<HTMLLabelElement>) => {
-        const target = e.target as HTMLButtonElement;
-        const goalValue = target.value;
-
-        setActiveGoal(goalValue);
-    };
+const GoalContainer: FC<GoalContainerProps> = ({ goal, handleChange }) => {
 
     return (
         <>
-            {/* <button
-                type="button"
-                className={`mt-5 p-5 border-solid border-4 rounded-lg ${activeGoal === goal ? 'border-green-500' : 'border-light-grey-500'}`}
-                onClick={changeActiveGoal}
-                value={goal}>
-                {goal}
-            </button> */}
-
-            <label onClick={changeActiveGoal} htmlFor={goal}>
-                <div className={`mt-5 p-5 border-solid border-4 rounded-lg ${activeGoal === goal ? 'border-green-500' : 'border-light-grey-500'}`}>
+            <label htmlFor={goal}>
+                <div className="mt-5 p-5 border-solid border-4 rounded-lg">
                     <span className="text-lg">{goal}</span>
-                    <input className="hidden" type="radio" id={goal} name="goal" value={goal} />
+                    <input
+                        onChange={handleChange}
+                        className="hidden"
+                        type="radio" id={goal}
+                        name="goal"
+                        value={goal} />
                 </div>
             </label>
         </>
