@@ -26,6 +26,7 @@ function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps
                     type="email"
                     name="email"
                     id="email"
+                    autoComplete="email"
                     required />
             </div>
 
