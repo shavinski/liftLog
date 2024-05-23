@@ -7,7 +7,8 @@ import EmailPasswordForm from "./EmailPasswordForm";
 interface SingupFormData {
     firstName: string;
     lastName: string;
-    height: number | "";
+    heightFeet: number | "";
+    heightInches: number | "";
     weight: number | "";
     email: string;
     password: string;
@@ -18,7 +19,8 @@ function SignupForm() {
     const [formData, setFormData] = useState<SingupFormData>({
         firstName: "",
         lastName: "",
-        height: "",
+        heightFeet: "",
+        heightInches: "",
         weight: "",
         email: "",
         password: ""
