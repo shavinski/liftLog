@@ -25,17 +25,12 @@ function useMultistepForm(steps: ReactElement[]) {
         });
     }
 
-    function goTo(index: number) {
-        setCurrentStep(index);
-    }
-
     return {
         currentStep,
         form: steps[currentStep],
         steps,
         next,
         back,
-        goTo,
     }
 }
 

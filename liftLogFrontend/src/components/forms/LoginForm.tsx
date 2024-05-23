@@ -27,7 +27,7 @@ function LoginForm() {
         <div className="flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
             <p className="text-lg font-bold p-5">Account Login</p>
 
-            <form className="flex flex-col w-full p-12 md:shadow-custom" onSubmit={handleSubmit}>
+            <form className="flex flex-col w-full p-4 md:shadow-custom" onSubmit={handleSubmit}>
 
                 {/* EMAIL INPUT */}
                 <div>
