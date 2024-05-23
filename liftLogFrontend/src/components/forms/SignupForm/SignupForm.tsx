@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useMultistepForm from "../../../hooks/useMultistepForm";
 import FirsLastNameForm from "./FirsLastNameForm";
 import HeightWeightForm from "./HeightWeightForm";
@@ -15,7 +15,6 @@ interface SingupFormData {
 }
 
 function SignupForm() {
-
     const [formData, setFormData] = useState<SingupFormData>({
         firstName: "",
         lastName: "",
@@ -27,8 +26,8 @@ function SignupForm() {
     });
 
     const calculateProgressBarWidth = () => {
-        return `${((currentStep + 1) / steps.length) * 100}%`;
-    }
+        return ((currentStep + 1) / steps.length) * 100;
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -59,7 +58,9 @@ function SignupForm() {
 
             {/* MOBILE PROGRESS BAR */}
             <div className="sm:invisible absolute -top-12 w-full bg-gray-300 h-2.5">
-                <div className="sm:invisible bg-gradient-to-r from-[#00df9a] to-green-500 h-2.5" style={{ width: calculateProgressBarWidth() }}></div>
+                <div
+                    className="sm:invisible bg-gradient-to-r from-[#00df9a] to-green-500 h-2.5"
+                    style={{ transition: "width 1s", width: `${calculateProgressBarWidth()}%` }}></div>
             </div>
 
             {/* SIGN UP WELCOME */}
@@ -70,7 +71,9 @@ function SignupForm() {
 
             {/* NON MOBILE PROGRESS BAR */}
             <div className="w-full bg-gray-300 rounded-t-lg h-2.5 hidden sm:block">
-                <div className="sm:block bg-gradient-to-r from-[#00df9a] to-green-500 h-2.5 rounded-t-lg hidden" style={{ width: calculateProgressBarWidth() }}></div>
+                <div
+                    className="sm:block bg-gradient-to-r from-[#00df9a] to-green-500 h-2.5 rounded-t-lg hidden"
+                    style={{ transition: "width 1s", width: `${calculateProgressBarWidth()}%` }}></div>
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col w-full p-4 md:shadow-custom">
@@ -96,7 +99,7 @@ function SignupForm() {
                 </div>
             </form>
 
-        </div>
+        </div >
     );
 }
 
