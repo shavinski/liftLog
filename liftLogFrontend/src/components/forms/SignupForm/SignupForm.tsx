@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import useMultistepForm from "../../../hooks/useMultistepForm";
 import FirsLastNameForm from "./FirsLastNameForm";
 import HeightWeightForm from "./HeightWeightForm";
+import EmailPasswordForm from "./EmailPasswordForm";
 
 interface SingupFormData {
     firstName: string;
     lastName: string;
     height: number | "";
-    weight: number | "",
+    weight: number | "";
+    email: string;
+    password: string;
 }
 
 function SignupForm() {
@@ -17,6 +20,8 @@ function SignupForm() {
         lastName: "",
         height: "",
         weight: "",
+        email: "",
+        password: ""
     });
 
     const calculateProgressBarWidth = () => {
@@ -42,7 +47,8 @@ function SignupForm() {
     const { steps, currentStep, form, next, back } = useMultistepForm(
         [
             <FirsLastNameForm {...formData} handleChange={handleChange} />,
-            <HeightWeightForm {...formData} handleChange={handleChange} />
+            <HeightWeightForm {...formData} handleChange={handleChange} />,
+            <EmailPasswordForm {...formData} handleChange={handleChange} />
         ]
     );
 
