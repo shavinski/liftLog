@@ -17,7 +17,7 @@ const Navbar = () => {
         <nav className='bg-black flex justify-between items-center h-24 mx-auto px-4 text-white'>
             {/* Logo */}
             <a href="/" className='flex justify-start items-center'>
-                <img className='object-scale-down h-24 w-54' src='../public/icons/beardedLifter.png' />
+                <img className='object-scale-down h-24 w-54' src='/icons/beardedLifter.png' />
                 <h1 className='w-full text-3xl font-bold text-[#00df9a]'>Lift Log</h1>
             </a>
 
@@ -45,7 +45,7 @@ const Navbar = () => {
             >
                 {/* Mobile Logo */}
                 <div className='flex justify-start items-center'>
-                    <img className='object-scale-down h-24 w-54' src='../public/icons/beardedLifter.png' />
+                    <img className='object-scale-down h-24 w-54' src='/icons/beardedLifter.png' />
                     <h1 className='w-full text-3xl font-bold text-[#00df9a]'>Lift Log</h1>
                 </div>
 

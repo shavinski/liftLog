@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useMultistepForm from "../../../hooks/useMultistepForm";
 import FirsLastNameForm from "./FirsLastNameForm";
 import HeightWeightForm from "./HeightWeightForm";
 import EmailPasswordForm from "./EmailPasswordForm";
+import GoalsForm from "./GoalForm";
 
 interface SingupFormData {
     firstName: string;
@@ -10,6 +11,7 @@ interface SingupFormData {
     heightFeet: number | "";
     heightInches: number | "";
     weight: number | "";
+    goal: string;
     email: string;
     password: string;
 }
@@ -21,6 +23,7 @@ function SignupForm() {
         heightFeet: "",
         heightInches: "",
         weight: "",
+        goal: "",
         email: "",
         password: ""
     });
@@ -49,6 +52,7 @@ function SignupForm() {
         [
             <FirsLastNameForm {...formData} handleChange={handleChange} />,
             <HeightWeightForm {...formData} handleChange={handleChange} />,
+            <GoalsForm {...formData} handleChange={handleChange} />,
             <EmailPasswordForm {...formData} handleChange={handleChange} />
         ]
     );

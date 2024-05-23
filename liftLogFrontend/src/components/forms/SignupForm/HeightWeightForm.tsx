@@ -18,7 +18,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                 <div className="flex relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
-                        htmlFor="height">
+                        htmlFor="heightFeet">
                         Height Feet
                     </label>
 
@@ -37,7 +37,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                 <div className="flex relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
-                        htmlFor="height">
+                        htmlFor="heightInche">
                         Height Inches
                     </label>
                     <div className="flex">
