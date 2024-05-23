@@ -28,7 +28,6 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                         name="heightFeet"
                         id="heightFeet"
                         required />
-                    {/* <div className="mt-4 mb-2 p-3 text-lg border-solid border-4 border-light-grey-500">ft</div> */}
                 </div>
 
                 <div className="w-3"></div>
@@ -48,7 +47,6 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                             name="heightInches"
                             id="heightInches"
                             required />
-                        {/* <div className="mt-4 mb-2 p-3 text-lg border-solid border-4 border-light-grey-500">in</div> */}
                     </div>
                 </div>
             </div>

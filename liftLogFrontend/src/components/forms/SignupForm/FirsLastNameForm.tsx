@@ -11,9 +11,9 @@ function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNamePro
     return (
         <>
             {/* FIRST NAME INPUT */}
-            <div>
+            <div className="relative">
                 <label
-                    className="absolute bg-white ml-4 text-md p-1"
+                    className="absolute bg-white text-md left-3 p-1"
                     htmlFor="firstName">
                     First Name
                 </label>
@@ -28,9 +28,9 @@ function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNamePro
             </div>
 
             {/* LAST NAME INPUT */}
-            <div className="mt-6">
+            <div className="relative mt-6">
                 <label
-                    className="absolute bg-white ml-4 p-1 text-md"
+                    className="absolute bg-white text-md left-3 p-1"
                     htmlFor="lastName">
                     Last Name
                 </label>
