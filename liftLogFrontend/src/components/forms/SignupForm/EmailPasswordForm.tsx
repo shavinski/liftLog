@@ -1,15 +1,17 @@
 import React, { FC } from "react";
+import { FormValidation } from "./SignupForm";
 
 interface UserData {
     email: string,
     password: string,
+    errors: FormValidation,
 }
 
 interface EmailPasswordProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, handleChange }) => {
+const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, handleChange, errors }) => {
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
@@ -32,6 +34,8 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, handleChan
                     required />
             </div>
 
+            {errors.email && <span>{errors.email}</span>}
+
             {/* PASSWORD INPUT */}
             <div className="relative mt-6">
                 <label
@@ -48,6 +52,8 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, handleChan
                     id="password"
                     required />
             </div>
+
+            {errors.password && <span>{errors.password}</span>}
         </>
     )
 }

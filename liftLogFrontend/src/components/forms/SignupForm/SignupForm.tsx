@@ -20,6 +20,15 @@ interface SingupFormData {
     password: string;
 }
 
+export interface FormValidation {
+    firstName?: string;
+    lastName?: string;
+    heightFeet?: number | "";
+    heightInches?: number | "";
+    email?: string;
+    password?: string;
+}
+
 const SignupForm: FC = () => {
     const [formData, setFormData] = useState<SingupFormData>({
         firstName: "",
@@ -32,6 +41,7 @@ const SignupForm: FC = () => {
         email: "",
         password: ""
     });
+    const [errors, setErrors] = useState<FormValidation>({})
 
     const calculateProgressBarWidth = () => {
         return ((currentStep + 1) / steps.length) * 100;
@@ -40,6 +50,7 @@ const SignupForm: FC = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
+        validateForm(name, value);
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,15 +64,46 @@ const SignupForm: FC = () => {
         // TODO: SEND FORM INFO TO BACKEND LATER ON
     }
 
+    const validateForm = (name: string, value: string | number) => {
+        let error: string = "";
+
+        if (name === "heightFeet") {
+            const feet = Number(value);
+            if (feet < 2 || feet > 8) {
+                error = "❌ Feet must be between 2 and 8";
+            }
+        } else if (name === "heightInches") {
+            const inches = Number(value);
+            if (inches > 11 || inches < 0) {
+                error = "❌ Inches must be between 0 and 11";
+            }
+        }
+
+        if (name === "email") {
+            if (!/\S+@\S+\.\S+/.test(value as string)) {
+                error = "❌ Please enter a valid email address";
+            }
+        } else if (name === "password") {
+            const stringPassword = value as string
+            if (stringPassword.length < 6 || stringPassword.length > 14) {
+                error = "❌ Password must be at least 6 characters and less than 14";
+            }
+        }
+
+        setErrors((prevState) => ({ ...prevState, [name]: error }));
+    }
+
     const { steps, currentStep, form, next, back } = useMultistepForm(
         [
             <FirsLastNameForm {...formData} handleChange={handleChange} />,
-            <HeightWeightForm {...formData} handleChange={handleChange} />,
+            <HeightWeightForm {...formData} handleChange={handleChange} errors={errors} />,
             <BodyTypeForm {...formData} handleChange={handleChange} />,
             <GoalsForm {...formData} handleChange={handleChange} />,
-            <EmailPasswordForm {...formData} handleChange={handleChange} />
+            <EmailPasswordForm {...formData} handleChange={handleChange} errors={errors} />
         ]
     );
+
+    console.log(errors);
 
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">

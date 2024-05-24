@@ -1,15 +1,18 @@
 import React, { FC } from "react"
+import { FormValidation } from "./SignupForm"
+
 interface UserData {
     heightFeet: number | "",
     heightInches: number | "",
     weight: number | "",
+    errors: FormValidation,
 }
 
 interface HeightWeightProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, weight, handleChange }) => {
+const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, weight, handleChange, errors }) => {
     
     return (
         <>
@@ -32,9 +35,11 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, wei
                         name="heightFeet"
                         id="heightFeet"
                         required />
+
                 </div>
 
                 <div className="w-3"></div>
+                        
 
                 <div className="flex relative">
                     <label
@@ -55,8 +60,10 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, wei
                 </div>
             </div>
 
+            {errors.heightFeet && <span>{errors.heightFeet}</span> }
+            {errors.heightInches && <span>{errors.heightInches}</span> }
 
-            <h1 className="font-bold text-left mb-3 mt-3 text-lg">What is your current weight?</h1>
+            <h1 className="font-bold text-left mb-3 text-lg">What is your current weight?</h1>
 
             {/* WEIGHT INPUT */}
             <div>
