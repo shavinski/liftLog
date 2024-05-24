@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 
 interface LoginFormData {
     email: string;
     password: string;
 }
 
-function LoginForm() {
+const LoginForm: FC = () => {
     const [formData, setFormData] = useState<LoginFormData>({
         email: "",
         password: "",

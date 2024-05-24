@@ -1,3 +1,4 @@
+import React, { FC } from "react"
 interface UserData {
     heightFeet: number | "",
     heightInches: number | "",
@@ -8,7 +9,7 @@ interface HeightWeightProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: HeightWeightProps) {
+const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, weight, handleChange }) => {
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">How tall are you?</h1>
@@ -33,7 +34,7 @@ function HeightWeightForm({ heightFeet, heightInches, weight, handleChange }: He
                 </div>
 
                 <div className="w-3"></div>
-                
+
                 <div className="flex relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"

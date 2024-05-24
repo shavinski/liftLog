@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import useMultistepForm from "../../../hooks/useMultistepForm";
 import FirsLastNameForm from "./FirsLastNameForm";
 import HeightWeightForm from "./HeightWeightForm";
@@ -16,7 +16,7 @@ interface SingupFormData {
     password: string;
 }
 
-function SignupForm() {
+const SignupForm: FC = () => {
     const [formData, setFormData] = useState<SingupFormData>({
         firstName: "",
         lastName: "",

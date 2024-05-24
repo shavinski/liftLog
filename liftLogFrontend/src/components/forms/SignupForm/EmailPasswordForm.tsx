@@ -1,3 +1,5 @@
+import React, { FC } from "react";
+
 interface UserData {
     email: string,
     password: string,
@@ -7,9 +9,9 @@ interface EmailPasswordProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-function EmailPasswordForm({ email, password, handleChange }: EmailPasswordProps) {
+const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, handleChange }) => {
     return (
-        <>  
+        <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
 
             {/* EMAIL INPUT */}

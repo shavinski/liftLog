@@ -1,3 +1,5 @@
+import React, { FC } from "react"
+
 interface UserData {
     firstName: string,
     lastName: string,
@@ -7,11 +9,11 @@ interface FirsLastNameProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-function FirsLastNameForm({ firstName, lastName, handleChange }: FirsLastNameProps) {
+const FirsLastNameForm: FC<FirsLastNameProps> = ({ firstName, lastName, handleChange }) => {
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">Account Information</h1>
-            
+
             {/* FIRST NAME INPUT */}
             <div className="relative">
                 <label

@@ -24,7 +24,6 @@ const GoalContainer: FC<GoalContainerProps> = ({ goal, handleChange }) => {
                     id={goal}
                     name="goal"
                     required />
-                {/* </div> */}
             </label>
         </>
     )
