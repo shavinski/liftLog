@@ -14,7 +14,7 @@ interface SingupFormData {
     heightFeet: number | "";
     heightInches: number | "";
     weight: number | "";
-    bodyType: string;
+    body: string;
     goal: string;
     email: string;
     password: string;
@@ -27,7 +27,7 @@ const SignupForm: FC = () => {
         heightFeet: "",
         heightInches: "",
         weight: "",
-        bodyType: "",
+        body: "",
         goal: "",
         email: "",
         password: ""
