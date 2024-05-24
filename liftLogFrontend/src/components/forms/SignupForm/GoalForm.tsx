@@ -17,7 +17,7 @@ const GOAL_OPTIONS = [
     "Become more active"
 ]
 
-const GoalForm: FC<GoalFormProps> = ({ goal, handleChange }) => {
+const GoalForm: FC<GoalFormProps> = ({ handleChange }) => {
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">Personal Goals</h1>
@@ -25,8 +25,6 @@ const GoalForm: FC<GoalFormProps> = ({ goal, handleChange }) => {
             {GOAL_OPTIONS.map((goal, i) => {
                 return <GoalContainer goal={goal} handleChange={handleChange} key={i} />;
             })}
-
-
         </>
     )
 }
