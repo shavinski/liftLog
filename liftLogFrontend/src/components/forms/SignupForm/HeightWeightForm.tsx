@@ -10,6 +10,7 @@ interface HeightWeightProps extends UserData {
 }
 
 const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, weight, handleChange }) => {
+    
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">How tall are you?</h1>

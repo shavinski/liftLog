@@ -18,13 +18,14 @@ const GoalContainer: FC<GoalContainerProps> = ({ goal, handleChange }) => {
                 <span className="text-lg">{goal}</span>
                 <input
                     onChange={handleChange}
-                    className="cursor-pointer box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-gray-950/10 checked:border-green-500 checked:ring-green-500"
+                    className="cursor-pointer box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-gray-950/10 checked:border-[#00df9a] checked:ring-[#00df9a]"
                     type="radio"
                     value={goal}
                     id={goal}
                     name="goal"
                     required />
             </label>
+
         </>
     )
 }
