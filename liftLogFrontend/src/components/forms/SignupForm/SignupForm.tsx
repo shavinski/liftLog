@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import useMultistepForm from "../../../hooks/useMultistepForm";
 
@@ -46,6 +46,7 @@ const SignupForm: FC = () => {
     });
 
     const [errors, setErrors] = useState<FormValidation>({})
+    const [validForm, setValidForm] = useState<boolean>(true);
 
     const calculateProgressBarWidth = () => {
         return ((currentStep + 1) / steps.length) * 100;
@@ -53,8 +54,8 @@ const SignupForm: FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prevState) => ({ ...prevState, [name]: value }));
         validateForm(name, value);
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,26 +66,30 @@ const SignupForm: FC = () => {
         const form = e.currentTarget;
         const emailInput = form.elements.namedItem("email") as HTMLInputElement;
         const passwordInput = form.elements.namedItem("password") as HTMLInputElement;
-        let error = "";
+        const newErrors: FormValidation = {};
 
-        if (emailInput) {
-            if (!/\S+@\S+\.\S+/.test(emailInput.value as string)) {
-                error = "❌ Please enter a valid email address";
-            }
+        
+        if (emailInput && !/\S+@\S+\.\S+/.test(emailInput.value as string)) {
+            newErrors.email = "❌ Please enter a valid email address";
         }
 
         if (passwordInput) {
-            const stringPassword = passwordInput.value as string
+            const stringPassword = passwordInput.value as string;
             if (stringPassword.length < 6 || stringPassword.length > 14) {
-                error = "❌ Password must be at least 6 characters and less than 14";
+                newErrors.password = "❌ Password must be at least 6 characters and less than 14";
             }
         }
 
-        setErrors((prevState) => ({ ...prevState, ["email"]: error, ["password"]: error }));
+        setErrors((prevState) => ({ ...prevState, ...newErrors }));
 
-        console.log("Sending to server...");
-        alert("Account Created")
-        console.log(formData);
+        const hasErrors = Object.values(newErrors).some(error => error !== undefined && error !== "");
+
+        if (!hasErrors) {
+            console.log("Sending to server...");
+            alert("Account Created")
+            console.log(formData);
+        }
+
         // TODO: SEND FORM INFO TO BACKEND LATER ON
     }
 
@@ -95,21 +100,38 @@ const SignupForm: FC = () => {
             const feet = Number(value);
             if (feet < 2 || feet > 8) {
                 error = "❌ Feet must be between 2 and 8";
+            } else {
+                error = "";
             }
-        } else if (name === "heightInches") {
+        }
+
+        if (name === "heightInches") {
             const inches = Number(value);
             if (inches > 11 || inches < 0) {
                 error = "❌ Inches must be between 0 and 11";
+            } else {
+                error = "";
             }
-        } else if (name === "weight") {
+        }
+
+        if (name === "weight") {
             const weight = Number(value);
             if (weight > 1000) {
-                error = "❌ Weight must equal or under 1000";
+                error = "❌ Weight must be less than or equal to 1000";
+            } else {
+                error = "";
             }
         }
 
         setErrors((prevState) => ({ ...prevState, [name]: error }));
     }
+
+    useEffect(() => {
+        const hasErrorMessages = Object.values(errors).some(error => error !== undefined && error !== "");
+        setValidForm(!hasErrorMessages);
+    }, [errors])
+
+    console.log("errors =>", errors, "\n");
 
     const { steps, currentStep, form, next, back } = useMultistepForm(
         [
@@ -160,9 +182,9 @@ const SignupForm: FC = () => {
 
                     {/* NEXT/SUBMIT BUTTONS */}
                     {currentStep !== steps.length - 1 ? (
-                        <button type="submit" className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl">Next</button>
+                        <button type="submit" className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl" disabled={!validForm} >Next</button>
                     ) : (
-                        <button type="submit" className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl">Submit</button>
+                        <button type="submit" className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl" disabled={!validForm}>Submit</button>
                     )}
                 </div>
             </form>
