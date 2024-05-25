@@ -63,34 +63,15 @@ const SignupForm: FC = () => {
 
         if (currentStep !== steps.length - 1) return next();
 
-        const form = e.currentTarget;
-        const emailInput = form.elements.namedItem("email") as HTMLInputElement;
-        const passwordInput = form.elements.namedItem("password") as HTMLInputElement;
-        const newErrors: FormValidation = {};
-
-        
-        if (emailInput && !/\S+@\S+\.\S+/.test(emailInput.value as string)) {
-            newErrors.email = "❌ Please enter a valid email address";
-        }
-
-        if (passwordInput) {
-            const stringPassword = passwordInput.value as string;
-            if (stringPassword.length < 6 || stringPassword.length > 14) {
-                newErrors.password = "❌ Password must be at least 6 characters and less than 14";
-            }
-        }
-
-        setErrors((prevState) => ({ ...prevState, ...newErrors }));
-
-        const hasErrors = Object.values(newErrors).some(error => error !== undefined && error !== "");
+        const hasErrors = Object.values(errors).some(error => error !== undefined && error !== "");
 
         if (!hasErrors) {
             console.log("Sending to server...");
             alert("Account Created")
             console.log(formData);
+            // TODO: SEND FORM INFO TO BACKEND LATER ON
         }
 
-        // TODO: SEND FORM INFO TO BACKEND LATER ON
     }
 
     const validateForm = (name: string, value: string | number) => {
@@ -103,24 +84,36 @@ const SignupForm: FC = () => {
             } else {
                 error = "";
             }
-        }
-
-        if (name === "heightInches") {
+        } else if (name === "heightInches") {
             const inches = Number(value);
             if (inches > 11 || inches < 0) {
                 error = "❌ Inches must be between 0 and 11";
             } else {
                 error = "";
             }
-        }
-
-        if (name === "weight") {
+        } else if (name === "weight") {
             const weight = Number(value);
             if (weight > 1000) {
                 error = "❌ Weight must be less than or equal to 1000";
             } else {
                 error = "";
             }
+        } else if (name === "email") {
+            const isInvalidEmail = !/\S+@\S+\.\S+/.test(value as string)
+            if (isInvalidEmail) {
+                error = "❌ Please enter a valid email address";
+            } else {
+                error = "";
+            }
+        } else if (name === "password") {
+            const stringPassword = value as string;
+            if (stringPassword.length < 6 || stringPassword.length > 14) {
+                error = "❌ Password must be at least 6 characters and less than 14";
+            } else {
+                error = "";
+            }
+        } else {
+            return;
         }
 
         setErrors((prevState) => ({ ...prevState, [name]: error }));
@@ -129,9 +122,7 @@ const SignupForm: FC = () => {
     useEffect(() => {
         const hasErrorMessages = Object.values(errors).some(error => error !== undefined && error !== "");
         setValidForm(!hasErrorMessages);
-    }, [errors])
-
-    console.log("errors =>", errors, "\n");
+    }, [errors]);
 
     const { steps, currentStep, form, next, back } = useMultistepForm(
         [
