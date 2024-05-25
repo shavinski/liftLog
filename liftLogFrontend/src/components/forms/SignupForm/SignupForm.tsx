@@ -16,6 +16,7 @@ interface SingupFormData {
     weight: number | "";
     body: string;
     goal: string;
+    username: string;
     email: string;
     password: string;
 }
@@ -25,6 +26,7 @@ export interface FormValidation {
     lastName?: string;
     heightFeet?: number | "";
     heightInches?: number | "";
+    weight?: number;
     email?: string;
     password?: string;
 }
@@ -38,9 +40,11 @@ const SignupForm: FC = () => {
         weight: "",
         body: "",
         goal: "",
+        username: "",
         email: "",
         password: ""
     });
+
     const [errors, setErrors] = useState<FormValidation>({})
 
     const calculateProgressBarWidth = () => {
@@ -57,6 +61,26 @@ const SignupForm: FC = () => {
         e.preventDefault();
 
         if (currentStep !== steps.length - 1) return next();
+
+        const form = e.currentTarget;
+        const emailInput = form.elements.namedItem("email") as HTMLInputElement;
+        const passwordInput = form.elements.namedItem("password") as HTMLInputElement;
+        let error = "";
+
+        if (emailInput) {
+            if (!/\S+@\S+\.\S+/.test(emailInput.value as string)) {
+                error = "❌ Please enter a valid email address";
+            }
+        }
+
+        if (passwordInput) {
+            const stringPassword = passwordInput.value as string
+            if (stringPassword.length < 6 || stringPassword.length > 14) {
+                error = "❌ Password must be at least 6 characters and less than 14";
+            }
+        }
+
+        setErrors((prevState) => ({ ...prevState, ["email"]: error, ["password"]: error }));
 
         console.log("Sending to server...");
         alert("Account Created")
@@ -77,16 +101,10 @@ const SignupForm: FC = () => {
             if (inches > 11 || inches < 0) {
                 error = "❌ Inches must be between 0 and 11";
             }
-        }
-
-        if (name === "email") {
-            if (!/\S+@\S+\.\S+/.test(value as string)) {
-                error = "❌ Please enter a valid email address";
-            }
-        } else if (name === "password") {
-            const stringPassword = value as string
-            if (stringPassword.length < 6 || stringPassword.length > 14) {
-                error = "❌ Password must be at least 6 characters and less than 14";
+        } else if (name === "weight") {
+            const weight = Number(value);
+            if (weight > 1000) {
+                error = "❌ Weight must equal or under 1000";
             }
         }
 
@@ -102,8 +120,6 @@ const SignupForm: FC = () => {
             <EmailPasswordForm {...formData} handleChange={handleChange} errors={errors} />
         ]
     );
-
-    console.log(errors);
 
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">

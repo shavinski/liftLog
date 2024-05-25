@@ -83,6 +83,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, wei
                         required />
                 </div>
             </div>
+
+            {errors.weight && <span>{errors.weight}</span> }
         </>
     )
 }
