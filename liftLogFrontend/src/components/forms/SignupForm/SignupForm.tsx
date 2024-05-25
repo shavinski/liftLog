@@ -157,25 +157,38 @@ const SignupForm: FC = () => {
                     style={{ transition: "width 1s", width: `${calculateProgressBarWidth()}%` }}></div>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col w-full p-4 md:shadow-custom">
+            <form
+                onSubmit={handleSubmit}
+                className="flex flex-col w-full p-4 md:shadow-custom">
 
                 {form}
 
                 <div className="flex w-full mt-8">
                     {/* BACK BUTTONS */}
                     {currentStep !== 0 ? (
-                        <button onClick={back} type="button" className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]">Back</button>
+                        <button
+                            onClick={back}
+                            type="button"
+                            className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]">Back</button>
                     ) : (
-                        <a href="/account/login" className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]">Back</a>
+                        <a
+                            href="/account/login"
+                            className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]">Back</a>
                     )}
 
                     <div className="bg-white w-4"></div>
 
                     {/* NEXT/SUBMIT BUTTONS */}
                     {currentStep !== steps.length - 1 ? (
-                        <button type="submit" className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl" disabled={!validForm} >Next</button>
+                        <button
+                            type="submit"
+                            className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                            disabled={!validForm} >Next</button>
                     ) : (
-                        <button type="submit" className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl" disabled={!validForm}>Submit</button>
+                        <button
+                            type="submit"
+                            className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                            disabled={!validForm}>Submit</button>
                     )}
                 </div>
             </form>
