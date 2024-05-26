@@ -36,7 +36,7 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, 
             </div>
 
             {/* EMAIL INPUT */}
-            <div className="relative">
+            <div className="relative mt-6">
                 <label
                     className="absolute bg-white text-md p-1 left-3"
                     htmlFor="email">

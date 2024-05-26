@@ -16,7 +16,7 @@ const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ body, imagePath, info, 
             <label
                 className="cursor-pointer has-[:checked]:animate-pulse has-[:checked]:ring-green-200 has-[:checked]:text-green-900 has-[:checked]:bg-green-50 flex justify-between items-center rounded-lg p-1 gap-3 ring-1 ring-transparent hover:bg-green-100 border-2 mt-1 "
                 htmlFor={body}>
-                <img src={imagePath} loading="lazy" className="w-28"/>
+                <img src={imagePath} loading="lazy" className="w-28" />
                 <span className="text-lg w-40 sm:w-80">{info}</span>
                 <input
                     onChange={handleChange}

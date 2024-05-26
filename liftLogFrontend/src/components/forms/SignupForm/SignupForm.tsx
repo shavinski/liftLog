@@ -54,7 +54,9 @@ const SignupForm: FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
         validateForm(name, value);
+
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 

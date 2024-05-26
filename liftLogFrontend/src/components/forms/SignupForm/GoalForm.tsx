@@ -21,6 +21,7 @@ const GoalForm: FC<GoalFormProps> = ({ handleChange }) => {
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">Personal Goals</h1>
+            <small className="mb-1">Please select one.</small>
 
             {GOAL_OPTIONS.map((goal, i) => {
                 return <GoalContainer goal={goal} handleChange={handleChange} key={i} />;

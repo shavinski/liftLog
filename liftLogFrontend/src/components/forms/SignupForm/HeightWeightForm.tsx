@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { FormValidation } from "./SignupForm"
+import { FormValidation } from "./SignupForm";
 
 interface UserData {
     heightFeet: number | "",
@@ -63,7 +63,7 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ heightFeet, heightInches, wei
             {errors.heightFeet && <span>{errors.heightFeet}</span> }
             {errors.heightInches && <span>{errors.heightInches}</span> }
 
-            <h1 className="font-bold text-left mb-3 text-lg">What is your current weight?</h1>
+            <h1 className="font-bold text-left mt-6 mb-3 text-lg">What is your current weight?</h1>
 
             {/* WEIGHT INPUT */}
             <div>
