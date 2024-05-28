@@ -1,4 +1,5 @@
 import React, { useState, FC } from "react";
+import { Link } from "react-router-dom";
 
 interface LoginFormData {
     email: string;
@@ -67,7 +68,9 @@ const LoginForm: FC = () => {
                 </button>
             </form>
 
-            <small className="text-center m-5">Not a member? <a className="text-blue-700" href="/account/create">Sign up here!</a></small>
+            <small className="text-center m-5">
+                Not a member? <Link to="/account/create" className="text-blue-700"> Sign up here!</Link></small>
+            {/* <small className="text-center m-5">Not a member? <a className="text-blue-700" href="/account/create">Sign up here!</a></small> */}
         </div>
     );
 }
