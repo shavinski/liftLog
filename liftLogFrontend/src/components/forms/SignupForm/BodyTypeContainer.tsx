@@ -25,6 +25,7 @@ const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ body, imagePath, info, 
                     value={body}
                     id={body}
                     name="body"
+                    data-testid={body}
                     required />
             </label>
         </>

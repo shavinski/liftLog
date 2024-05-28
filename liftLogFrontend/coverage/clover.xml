@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1716935405379" clover="3.2.0">
-  <project timestamp="1716935405379" name="All files">
-    <metrics statements="118" coveredstatements="87" conditionals="48" coveredconditionals="26" methods="29" coveredmethods="18" elements="195" coveredelements="131" complexity="0" loc="118" ncloc="118" packages="5" files="12" classes="12"/>
+<coverage generated="1716936337566" clover="3.2.0">
+  <project timestamp="1716936337566" name="All files">
+    <metrics statements="120" coveredstatements="95" conditionals="50" coveredconditionals="32" methods="29" coveredmethods="21" elements="199" coveredelements="148" complexity="0" loc="120" ncloc="120" packages="5" files="12" classes="12"/>
     <package name="src">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="App.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/App.tsx">
@@ -30,23 +30,23 @@
       </file>
     </package>
     <package name="src.components.forms.SignupForm">
-      <metrics statements="90" coveredstatements="67" conditionals="46" coveredconditionals="26" methods="19" coveredmethods="11"/>
+      <metrics statements="92" coveredstatements="75" conditionals="48" coveredconditionals="32" methods="19" coveredmethods="14"/>
       <file name="BodyTypeContainer.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/BodyTypeContainer.tsx">
-        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="13" count="2" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
         <line num="34" count="2" type="stmt"/>
       </file>
       <file name="BodyTypeForm.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/BodyTypeForm.tsx">
-        <metrics statements="9" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
       </file>
       <file name="EmailPasswordForm.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/EmailPasswordForm.tsx">
@@ -58,7 +58,7 @@
       <file name="FirsLastNameForm.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/FirsLastNameForm.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="12" count="2" type="stmt"/>
-        <line num="13" count="8" type="stmt"/>
+        <line num="13" count="17" type="stmt"/>
         <line num="54" count="2" type="stmt"/>
       </file>
       <file name="GoalContainer.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/GoalContainer.tsx">
@@ -79,11 +79,11 @@
       <file name="HeightWeightForm.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/HeightWeightForm.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="15" count="2" type="stmt"/>
-        <line num="17" count="10" type="stmt"/>
+        <line num="17" count="20" type="stmt"/>
         <line num="92" count="2" type="stmt"/>
       </file>
       <file name="SignupForm.tsx" path="/home/jakob/projects/liftLog/liftLogFrontend/src/components/forms/SignupForm/SignupForm.tsx">
-        <metrics statements="60" coveredstatements="44" conditionals="36" coveredconditionals="20" methods="10" coveredmethods="9"/>
+        <metrics statements="62" coveredstatements="49" conditionals="38" coveredconditionals="26" methods="10" coveredmethods="9"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -92,58 +92,60 @@
         <line num="8" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
         <line num="34" count="2" type="stmt"/>
-        <line num="35" count="24" type="stmt"/>
-        <line num="48" count="24" type="stmt"/>
-        <line num="49" count="24" type="stmt"/>
-        <line num="51" count="24" type="stmt"/>
-        <line num="52" count="48" type="stmt"/>
-        <line num="55" count="24" type="stmt"/>
-        <line num="56" count="10" type="stmt"/>
-        <line num="58" count="10" type="stmt"/>
-        <line num="60" count="10" type="stmt"/>
-        <line num="63" count="24" type="stmt"/>
-        <line num="64" count="2" type="stmt"/>
-        <line num="66" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="35" count="52" type="stmt"/>
+        <line num="48" count="52" type="stmt"/>
+        <line num="49" count="52" type="stmt"/>
+        <line num="51" count="52" type="stmt"/>
+        <line num="52" count="104" type="stmt"/>
+        <line num="55" count="52" type="stmt"/>
+        <line num="56" count="22" type="stmt"/>
+        <line num="58" count="22" type="stmt"/>
+        <line num="60" count="22" type="stmt"/>
+        <line num="63" count="52" type="stmt"/>
+        <line num="64" count="6" type="stmt"/>
+        <line num="66" count="6" type="cond" truecount="1" falsecount="0"/>
         <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="70" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="71" count="0" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
-        <line num="79" count="24" type="stmt"/>
-        <line num="80" count="10" type="stmt"/>
-        <line num="82" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="83" count="2" type="stmt"/>
-        <line num="84" count="2" type="cond" truecount="3" falsecount="1"/>
-        <line num="85" count="2" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="89" count="8" type="cond" truecount="2" falsecount="0"/>
-        <line num="90" count="2" type="stmt"/>
-        <line num="91" count="2" type="cond" truecount="2" falsecount="2"/>
-        <line num="92" count="2" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="96" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="97" count="2" type="stmt"/>
-        <line num="98" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="79" count="52" type="stmt"/>
+        <line num="80" count="22" type="stmt"/>
+        <line num="82" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="83" count="4" type="stmt"/>
+        <line num="84" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="89" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="90" count="4" type="stmt"/>
+        <line num="91" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="92" count="3" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="96" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="97" count="4" type="stmt"/>
+        <line num="98" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="99" count="2" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="103" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="105" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="100" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="105" count="10" type="cond" truecount="1" falsecount="1"/>
         <line num="106" count="0" type="stmt"/>
+        <line num="107" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="108" count="0" type="stmt"/>
-        <line num="110" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="111" count="0" type="stmt"/>
-        <line num="112" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="112" count="10" type="cond" truecount="1" falsecount="1"/>
         <line num="113" count="0" type="stmt"/>
+        <line num="114" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="115" count="0" type="stmt"/>
-        <line num="118" count="4" type="stmt"/>
-        <line num="121" count="6" type="stmt"/>
-        <line num="124" count="24" type="stmt"/>
-        <line num="125" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="126" count="10" type="stmt"/>
-        <line num="129" count="24" type="stmt"/>
-        <line num="139" count="24" type="stmt"/>
-        <line num="203" count="2" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="120" count="10" type="stmt"/>
+        <line num="123" count="12" type="stmt"/>
+        <line num="126" count="52" type="stmt"/>
+        <line num="127" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="128" count="19" type="stmt"/>
+        <line num="131" count="52" type="stmt"/>
+        <line num="141" count="52" type="stmt"/>
+        <line num="205" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.hooks">
@@ -151,16 +153,16 @@
       <file name="useMultistepForm.ts" path="/home/jakob/projects/liftLog/liftLogFrontend/src/hooks/useMultistepForm.ts">
         <metrics statements="12" coveredstatements="7" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="4" count="24" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="9" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="4" count="52" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="9" count="6" type="cond" truecount="0" falsecount="1"/>
         <line num="10" count="0" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="20" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="21" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="28" count="24" type="stmt"/>
+        <line num="28" count="52" type="stmt"/>
         <line num="37" count="2" type="stmt"/>
       </file>
     </package>
