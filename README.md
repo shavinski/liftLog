@@ -222,7 +222,8 @@ Project Link: [https://github.com/shavinski/liftLog](https://github.com/shavinsk
 [issues-shield]: https://img.shields.io/github/issues/shavinski/liftLog.svg?style=for-the-badge
 [issues-url]: https://github.com/shavinski/liftLog/issues
 
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+
+[linkedin-shield]: https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white
 [linkedin-url]: https://linkedin.com/in/jakob-shavinski
 
 [product-screenshot]: readmeImages/placeholder.jpg
