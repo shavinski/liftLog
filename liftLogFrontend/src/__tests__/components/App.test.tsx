@@ -6,4 +6,3 @@ test('renders App component', () => {
   const element = screen.getByText(/Welcome to this page/i);
   expect(element).toBeInTheDocument();
 });
-4
