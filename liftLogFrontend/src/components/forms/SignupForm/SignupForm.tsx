@@ -161,7 +161,8 @@ const SignupForm: FC = () => {
 
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col w-full p-4 md:shadow-custom">
+                className="flex flex-col w-full p-4 md:shadow-custom"
+                data-testid="signup-form">
 
                 {form}
 
