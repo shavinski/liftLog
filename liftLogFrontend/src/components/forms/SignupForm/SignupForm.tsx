@@ -97,6 +97,8 @@ const SignupForm: FC = () => {
             const weight = Number(value);
             if (weight > 1000) {
                 error = "❌ Weight must be less than or equal to 1000";
+            } else if (weight <= 30) {
+                error = "❌ Weight must be greater than or equal to 30";
             } else {
                 error = "";
             }

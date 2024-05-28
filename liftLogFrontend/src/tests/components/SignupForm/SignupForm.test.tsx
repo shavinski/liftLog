@@ -108,7 +108,7 @@ describe("Signup component tests", () => {
 
         const heightFeetError = screen.getByText(/❌ Feet must be between 2 and 8/i);
         const heightInchesError = screen.getByText(/❌ Inches must be between 0 and 11/i);
-        const weightError = screen.getByText(/❌ Weight must be less than or equal to 1000/i);
+        const weightError = screen.getByText(/❌ Weight must be greater than or equal to 30/i);
         expect(heightFeetError).toBeInTheDocument();
         expect(heightInchesError).toBeInTheDocument();
         expect(weightError).toBeInTheDocument();
