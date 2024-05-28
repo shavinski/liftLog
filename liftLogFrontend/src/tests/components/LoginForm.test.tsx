@@ -29,7 +29,7 @@ test('Makes sure the sign up here link redirects to SignUp form', () => {
         </MemoryRouter>
     );
 
-    // Loads Login Form
+    // User loads onto Login Form
     const signUpLink = screen.getByText(/Sign up here!/i);
     expect(signUpLink).toBeInTheDocument();
 
@@ -41,16 +41,16 @@ test('Makes sure the sign up here link redirects to SignUp form', () => {
 });
 
 test('HandleChange functions properly', () => {
-    const { getByLabelText } = render(
+    render(
         <MemoryRouter>
-            <LoginForm  />
+            <LoginForm />
         </MemoryRouter>
     );
 
-    const emailInput = getByLabelText(/Email Address/);
-    fireEvent.change(emailInput, { target: { value: 'test-email' } });
+    const emailInput = screen.getByLabelText(/Email Address/) as HTMLInputElement;
+    fireEvent.change(emailInput, { target: { name: 'email', value: 'test-email' } });
 
-    expect(emailInput).toHaveValue('test-email');
+    expect(emailInput.value).toBe('test-email');
 });
 
 // TODO: Create test for login functionality when I finish writing endpoint on backed 
