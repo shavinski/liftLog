@@ -23,6 +23,7 @@ const GoalContainer: FC<GoalContainerProps> = ({ goal, handleChange }) => {
                     value={goal}
                     id={goal}
                     name="goal"
+                    data-testid={goal}
                     required />
             </label>
 
