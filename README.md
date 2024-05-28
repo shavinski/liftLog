@@ -191,7 +191,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - shavinski.jakob@gmail.com@shavinski.jakob@gmail.com_client.com
+Jakob Shavinski - shavinski.jakob@gmail.com
 
 Project Link: [https://github.com/shavinski/liftLog](https://github.com/shavinski/liftLog)
 
