@@ -18,8 +18,12 @@ describe("Signup component tests", () => {
         const lastNameInput = screen.getByLabelText(/Last Name/i) as HTMLInputElement;
         expect(lastNameInput).toBeInTheDocument();
     });
+});
 
-    test("Make sure multistep form works on first to second step", () => {
+describe("Multistep form works properly", () => {
+    afterEach(cleanup);
+
+    test("Multistep form works on first to second step", () => {
         render(<SignupForm />);
 
         // Only fill out first name input, should not be able to go next
@@ -114,4 +118,33 @@ describe("Signup component tests", () => {
         expect(weightError).toBeInTheDocument();
     });
 
-});
+    test("Multistep form works on second to third step", () => {
+        render(<SignupForm />);
+
+        // Fill out first step in form to get to second step        
+        const firstNameInput = screen.getByLabelText(/First Name/i) as HTMLInputElement;
+        const lastNameInput = screen.getByLabelText(/Last Name/i) as HTMLInputElement;
+        const nextButton = screen.getByText(/Next/i);
+
+        fireEvent.change(firstNameInput, { target: { name: 'firstName', value: 'test-fn' } });
+        fireEvent.change(lastNameInput, { target: { name: 'lastName', value: 'test-ln' } });
+        fireEvent.click(nextButton);
+
+
+        // Goes to next form in multistep => height and weight form and makes sure it loads properly initially
+        const heightFeetInput = screen.getByLabelText(/Height Feet/i) as HTMLInputElement;
+        const heightInchesInput = screen.getByLabelText(/Height Inches/i) as HTMLInputElement;
+        const weightInput = screen.getByLabelText(/Weight/i) as HTMLInputElement;
+
+        // Update inputs to have proper values to get to next form
+        fireEvent.change(heightFeetInput, { target: { name: 'heightFeet', value: '5' } });
+        fireEvent.change(heightInchesInput, { target: { name: 'heightInches', value: '9' } });
+        fireEvent.change(weightInput, { target: { name: 'weight', value: '160' } });
+        fireEvent.click(nextButton);
+
+        // Now should be on next form
+        const bodyTypeTitle = screen.getByText(/What type of body type do you have?/);
+        expect(bodyTypeTitle).toBeInTheDocument();
+    });
+
+})
