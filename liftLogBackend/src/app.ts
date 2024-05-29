@@ -1,14 +1,17 @@
 import express, { Request, Response } from 'express';
-import pool from './db';
+
+// MODEL IMPORTS 
+import User from './models/user';
 
 const app = express();
-const PORT = 3000;
 
 app.use(express.json());
 
 // ROUTES
 app.get("/", async (req, res, next) => {
-    res.send('Test');
+    // res.send("Test")
+    const users = await User.getAllUsers();
+    res.json({ users });
 })
 
 export default app;

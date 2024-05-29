@@ -1,4 +1,5 @@
 import { Client } from "pg";
+require('dotenv').config();
 
 const db = new Client({
     user: 'jakob',
@@ -8,6 +9,7 @@ const db = new Client({
     port: 5432,
 })
 
+console.log('password', process.env.PGPASSWORD)
 db.connect();
 
 export default db;
