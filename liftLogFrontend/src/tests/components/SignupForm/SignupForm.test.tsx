@@ -416,4 +416,64 @@ describe("Multistep form works properly", () => {
         expect(emailInput).toBeInTheDocument();
         expect(passwordInput).toBeInTheDocument();
     });
+
+    test("Multistep final step emailPassword form, test email and password errors", () => {
+        render(<SignupForm />);
+
+        // Fill out firstLast name form to get to heightWeightForm   
+        const firstNameInput = screen.getByLabelText(/First Name/i) as HTMLInputElement;
+        const lastNameInput = screen.getByLabelText(/Last Name/i) as HTMLInputElement;
+        const nextButton = screen.getByText(/Next/i);
+        fireEvent.change(firstNameInput, { target: { name: 'firstName', value: 'test-fn' } });
+        fireEvent.change(lastNameInput, { target: { name: 'lastName', value: 'test-ln' } });
+        fireEvent.click(nextButton);
+
+        // Fill out heightWeight form to get to bodyTypeForm
+        const heightFeetInput = screen.getByLabelText(/Height Feet/i) as HTMLInputElement;
+        const heightInchesInput = screen.getByLabelText(/Height Inches/i) as HTMLInputElement;
+        const weightInput = screen.getByLabelText(/Weight/i) as HTMLInputElement;
+        fireEvent.change(heightFeetInput, { target: { name: 'heightFeet', value: '5' } });
+        fireEvent.change(heightInchesInput, { target: { name: 'heightInches', value: '9' } });
+        fireEvent.change(weightInput, { target: { name: 'weight', value: '160' } });
+        fireEvent.click(nextButton);
+
+        // Will click ectomorph option for body type
+        const ectomorphInput = screen.getByTestId('Ectomorph') as HTMLInputElement;
+        fireEvent.click(ectomorphInput);
+        expect(ectomorphInput.checked).toBe(true);
+
+        // Go to next form, goalForm
+        fireEvent.click(nextButton);
+
+        const goalText = screen.getByText(/Personal Goals/i);
+        expect(goalText).toBeInTheDocument();
+
+        // Will click all options on goal form to make sure they can be clicked
+        const loseWeightInput = screen.getByTestId('Lose weight') as HTMLInputElement;
+        fireEvent.click(loseWeightInput);
+        expect(loseWeightInput.checked).toBe(true);
+
+        // Go to next form, emailPassword form
+        fireEvent.click(nextButton);
+
+        const emailPasswordTitle = screen.getByText(/User Login Information/i);
+        expect(emailPasswordTitle).toBeInTheDocument();
+
+        // Goes to next form in multistep => height and weight form and makes sure it loads properly initially
+        const usernameInput = screen.getByLabelText(/Username/i) as HTMLInputElement;
+        const emailInput = screen.getByLabelText(/Email/i) as HTMLInputElement;
+        const passwordInput = screen.getByLabelText(/Password/i) as HTMLInputElement;
+        const submitButton = screen.getByText(/Submit/i);
+
+        // Enter bad email and bad password
+        fireEvent.change(usernameInput, { target: { name: 'username', value: 'test-user' } });
+        fireEvent.change(emailInput, { target: { name: 'email', value: 'bademail' } });
+        fireEvent.change(passwordInput, { target: { name: 'password', value: 'badp' } });
+        fireEvent.click(submitButton);
+
+        const emailError = screen.getByText(/❌ Please enter a valid email address/i);
+        const passwordError = screen.getByText(/❌ Password must be at least 6 characters and less than 14/i);
+        expect(emailError).toBeInTheDocument();
+        expect(passwordError).toBeInTheDocument();
+    });
 })
