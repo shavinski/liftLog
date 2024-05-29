@@ -10,7 +10,7 @@ afterEach(cleanup);
 
 // const mockUser = userEvent.setup();
 
-test('renders App component', () => {
+test('renders Login component', () => {
     render(
         <MemoryRouter>
             <LoginForm />
@@ -21,7 +21,7 @@ test('renders App component', () => {
     expect(loginTitle).toBeInTheDocument();
 });
 
-test('Makes sure the sign up here link redirects to SignUp form', () => {
+test('Makes sure the sign up here link redirects to Signup form', () => {
     render(
         <MemoryRouter >
             <LoginForm />
