@@ -5,7 +5,7 @@ const db = new Client({
     user: 'jakob',
     host: 'localhost',
     database: 'lift_log_api',
-    password: process.env.PGPASSWORD,
+    password: 'password',
     port: 5432,
 })
 
