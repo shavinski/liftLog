@@ -1,7 +1,10 @@
 import { Client } from "pg";
+import { getDatabaseUri } from "./config";
+
 require('dotenv').config();
 
 const db = new Client({
+    connectionString: getDatabaseUri(),
     user: 'jakob',
     host: 'localhost',
     database: 'lift_log_api',
@@ -9,7 +12,6 @@ const db = new Client({
     port: 5432,
 })
 
-console.log('password', process.env.PGPASSWORD)
 db.connect();
 
 export default db;
