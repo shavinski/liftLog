@@ -1,7 +1,7 @@
--- FOR PROD DATABASE
+-- FOR SETTING UP PROD DATABASE
 -- Run this with: psql -f src/database/liftLog.sql lift_log_api in the /liftLog/liftLogBackend directory
 
--- FOR TEST DATABASE
+-- FOR SETTING UP TEST DATABASE
 -- Run this with: psql -f src/database/liftLog.sql lift_log_api_test in the /liftLog/liftLogBackend directory
 
 \echo 'Delete and recreate lift_log_api db?'

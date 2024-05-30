@@ -25,5 +25,4 @@ console.log("PORT:", PORT.toString());
 console.log("BCRYPT_WORK_FACTOR", BCRYPT_WORK_FACTOR);
 console.log("Database:", getDatabaseUri());
 console.log("----------------------------------------------------------------------");
-console.log("\n");
 

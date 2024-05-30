@@ -9,7 +9,6 @@ app.use(express.json());
 
 // ROUTES
 app.get("/", async (req, res, next) => {
-    // res.send("Test")
     const users = await User.getAllUsers();
     res.json({ users });
 })
