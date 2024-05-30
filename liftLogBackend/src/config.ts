@@ -1,7 +1,6 @@
 "use strict";
 
 /** Shared config for application; can be required many places. */
-
 require("dotenv").config();
 
 export const SECRET_KEY = process.env.SECRET_KEY || "secret-dev";
