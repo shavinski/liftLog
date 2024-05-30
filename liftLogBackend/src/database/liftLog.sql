@@ -1,4 +1,8 @@
+-- FOR PROD DATABASE
 -- Run this with: psql -f src/database/liftLog.sql lift_log_api in the /liftLog/liftLogBackend directory
+
+-- FOR TEST DATABASE
+-- Run this with: psql -f src/database/liftLog.sql lift_log_api_test in the /liftLog/liftLogBackend directory
 
 \echo 'Delete and recreate lift_log_api db?'
 \prompt 'Return for yes or control-C to cancel > ' foo
@@ -18,3 +22,4 @@ CREATE DATABASE lift_log_api_test;
 \connect lift_log_api_test
 
 \i src/database/liftLog-schema.sql
+\i src/database/liftLog-seed.sql
