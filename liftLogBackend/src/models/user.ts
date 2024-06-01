@@ -36,7 +36,7 @@ class User {
         Check if user exists with email, then throw error 
     */
 
-    static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData>{
+    static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
         const checkDuplicateUser = await db.query(`
             SELECT username 
             FROM users
@@ -46,7 +46,32 @@ class User {
         if (checkDuplicateUser.rows.length > 0) {
             throw new Error(`User already exists: ${username}`);
         };
-        
+
+        const result = await db.query(
+            `
+            INSERT INTO users
+            (username, password, first_name, last_name, email, is_admin)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING
+                username,
+                first_name AS "firstName",
+                last_name AS "lastName",
+                email`,
+            [
+                firstName,
+                lastName,
+                heightFeet,
+                heightInches,
+                weight,
+                bodyType,
+                goal,
+                username,
+                email,
+                password
+            ],
+        );
+
+        return result.rows[0];
     };
 }
 
