@@ -105,8 +105,10 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                 </div>
             </div>
 
-            {errors.heightFeet && <span>{errors.heightFeet}</span>}
-            {errors.heightInches && <span>{errors.heightInches}</span>}
+            <div className="flex flex-col">
+                {errors.heightFeet && <span>{errors.heightFeet}</span>}
+                {errors.heightInches && <span>{errors.heightInches}</span>}
+            </div>
 
             <h1 className="font-bold text-left mt-6 mb-3 text-lg">What is your current weight?</h1>
 

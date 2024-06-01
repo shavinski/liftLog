@@ -13,11 +13,11 @@ interface ErrorData {
 }
 
 interface EmailPasswordProps {
-    goToNextForm: () => void,
     goToPreviousForm: () => void,
+    handleSubmit: () => void
 }
 
-const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToNextForm, goToPreviousForm }) => {
+const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToPreviousForm, handleSubmit }) => {
 
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
@@ -56,7 +56,7 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToNextForm, goToPreviousF
 
         console.log(sessionStorage.getItem('username'), sessionStorage.getItem('email'), sessionStorage.getItem('password'))
 
-        goToNextForm();
+        handleSubmit();
     }
 
     return (
@@ -117,6 +117,7 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToNextForm, goToPreviousF
                     type="password"
                     name="password"
                     id="password"
+                    autoComplete="current-password"
                     required />
             </div>
 

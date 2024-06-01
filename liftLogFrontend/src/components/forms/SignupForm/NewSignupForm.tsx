@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
+import React, { FC, ReactElement, useState } from "react";
 
 
 import FirstLastNameForm from "./FirstLastNameForm";
@@ -19,7 +19,6 @@ export interface FormValidation {
 
 const NewSignupForm: FC = () => {
     const [currentStep, setcurrentStep] = useState<number>(0);
-    const steps: ReactElement[] = [FirstLastNameForm, HeightWeightForm, BodyTypeForm, GoalsForm, EmailPasswordForm]
 
     const goToNextForm = () => {
         setcurrentStep((prevState) => prevState + 1);
@@ -29,14 +28,25 @@ const NewSignupForm: FC = () => {
         setcurrentStep((prevState) => prevState - 1);
     }
 
+    const handleSubmit = () => {
+        alert("Submitted")
+        console.log("Sending data beep boop")
+        console.log(sessionStorage)
+    }
+
+    const steps: ReactElement[] = [
+        <FirstLastNameForm goToNextForm={goToNextForm} />,
+        <HeightWeightForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
+        <BodyTypeForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
+        <GoalsForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
+        <EmailPasswordForm goToPreviousForm={goToPreviousForm} handleSubmit={handleSubmit} />
+    ];
+
+
+
     const calculateProgressBarWidth = () => {
         return ((currentStep + 1) / steps.length) * 100;
     };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        alert("Submitted")
-        console.log("Sending data beep boop")
-    }
 
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
@@ -66,11 +76,13 @@ const NewSignupForm: FC = () => {
                 className="flex flex-col w-full p-4 md:shadow-custom"
                 data-testid="signup-form">
 
-                {currentStep == 0 && <FirstLastNameForm goToNextForm={goToNextForm} />}
-                {currentStep == 1 && <HeightWeightForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />}
-                {currentStep == 2 && <BodyTypeForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>} 
-                {currentStep == 3 && <GoalsForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
-                {currentStep == 4 && <EmailPasswordForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>} 
+                {steps.map((form, index) => {
+                    return (
+                        <div key={index} className={currentStep === index ? "" : "hidden"} >
+                            {form}
+                        </div>
+                    )
+                })}
 
             </form>
 
