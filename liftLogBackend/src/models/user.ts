@@ -50,12 +50,17 @@ class User {
         const result = await db.query(
             `
             INSERT INTO users
-            (username, password, first_name, last_name, email, is_admin)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
             RETURNING
-                username,
                 first_name AS "firstName",
                 last_name AS "lastName",
+                height_feet AS "heightFeet",
+                height_inches AS "heightInches",
+                weight,
+                body_type AS "bodyType",
+                goal, 
+                username,
                 email`,
             [
                 firstName,
