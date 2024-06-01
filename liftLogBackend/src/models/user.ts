@@ -92,7 +92,9 @@ class User {
    */
 
     static async getUserFirstLastName({ firstName, lastName }) {
-
+        if (!firstName || !lastName) {
+            throw new Error("First name and last name are required!");
+        }
     }
 
     /**
