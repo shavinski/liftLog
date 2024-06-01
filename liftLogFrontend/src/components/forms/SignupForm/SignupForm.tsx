@@ -167,7 +167,7 @@ const SignupForm: FC = () => {
                 data-testid="signup-form">
 
                 {form}
-
+            
                 <div className="flex w-full mt-8">
                     {/* BACK BUTTONS */}
                     {currentStep !== 0 ? (
@@ -195,6 +195,7 @@ const SignupForm: FC = () => {
                             className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                             disabled={!validForm}>Submit</button>
                     )}
+
                 </div>
             </form>
 
