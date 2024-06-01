@@ -1,18 +1,64 @@
-import React, { FC } from "react";
-import { FormValidation } from "./SignupForm";
+import React, { FC, useState } from "react";
 
-interface UserData {
+interface FormData {
+    username: string,
     email: string,
     password: string,
-    username: string,
-    errors: FormValidation,
 }
 
-interface EmailPasswordProps extends UserData {
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+interface ErrorData {
+    username?: string,
+    email?: string,
+    password?: string,
 }
 
-const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, handleChange, errors }) => {
+interface EmailPasswordProps {
+    goToNextForm: () => void,
+    goToPreviousForm: () => void,
+}
+
+const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToNextForm, goToPreviousForm }) => {
+
+    const [formData, setFormData] = useState<FormData>({
+        username: sessionStorage.getItem('username') ?? "",
+        email: sessionStorage.getItem('email') ?? "",
+        password: sessionStorage.getItem('password') ?? "",
+    });
+
+    const [errors, setErrors] = useState<ErrorData>({
+        username: "",
+        email: "",
+        password: ""
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const validateForm = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const newErrors: ErrorData = {}
+        if (!formData.username) newErrors.username = "❌ Please input a username"
+        if (!emailRegex.test(formData.email)) newErrors.email = "❌ Please input a valid email";
+        if (!formData.password) newErrors.password = "❌ Please input a password"
+
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length > 0) return;
+
+        sessionStorage.setItem("username", formData.username);
+        sessionStorage.setItem("email", formData.email);
+        sessionStorage.setItem("password", formData.password);
+
+        console.log(sessionStorage.getItem('username'), sessionStorage.getItem('email'), sessionStorage.getItem('password'))
+
+        goToNextForm();
+    }
+
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
@@ -25,7 +71,7 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, 
                     Username
                 </label>
                 <input
-                    value={username}
+                    value={formData.username}
                     onChange={handleChange}
                     className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="username"
@@ -35,6 +81,8 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, 
                     required />
             </div>
 
+            {errors.username && <span>{errors.username}</span>}
+
             {/* EMAIL INPUT */}
             <div className="relative mt-6">
                 <label
@@ -43,7 +91,7 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, 
                     Email
                 </label>
                 <input
-                    value={email}
+                    value={formData.email}
                     onChange={handleChange}
                     className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="email"
@@ -63,7 +111,7 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, 
                     Password
                 </label>
                 <input
-                    value={password}
+                    value={formData.password}
                     onChange={handleChange}
                     className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                     type="password"
@@ -73,6 +121,20 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ email, password, username, 
             </div>
 
             {errors.password && <span>{errors.password}</span>}
+
+            <div className="flex gap-5 mt-8">
+                <button
+                    onClick={goToPreviousForm}
+                    type="button"
+                    className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
+                >Back</button>
+
+                <button
+                    onClick={validateForm}
+                    type="submit"
+                    className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                >Next</button>
+            </div>
         </>
     )
 }

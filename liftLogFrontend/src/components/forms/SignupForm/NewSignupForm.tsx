@@ -7,19 +7,6 @@ import BodyTypeForm from "./BodyTypeForm";
 import GoalsForm from "./GoalForm";
 import EmailPasswordForm from "./EmailPasswordForm";
 
-interface SingupFormData {
-    firstName: string;
-    lastName: string;
-    heightFeet: number | "";
-    heightInches: number | "";
-    weight: number | "";
-    body: string;
-    goal: string;
-    username: string;
-    email: string;
-    password: string;
-}
-
 export interface FormValidation {
     firstName?: string;
     lastName?: string;
@@ -31,18 +18,6 @@ export interface FormValidation {
 }
 
 const NewSignupForm: FC = () => {
-    // const [formData, setFormData] = useState<SingupFormData>({
-    //     firstName: "",
-    //     lastName: "",
-    //     heightFeet: "",
-    //     heightInches: "",
-    //     weight: "",
-    //     body: "",
-    //     goal: "",
-    //     username: "",
-    //     email: "",
-    //     password: ""
-    // });
     const [currentStep, setcurrentStep] = useState<number>(0);
     const steps: ReactElement[] = [FirstLastNameForm, HeightWeightForm, BodyTypeForm, GoalsForm, EmailPasswordForm]
 
