@@ -36,7 +36,7 @@ class User {
         { firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }
 
         Check if user exists with email, then throw error 
-    */  
+    */
 
     // TODO: Might break up the multistep form into different endpoints
     static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
@@ -83,6 +83,62 @@ class User {
 
         return result.rows[0];
     };
+
+    /**
+       Getting user first name and last name from sign up form
+       
+       Data received should be:
+       { firstName, lastName }
+   */
+
+    static async getUserFirstLastName({ firstName, lastName }) {
+
+    }
+
+    /**
+       Getting user height and weight details 
+       
+       Data received should be:
+       { heightFeet, heightInches, weight }
+   */
+
+    static async getUserHeightWeight({ heightFeet, heightInches, weight }) {
+
+    }
+
+    /**
+       Getting user body details
+       
+       Data received should be:
+       { bodyType }
+   */
+
+    static async getUserBodyType({ bodyType }) {
+
+    }
+
+    /**
+       Getting user goal 
+       
+       Data received should be:
+       { goal }
+   */
+
+    static async getUserGoal({ goal }) {
+
+    }
+
+
+    /**
+       Getting user login details
+       
+       Data received should be:
+       { username, email, password }
+   */
+
+    static async getUserLoginInfo({ username, email, password }) {
+
+    }
 }
 
 export default User;
