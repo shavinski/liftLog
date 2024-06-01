@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 
 import useMultistepForm from "../../../hooks/useMultistepForm";
 
-import FirsLastNameForm from "./FirsLastNameForm";
+import FirsLastNameForm from "./FirstLastNameForm";
 import HeightWeightForm from "./HeightWeightForm";
 import BodyTypeForm from "./BodyTypeForm";
 import GoalsForm from "./GoalForm";
@@ -167,7 +167,7 @@ const SignupForm: FC = () => {
                 data-testid="signup-form">
 
                 {form}
-            
+
                 <div className="flex w-full mt-8">
                     {/* BACK BUTTONS */}
                     {currentStep !== 0 ? (
