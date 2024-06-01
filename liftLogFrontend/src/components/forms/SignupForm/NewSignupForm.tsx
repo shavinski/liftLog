@@ -58,10 +58,9 @@ const NewSignupForm: FC = () => {
         return ((currentStep + 1) / steps.length) * 100;
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        alert("Submitted")
+        console.log("Sending data beep boop")
     }
 
     return (
@@ -92,11 +91,11 @@ const NewSignupForm: FC = () => {
                 className="flex flex-col w-full p-4 md:shadow-custom"
                 data-testid="signup-form">
 
-                {currentStep == 0 && <FirstLastNameForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />}
-                {currentStep == 1 && <HeightWeightForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
-                {currentStep == 2 && <BodyTypeForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
+                {currentStep == 0 && <FirstLastNameForm goToNextForm={goToNextForm} />}
+                {currentStep == 1 && <HeightWeightForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />}
+                {/* {currentStep == 2 && <BodyTypeForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
                 {currentStep == 3 && <GoalsForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
-                {currentStep == 3 && <EmailPasswordForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
+                {currentStep == 4 && <EmailPasswordForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>} */}
 
 
 
