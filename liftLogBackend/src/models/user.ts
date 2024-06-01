@@ -1,4 +1,6 @@
 import db from "../db";
+import bcrypt from 'bcrypt';
+import { BCRYPT_WORK_FACTOR } from "../config";
 
 interface createAccountData {
     firstName: string,
@@ -47,6 +49,8 @@ class User {
             throw new Error(`User already exists: ${username}`);
         };
 
+        const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
+
         const result = await db.query(
             `
             INSERT INTO users
@@ -72,7 +76,7 @@ class User {
                 goal,
                 username,
                 email,
-                password
+                hashedPassword
             ],
         );
 
