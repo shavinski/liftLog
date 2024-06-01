@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useState } from "react"
+import React, { FC, useState } from "react"
 
 interface FormData {
     firstName: string,

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 interface UserData {
+    currentValue: string,
     goal: string;
 }
 
@@ -8,7 +9,7 @@ interface GoalContainerProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const GoalContainer: FC<GoalContainerProps> = ({ goal, handleChange }) => {
+const GoalContainer: FC<GoalContainerProps> = ({ currentValue, goal, handleChange }) => {
 
     return (
         <>
@@ -23,6 +24,7 @@ const GoalContainer: FC<GoalContainerProps> = ({ goal, handleChange }) => {
                     value={goal}
                     id={goal}
                     name="goal"
+                    checked={goal === currentValue}
                     data-testid={goal}
                     required />
             </label>

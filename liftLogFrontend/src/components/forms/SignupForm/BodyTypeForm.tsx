@@ -43,8 +43,6 @@ const BodyTypeForm: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => 
     const validateForm = (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(formData)
-
         const newErrors: ErrorData = {}
         if (!formData.body) newErrors.body = "❌ Please select one body type"
 

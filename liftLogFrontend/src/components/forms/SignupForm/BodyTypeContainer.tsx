@@ -12,8 +12,6 @@ interface BodyTypeContainerProps extends UserData {
 }
 
 const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ currentValue, body, imagePath, info, handleChange }) => {
-    // const checked = body === sessionStorage.getItem("body");
-
     return (
         <>
             <label
