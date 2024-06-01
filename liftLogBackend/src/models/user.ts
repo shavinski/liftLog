@@ -1,6 +1,17 @@
 import db from "../db";
 
-
+interface createAccountData {
+    firstName: string,
+    lastName: string,
+    heightFeet: number,
+    heightInches: number,
+    weight: number,
+    bodyType: string,
+    goal: string,
+    username: string,
+    email: string,
+    password: string
+}
 
 class User {
     static async getAllUsers() {
@@ -25,7 +36,7 @@ class User {
         Check if user exists with email, then throw error 
     */
 
-    static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }) {
+    static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData>{
         const checkDuplicateUser = await db.query(`
             SELECT username 
             FROM users
@@ -35,7 +46,7 @@ class User {
         if (checkDuplicateUser.rows.length > 0) {
             throw new Error(`User already exists: ${username}`);
         };
-
+        
     };
 }
 
