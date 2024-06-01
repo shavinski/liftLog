@@ -1,31 +1,71 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { FormValidation } from "./SignupForm";
 
-// interface UserData {
-//     heightFeet: number | "",
-//     heightInches: number | "",
-//     weight: number | "",
-//     errors: FormValidation,
-// }
 
-// interface HeightWeightProps extends UserData {
-//     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-// }
+interface FormData {
+    heightFeet: string,
+    heightInches: string,
+    weight: string,
+}
+
+interface ErrorData {
+    heightFeet?: string,
+    heightInches?: string,
+    weight?: string,
+}
 
 interface HeightWeightProps {
-    // handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     goToNextForm: () => void,
     goToPreviousForm: () => void,
 }
 
 const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousForm }) => {
+    const [formData, setFormData] = useState<FormData>({
+        heightFeet: sessionStorage.getItem('heightFeet') ?? "",
+        heightInches: sessionStorage.getItem('heightInches') ?? "",
+        weight: sessionStorage.getItem('weight') ?? "",
+    });
+
+    const [errors, setErrors] = useState<ErrorData>({
+        heightFeet: "",
+        heightInches: "",
+        weight: "",
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const validateForm = (e: React.FormEvent) => {
+        const heightFeetInt = parseInt(formData.heightFeet);
+        const heightInchesInt = parseInt(formData.heightInches);
+        const weightInt = parseInt(formData.weight);
+
+        const newErrors: ErrorData = {}
+        if (!formData.heightFeet || heightFeetInt < 2 || heightFeetInt > 8) newErrors.heightFeet = "❌ Input a height (feet) between 2 and 8"
+        if (!formData.heightInches ||heightInchesInt < 0 || heightInchesInt > 11) newErrors.heightInches = "❌ Input a height (inches) between 0 and 11"
+        if (!formData.weight ||weightInt > 1000 || weightInt < 40) newErrors.weight = "❌ Input a weight between 40 and 1000";
+
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length > 0) return;
+
+        sessionStorage.setItem("heightFeet", formData.heightFeet);
+        sessionStorage.setItem("heightInches", formData.heightInches);
+        sessionStorage.setItem("weight", formData.weight);
+
+        console.log(sessionStorage.getItem('heightFeet'), sessionStorage.getItem('heightInches'), sessionStorage.getItem("weight"));
+
+        goToNextForm();
+    }
 
     return (
         <>
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">How tall are you?</h1>
 
             {/* HEIGHT INPUT */}
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-3">
                 <div className="flex relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
@@ -34,8 +74,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                     </label>
 
                     <input
-                        // value={heightFeet}
-                        // onChange={handleChange}
+                        value={formData.heightFeet}
+                        onChange={handleChange}
                         className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                         type="number"
                         name="heightFeet"
@@ -43,8 +83,6 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                         required />
 
                 </div>
-
-                <div className="w-3"></div>
 
 
                 <div className="flex relative">
@@ -55,8 +93,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                     </label>
                     <div className="flex">
                         <input
-                            // value={heightInches}
-                            // onChange={handleChange}
+                            value={formData.heightInches}
+                            onChange={handleChange}
                             className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                             type="number"
                             name="heightInches"
@@ -66,8 +104,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                 </div>
             </div>
 
-            {/* {errors.heightFeet && <span>{errors.heightFeet}</span>}
-            {errors.heightInches && <span>{errors.heightInches}</span>} */}
+            {errors.heightFeet && <span>{errors.heightFeet}</span>}
+            {errors.heightInches && <span>{errors.heightInches}</span>}
 
             <h1 className="font-bold text-left mt-6 mb-3 text-lg">What is your current weight?</h1>
 
@@ -80,8 +118,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                         Weight
                     </label>
                     <input
-                        // value={weight}
-                        // onChange={handleChange}
+                        value={formData.weight}
+                        onChange={handleChange}
                         className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
                         type="number"
                         name="weight"
@@ -90,7 +128,7 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                 </div>
             </div>
 
-            {/* {errors.weight && <span>{errors.weight}</span>} */}
+            {errors.weight && <span>{errors.weight}</span>}
 
             <div className="flex gap-5 mt-8">
                 <button
@@ -100,7 +138,7 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                 >Back</button>
 
                 <button
-                    onClick={goToNextForm}
+                    onClick={validateForm}
                     type="button"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>

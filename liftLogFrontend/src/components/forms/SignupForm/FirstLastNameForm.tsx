@@ -1,8 +1,13 @@
-import React, { FC, useState } from "react"
+import React, { FC, FormEvent, useState } from "react"
 
 interface FormData {
     firstName: string,
     lastName: string,
+}
+
+interface ErrorData {
+    firstName?: string,
+    lastName?: string,
 }
 
 interface FirsLastNameProps {
@@ -11,6 +16,11 @@ interface FirsLastNameProps {
 
 const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
     const [formData, setFormData] = useState<FormData>({
+        firstName: sessionStorage.getItem('firstName') ?? "",
+        lastName: sessionStorage.getItem('lastName') ?? "",
+    })
+
+    const [errors, setErrors] = useState<ErrorData>({
         firstName: "",
         lastName: "",
     })
@@ -21,11 +31,20 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const validateForm = (e: FormEvent) => {
+        const newErrors: ErrorData = {}
+        if (!formData.firstName) newErrors.firstName = "❌ Please input a first name"
+        if (!formData.lastName) newErrors.lastName = "❌ Please input a last name"
 
-        
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length > 0) return;
 
+        sessionStorage.setItem("firstName", formData.firstName);
+        sessionStorage.setItem("lastName", formData.lastName);
+
+        console.log(sessionStorage.getItem('firstName'), sessionStorage.getItem('lastName'))
+
+        goToNextForm();
     }
 
     return (
@@ -49,6 +68,8 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
                     required />
             </div>
 
+            {errors.firstName && <span>{errors.firstName}</span>}
+
             {/* LAST NAME INPUT */}
             <div className="relative mt-6">
                 <label
@@ -66,6 +87,8 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
                     required />
             </div>
 
+            {errors.lastName && <span>{errors.lastName}</span>}
+
             <div className="flex gap-5 mt-8">
                 <a
                     href="/account/login"
@@ -73,7 +96,7 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
                 >Back</a>
 
                 <button
-                    onClick={goToNextForm}
+                    onClick={validateForm}
                     type="button"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>
