@@ -32,6 +32,8 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
     }
 
     const validateForm = (e: FormEvent) => {
+        e.preventDefault();
+
         const newErrors: ErrorData = {}
         if (!formData.firstName) newErrors.firstName = "❌ Please input a first name"
         if (!formData.lastName) newErrors.lastName = "❌ Please input a last name"

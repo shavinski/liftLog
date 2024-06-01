@@ -93,11 +93,9 @@ const NewSignupForm: FC = () => {
 
                 {currentStep == 0 && <FirstLastNameForm goToNextForm={goToNextForm} />}
                 {currentStep == 1 && <HeightWeightForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />}
-                {/* {currentStep == 2 && <BodyTypeForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
+                {currentStep == 2 && <BodyTypeForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>} 
                 {currentStep == 3 && <GoalsForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>}
-                {currentStep == 4 && <EmailPasswordForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>} */}
-
-
+                {currentStep == 4 && <EmailPasswordForm goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm}/>} 
 
             </form>
 

@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react"
-import { FormValidation } from "./SignupForm";
 
 
 interface FormData {
@@ -39,6 +38,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
     }
 
     const validateForm = (e: React.FormEvent) => {
+        e.preventDefault();
+
         const heightFeetInt = parseInt(formData.heightFeet);
         const heightInchesInt = parseInt(formData.heightInches);
         const weightInt = parseInt(formData.weight);
