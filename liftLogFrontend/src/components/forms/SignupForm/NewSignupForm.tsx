@@ -31,18 +31,18 @@ export interface FormValidation {
 }
 
 const NewSignupForm: FC = () => {
-    const [formData, setFormData] = useState<SingupFormData>({
-        firstName: "",
-        lastName: "",
-        heightFeet: "",
-        heightInches: "",
-        weight: "",
-        body: "",
-        goal: "",
-        username: "",
-        email: "",
-        password: ""
-    });
+    // const [formData, setFormData] = useState<SingupFormData>({
+    //     firstName: "",
+    //     lastName: "",
+    //     heightFeet: "",
+    //     heightInches: "",
+    //     weight: "",
+    //     body: "",
+    //     goal: "",
+    //     username: "",
+    //     email: "",
+    //     password: ""
+    // });
     const [currentStep, setcurrentStep] = useState<number>(0);
     const steps: ReactElement[] = [FirstLastNameForm, HeightWeightForm, BodyTypeForm, GoalsForm, EmailPasswordForm]
 

@@ -63,7 +63,7 @@ const BodyTypeForm: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => 
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">What type of body type do you have?</h1>
 
             {BODY_TYPE_DETAILS.map((type, i) => {
-                return <BodyTypeContainer body={type[0]} imagePath={type[1]} info={type[2]} handleChange={handleChange} key={i} />;
+                return <BodyTypeContainer currentValue={formData.body} body={type[0]} imagePath={type[1]} info={type[2]} handleChange={handleChange} key={i} />;
             })}
 
             {errors.body && <span>{errors.body}</span>}

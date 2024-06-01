@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 
 interface UserData {
+    currentValue: string,
     body: string;
     imagePath: string;
     info: string;
@@ -10,7 +11,9 @@ interface BodyTypeContainerProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ body, imagePath, info, handleChange }) => {
+const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ currentValue, body, imagePath, info, handleChange }) => {
+    // const checked = body === sessionStorage.getItem("body");
+
     return (
         <>
             <label
@@ -25,6 +28,7 @@ const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ body, imagePath, info, 
                     value={body}
                     id={body}
                     name="body"
+                    checked={body === currentValue}
                     data-testid={body}
                     required />
             </label>

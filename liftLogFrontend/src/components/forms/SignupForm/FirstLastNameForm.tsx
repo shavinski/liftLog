@@ -31,7 +31,7 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const validateForm = (e: FormEvent) => {
+    const validateForm = (e: React.FormEvent) => {
         e.preventDefault();
 
         const newErrors: ErrorData = {}
