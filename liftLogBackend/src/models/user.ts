@@ -36,8 +36,9 @@ class User {
         { firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }
 
         Check if user exists with email, then throw error 
-    */
+    */  
 
+    // TODO: Might break up the multistep form into different endpoints
     static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
         const checkDuplicateUser = await db.query(`
             SELECT username 
