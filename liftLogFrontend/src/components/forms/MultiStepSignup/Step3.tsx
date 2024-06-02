@@ -5,6 +5,7 @@ import mesomorphBody from "/images/bodyForm/mesomorphBody.jpg"
 import endomorphBody from "/images/bodyForm/endomorphBody.jpg"
 
 import BodyTypeContainer from "./Step3Container";
+import { useNavigate, Link } from "react-router-dom";
 
 interface FormData {
     body: string,
@@ -12,10 +13,6 @@ interface FormData {
 
 interface ErrorData {
     body?: string
-}
-interface BodyTypeProps {
-    goToNextForm: () => void,
-    goToPreviousForm: () => void,
 }
 
 // DO NOT CHANGE, includes body type, img path, and description
@@ -25,7 +22,8 @@ const BODY_TYPE_DETAILS: string[][] = [
     ["Endomorph", endomorphBody, "Typically a person that contains more stored fat, more muscle, and gains weight easily."]
 ]
 
-const Step3: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => {
+const Step3: FC = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState<FormData>({
         body: sessionStorage.getItem('body') ?? "",
     });
@@ -53,36 +51,38 @@ const Step3: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => {
 
         console.log(sessionStorage.getItem('body'));
 
-        goToNextForm();
+        navigate("/account/create/goal");
     }
 
     return (
-        <form
-            onSubmit={validateForm}
-            className="flex flex-col w-full p-4 md:shadow-custom"
-            data-testid="body-type-form">
+        <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
 
-            <h1 className="font-bold text-left mt-3 mb-3 text-lg">What type of body type do you have?</h1>
+            <form
+                onSubmit={validateForm}
+                className="flex flex-col w-full p-4 md:shadow-custom"
+                data-testid="body-type-form">
 
-            {BODY_TYPE_DETAILS.map((type, i) => {
-                return <BodyTypeContainer currentValue={formData.body} body={type[0]} imagePath={type[1]} info={type[2]} handleChange={handleChange} key={i} />;
-            })}
+                <h1 className="font-bold text-left mt-3 mb-3 text-lg">What type of body type do you have?</h1>
 
-            {errors.body && <span>{errors.body}</span>}
+                {BODY_TYPE_DETAILS.map((type, i) => {
+                    return <BodyTypeContainer currentValue={formData.body} body={type[0]} imagePath={type[1]} info={type[2]} handleChange={handleChange} key={i} />;
+                })}
 
-            <div className="flex gap-5 mt-8">
-                <button
-                    onClick={goToPreviousForm}
-                    type="button"
-                    className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                >Back</button>
+                {errors.body && <span>{errors.body}</span>}
 
-                <button
-                    type="submit"
-                    className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
-                >Next</button>
-            </div>
-        </form>
+                <div className="flex gap-5 mt-8">
+                    <Link
+                        to="/account/create/height-weight"
+                        className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
+                    >Back</Link>
+
+                    <button
+                        type="submit"
+                        className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                    >Next</button>
+                </div>
+            </form>
+        </div>
     )
 }
 
