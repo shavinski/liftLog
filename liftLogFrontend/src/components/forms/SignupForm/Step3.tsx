@@ -4,7 +4,7 @@ import ectomorphBody from "/images/bodyForm/ectomorphBody.jpg"
 import mesomorphBody from "/images/bodyForm/mesomorphBody.jpg"
 import endomorphBody from "/images/bodyForm/endomorphBody.jpg"
 
-import BodyTypeContainer from "./BodyTypeContainer";
+import BodyTypeContainer from "./Step3Container";
 
 interface FormData {
     body: string,
@@ -25,7 +25,7 @@ const BODY_TYPE_DETAILS: string[][] = [
     ["Endomorph", endomorphBody, "Typically a person that contains more stored fat, more muscle, and gains weight easily."]
 ]
 
-const BodyTypeForm: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => {
+const Step3: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => {
     const [formData, setFormData] = useState<FormData>({
         body: sessionStorage.getItem('body') ?? "",
     });
@@ -57,7 +57,11 @@ const BodyTypeForm: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => 
     }
 
     return (
-        <>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="body-type-form">
+
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">What type of body type do you have?</h1>
 
             {BODY_TYPE_DETAILS.map((type, i) => {
@@ -74,13 +78,12 @@ const BodyTypeForm: FC<BodyTypeProps> = ({ goToNextForm, goToPreviousForm }) => 
                 >Back</button>
 
                 <button
-                    onClick={validateForm}
-                    type="button"
+                    type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>
             </div>
-        </>
+        </form>
     )
 }
 
-export default BodyTypeForm;
+export default Step3;

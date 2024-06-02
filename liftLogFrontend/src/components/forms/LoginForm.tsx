@@ -69,8 +69,8 @@ const LoginForm: FC = () => {
             </form>
 
             <small className="text-center m-5">
-                Not a member? <Link to="/account/create" className="text-blue-700"> Sign up here!</Link></small>
-            {/* <small className="text-center m-5">Not a member? <a className="text-blue-700" href="/account/create">Sign up here!</a></small> */}
+                Not a member? <Link to="/account/create/first-last-name" className="text-blue-700"> Sign up here!</Link>
+            </small>
         </div>
     );
 }

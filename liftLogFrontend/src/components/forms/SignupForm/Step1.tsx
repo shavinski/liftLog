@@ -14,7 +14,7 @@ interface FirsLastNameProps {
     goToNextForm: () => void,
 }
 
-const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
+const Step1: FC<FirsLastNameProps> = ({ goToNextForm }) => {
     const [formData, setFormData] = useState<FormData>({
         firstName: sessionStorage.getItem('firstName') ?? "",
         lastName: sessionStorage.getItem('lastName') ?? "",
@@ -50,7 +50,11 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
     }
 
     return (
-        <>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="first-last-name-form">
+
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">Account Information</h1>
 
             {/* FIRST NAME INPUT */}
@@ -98,13 +102,12 @@ const FirsLastNameForm: FC<FirsLastNameProps> = ({ goToNextForm }) => {
                 >Back</a>
 
                 <button
-                    onClick={validateForm}
-                    type="button"
+                    type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>
             </div>
-        </>
+        </form>
     )
 }
 
-export default FirsLastNameForm;
+export default Step1;

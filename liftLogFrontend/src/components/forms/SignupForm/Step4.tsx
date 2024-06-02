@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import GoalContainer from "./GoalContainer";
+import GoalContainer from "./Step4Container";
 
 interface FormData {
     goal: string,
@@ -21,7 +21,7 @@ const GOAL_OPTIONS = [
     "Become more active"
 ]
 
-const GoalForm: FC<GoalFormProps> = ({ goToNextForm, goToPreviousForm }) => {
+const Step4: FC<GoalFormProps> = ({ goToNextForm, goToPreviousForm }) => {
     const [formData, setFormData] = useState<FormData>({
         goal: sessionStorage.getItem('goal') ?? "",
     })
@@ -51,9 +51,13 @@ const GoalForm: FC<GoalFormProps> = ({ goToNextForm, goToPreviousForm }) => {
 
         goToNextForm();
     }
-    
+
     return (
-        <>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="goal-form">
+
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">Personal Goals</h1>
             <small className="mb-1">Please select one.</small>
 
@@ -72,13 +76,12 @@ const GoalForm: FC<GoalFormProps> = ({ goToNextForm, goToPreviousForm }) => {
                 >Back</button>
 
                 <button
-                    onClick={validateForm}
-                    type="button"
+                    type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>
             </div>
-        </>
+        </form>
     )
 }
 
-export default GoalForm;
+export default Step4;

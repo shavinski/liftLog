@@ -18,7 +18,7 @@ interface HeightWeightProps {
     goToPreviousForm: () => void,
 }
 
-const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousForm }) => {
+const Step2: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousForm }) => {
     const [formData, setFormData] = useState<FormData>({
         heightFeet: sessionStorage.getItem('heightFeet') ?? "",
         heightInches: sessionStorage.getItem('heightInches') ?? "",
@@ -46,8 +46,8 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
 
         const newErrors: ErrorData = {}
         if (!formData.heightFeet || heightFeetInt < 2 || heightFeetInt > 8) newErrors.heightFeet = "❌ Input a height (feet) between 2 and 8"
-        if (!formData.heightInches ||heightInchesInt < 0 || heightInchesInt > 11) newErrors.heightInches = "❌ Input a height (inches) between 0 and 11"
-        if (!formData.weight ||weightInt > 1000 || weightInt < 40) newErrors.weight = "❌ Input a weight between 40 and 1000";
+        if (!formData.heightInches || heightInchesInt < 0 || heightInchesInt > 11) newErrors.heightInches = "❌ Input a height (inches) between 0 and 11"
+        if (!formData.weight || weightInt > 1000 || weightInt < 40) newErrors.weight = "❌ Input a weight between 40 and 1000";
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
@@ -62,7 +62,11 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
     }
 
     return (
-        <>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="height-weight-form">
+
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">How tall are you?</h1>
 
             {/* HEIGHT INPUT */}
@@ -141,13 +145,12 @@ const HeightWeightForm: FC<HeightWeightProps> = ({ goToNextForm, goToPreviousFor
                 >Back</button>
 
                 <button
-                    onClick={validateForm}
-                    type="button"
+                    type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>
             </div>
-        </>
+        </form>
     )
 }
 
-export default HeightWeightForm;
+export default Step2;

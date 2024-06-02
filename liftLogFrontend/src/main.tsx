@@ -8,8 +8,7 @@ import App from './App.tsx'
 
 import Navbar from './components/Navbar.tsx';
 import LoginForm from './components/forms/LoginForm.tsx';
-// import SignupForm from './components/forms/SignupForm/SignupForm.tsx';
-import NewSignupForm from './components/forms/SignupForm/NewSignupForm.tsx';
+import SignupForm from './components/forms/SignupForm/SignupForm.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/account/create",
-    element: <NewSignupForm />
+    element: <SignupForm />
   }
 ])
 

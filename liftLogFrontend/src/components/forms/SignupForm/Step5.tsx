@@ -12,12 +12,12 @@ interface ErrorData {
     password?: string,
 }
 
-interface EmailPasswordProps {
+interface EmailPasswordUsernameProps {
     goToPreviousForm: () => void,
     handleSubmit: () => void
 }
 
-const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToPreviousForm, handleSubmit }) => {
+const Step5: FC<EmailPasswordUsernameProps> = ({ goToPreviousForm, handleSubmit }) => {
 
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
@@ -59,8 +59,14 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToPreviousForm, handleSub
         handleSubmit();
     }
 
+    console.log(errors)
+
     return (
-        <>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="first-last-name-form">
+
             <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
 
             {/* USERNAME INPUT */}
@@ -131,13 +137,12 @@ const EmailPasswordForm: FC<EmailPasswordProps> = ({ goToPreviousForm, handleSub
                 >Back</button>
 
                 <button
-                    onClick={validateForm}
                     type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
                 >Next</button>
             </div>
-        </>
+        </form>
     )
 }
 
-export default EmailPasswordForm;
+export default Step5;

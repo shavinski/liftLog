@@ -11,7 +11,7 @@ interface BodyTypeContainerProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ currentValue, body, imagePath, info, handleChange }) => {
+const Step3Container: FC<BodyTypeContainerProps> = ({ currentValue, body, imagePath, info, handleChange }) => {
     return (
         <>
             <label
@@ -34,4 +34,4 @@ const BodyTypeContainer: FC<BodyTypeContainerProps> = ({ currentValue, body, ima
     )
 }
 
-export default BodyTypeContainer;
+export default Step3Container;
