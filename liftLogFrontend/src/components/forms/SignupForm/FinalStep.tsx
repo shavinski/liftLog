@@ -17,8 +17,7 @@ interface EmailPasswordUsernameProps {
     handleSubmit: () => void
 }
 
-const Step5: FC<EmailPasswordUsernameProps> = ({ goToPreviousForm, handleSubmit }) => {
-
+const FinalStep: FC<EmailPasswordUsernameProps> = ({ goToPreviousForm, handleSubmit }) => {
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
         email: sessionStorage.getItem('email') ?? "",
@@ -145,4 +144,4 @@ const Step5: FC<EmailPasswordUsernameProps> = ({ goToPreviousForm, handleSubmit 
     )
 }
 
-export default Step5;
+export default FinalStep;

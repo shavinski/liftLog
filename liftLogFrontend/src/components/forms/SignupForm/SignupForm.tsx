@@ -1,10 +1,11 @@
 import { FC, ReactElement, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
-import Step5 from "./Step5";
+import Step5 from "./FinalStep";
 
 export interface FormValidation {
     firstName?: string;
@@ -18,6 +19,7 @@ export interface FormValidation {
 
 
 const SignupForm: FC = () => {
+    const navigate = useNavigate();
     const [currentStep, setcurrentStep] = useState<number>(0);
 
     const goToNextForm = () => {
@@ -35,6 +37,7 @@ const SignupForm: FC = () => {
         console.log(sessionStorage)
 
         sessionStorage.clear();
+        navigate("/");
     }
 
     const steps: ReactElement[] = [
@@ -44,8 +47,6 @@ const SignupForm: FC = () => {
         <Step4 goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
         <Step5 goToPreviousForm={goToPreviousForm} handleSubmit={handleSubmit} />
     ];
-
-
 
     const calculateProgressBarWidth = () => {
         return ((currentStep + 1) / steps.length) * 100;
