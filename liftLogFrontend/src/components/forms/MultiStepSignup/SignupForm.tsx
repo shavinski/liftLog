@@ -1,5 +1,6 @@
 import { FC, ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -34,10 +35,32 @@ const SignupForm: FC = () => {
         alert("Submitted")
 
         console.log("Sending data beep boop")
-        console.log(sessionStorage)
 
-        sessionStorage.clear();
+        const formData = {
+            firstName: sessionStorage.getItem('firstName'),
+            lastName: sessionStorage.getItem('lastName'),
+            heightFeet: sessionStorage.getItem('heightFeet'),
+            heightInches: sessionStorage.getItem('heightInches'),
+            weight: sessionStorage.getItem('weight'),
+            bodyType: sessionStorage.getItem('body'),
+            goal: sessionStorage.getItem('goal'),
+            username: sessionStorage.getItem('username'),
+            email: sessionStorage.getItem('email'),
+            password: sessionStorage.getItem('password'),
+        };
+
+        console.log(formData);
+
+        axios.post('http://localhost:3000/create/account', { formData })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error.message);
+            });
+
         navigate("/");
+        sessionStorage.clear();
     }
 
     const steps: ReactElement[] = [

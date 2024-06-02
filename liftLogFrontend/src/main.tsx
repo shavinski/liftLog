@@ -8,7 +8,7 @@ import App from './App.tsx'
 
 import Navbar from './components/Navbar.tsx';
 import LoginForm from './components/forms/LoginForm.tsx';
-import SignupForm from './components/forms/SignupForm/SignupForm.tsx';
+import SignupForm from './components/forms/MultiStepSignup/SignupForm.tsx';
 
 const router = createBrowserRouter([
   {

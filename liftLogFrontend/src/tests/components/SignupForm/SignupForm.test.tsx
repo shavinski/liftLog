@@ -1,6 +1,6 @@
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 
-import SignupForm from "../../../components/forms/SignupForm/SignupForm";
+import SignupForm from "../../../components/forms/MultiStepSignup/SignupForm";
 
 
 describe("Signup component tests", () => {

@@ -5,9 +5,9 @@ import { BCRYPT_WORK_FACTOR } from "../config";
 interface createAccountData {
     firstName: string,
     lastName: string,
-    heightFeet: number,
-    heightInches: number,
-    weight: number,
+    heightFeet: string,
+    heightInches: string,
+    weight: string,
     bodyType: string,
     goal: string,
     username: string,
@@ -63,7 +63,7 @@ class User {
                 height_feet AS "heightFeet",
                 height_inches AS "heightInches",
                 weight,
-                body_type AS "bodyType",
+                body_type AS "body",
                 goal, 
                 username,
                 email`,
@@ -91,56 +91,56 @@ class User {
        { firstName, lastName }
    */
 
-    static async getUserFirstLastName({ firstName, lastName }) {
-        if (!firstName || !lastName) {
-            throw new Error("First name and last name are required!");
-        }
-    }
+    //     static async getUserFirstLastName({ firstName, lastName }) {
+    //         if (!firstName || !lastName) {
+    //             throw new Error("First name and last name are required!");
+    //         }
+    //     }
 
-    /**
-       Getting user height and weight details 
-       
-       Data received should be:
-       { heightFeet, heightInches, weight }
-   */
+    //     /**
+    //        Getting user height and weight details 
 
-    static async getUserHeightWeight({ heightFeet, heightInches, weight }) {
+    //        Data received should be:
+    //        { heightFeet, heightInches, weight }
+    //    */
 
-    }
+    //     static async getUserHeightWeight({ heightFeet, heightInches, weight }) {
 
-    /**
-       Getting user body details
-       
-       Data received should be:
-       { bodyType }
-   */
+    //     }
 
-    static async getUserBodyType({ bodyType }) {
+    //     /**
+    //        Getting user body details
 
-    }
+    //        Data received should be:
+    //        { body }
+    //    */
 
-    /**
-       Getting user goal 
-       
-       Data received should be:
-       { goal }
-   */
+    //     static async getUserBodyType({ bodyType }) {
 
-    static async getUserGoal({ goal }) {
+    //     }
 
-    }
+    //     /**
+    //        Getting user goal 
+
+    //        Data received should be:
+    //        { goal }
+    //    */
+
+    //     static async getUserGoal({ goal }) {
+
+    //     }
 
 
-    /**
-       Getting user login details
-       
-       Data received should be:
-       { username, email, password }
-   */
+    //     /**
+    //        Getting user login details
 
-    static async getUserLoginInfo({ username, email, password }) {
+    //        Data received should be:
+    //        { username, email, password }
+    //    */
 
-    }
+    //     static async getUserLoginInfo({ username, email, password }) {
+
+    //     }
 }
 
 export default User;

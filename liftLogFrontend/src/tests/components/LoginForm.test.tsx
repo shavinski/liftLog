@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 // import userEvent from '@testing-library/user-event'
 
 import LoginForm from '../../components/forms/LoginForm';
-import SignupForm from '../../components/forms/SignupForm/SignupForm';
+import SignupForm from '../../components/forms/MultiStepSignup/SignupForm';
 
 
 afterEach(cleanup);
