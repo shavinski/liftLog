@@ -6,7 +6,7 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
-import Step5 from "./FinalStep";
+import FinalStep from "./FinalStep";
 
 export interface FormValidation {
     firstName?: string;
@@ -22,6 +22,7 @@ export interface FormValidation {
 const SignupForm: FC = () => {
     const navigate = useNavigate();
     const [currentStep, setcurrentStep] = useState<number>(0);
+    const [errors, setErrors] = useState({})
 
     const goToNextForm = () => {
         setcurrentStep((prevState) => prevState + 1);
@@ -51,13 +52,14 @@ const SignupForm: FC = () => {
 
         console.log(formData);
 
-        axios.post('http://localhost:3000/create/account', { formData })
+        axios.post('http://localhost:3000/create/account', formData)
             .then(function (response) {
                 console.log(response);
             })
             .catch(function (error) {
                 console.log(error.message);
             });
+
 
         navigate("/");
         sessionStorage.clear();
@@ -68,7 +70,7 @@ const SignupForm: FC = () => {
         <Step2 goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
         <Step3 goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
         <Step4 goToNextForm={goToNextForm} goToPreviousForm={goToPreviousForm} />,
-        <Step5 goToPreviousForm={goToPreviousForm} handleSubmit={handleSubmit} />
+        <FinalStep goToPreviousForm={goToPreviousForm} handleSubmit={handleSubmit} />
     ];
 
     const calculateProgressBarWidth = () => {

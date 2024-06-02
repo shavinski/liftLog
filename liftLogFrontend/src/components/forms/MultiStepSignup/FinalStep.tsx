@@ -58,8 +58,6 @@ const FinalStep: FC<EmailPasswordUsernameProps> = ({ goToPreviousForm, handleSub
         handleSubmit();
     }
 
-    console.log(errors)
-
     return (
         <form
             onSubmit={validateForm}

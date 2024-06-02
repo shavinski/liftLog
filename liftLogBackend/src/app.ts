@@ -20,8 +20,7 @@ app.get("/create/account", async (req, res, next) => {
 })
 
 app.post('/create/account', async (req, res, next) => {
-    console.log(req.body.formData);
-    const createUser = await User.createAccount(req.body.formData);
+    const createUser = await User.createAccount(req.body);
     return res.status(201).json({ createUser });
 })
 
