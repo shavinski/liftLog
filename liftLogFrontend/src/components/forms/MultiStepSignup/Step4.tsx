@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import GoalContainer from "./Step4Container";
-import { useFormProgessBar } from "./SignupForm";
+// import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     goal: string,
@@ -21,7 +21,7 @@ const GOAL_OPTIONS = [
 
 const Step4: FC = () => {
     const navigate = useNavigate();
-    const { nextStep, prevStep } = useFormProgessBar();
+    // const { nextStep, prevStep } = useFormProgessBar();
 
     const [formData, setFormData] = useState<FormData>({
         goal: sessionStorage.getItem('goal') ?? "",
@@ -38,7 +38,7 @@ const Step4: FC = () => {
     }
 
     const handleBack = () => {
-        prevStep();
+        // prevStep();
         navigate("/account/create/part-3-body-type");
     }
 
@@ -55,7 +55,7 @@ const Step4: FC = () => {
 
         console.log(sessionStorage.getItem('goal'))
 
-        nextStep();
+        // nextStep();
         navigate("/account/create/part-5-final-account-information");
     }
 

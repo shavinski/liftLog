@@ -9,7 +9,7 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import FinalStep from "./FinalStep";
-import ProgressBar from "./ProgressBar";
+// import ProgressBar from "./ProgressBar";
 
 export interface FormValidation {
     firstName?: string;
@@ -49,8 +49,6 @@ const SignupForm: FC = () => {
         calculateBarWidth
     } = useProgressBar(formSteps.length);
 
-    console.log("currentStep =>", currentStep);
-
     const handleSignupLink = () => {
         navigate("/account/create/part-1-user-information");
         nextStep();
@@ -60,9 +58,9 @@ const SignupForm: FC = () => {
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
 
-            {location.pathname !== "/account/create" &&
+            {/* {location.pathname !== "/account/create" &&
                 <ProgressBar calculateBarWidth={calculateBarWidth} />
-            }
+            } */}
 
             {location.pathname === "/account/create" &&
                 <>

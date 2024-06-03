@@ -6,7 +6,7 @@ import endomorphBody from "/images/bodyForm/endomorphBody.jpg"
 
 import BodyTypeContainer from "./Step3Container";
 import { useNavigate } from "react-router-dom";
-import { useFormProgessBar } from "./SignupForm";
+// import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     body: string,
@@ -25,7 +25,7 @@ const BODY_TYPE_DETAILS: string[][] = [
 
 const Step3: FC = () => {
     const navigate = useNavigate();
-    const { nextStep, prevStep } = useFormProgessBar();
+    // const { nextStep, prevStep } = useFormProgessBar();
 
     const [formData, setFormData] = useState<FormData>({
         body: sessionStorage.getItem('body') ?? "",
@@ -42,7 +42,7 @@ const Step3: FC = () => {
     }
 
     const handleBack = () => {
-        prevStep();
+        // prevStep();
         navigate("/account/create/part-2-height-weight");
     }
 
@@ -59,7 +59,7 @@ const Step3: FC = () => {
 
         console.log(sessionStorage.getItem('body'));
 
-        nextStep();
+        // nextStep();
         navigate("/account/create/part-4-goal");
     }
 

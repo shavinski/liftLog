@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { useFormProgessBar } from "./SignupForm";
+// import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     heightFeet: string,
@@ -16,7 +16,7 @@ interface ErrorData {
 
 const Step2: FC = () => {
     const navigate = useNavigate();
-    const { nextStep, prevStep } = useFormProgessBar();
+    // const { nextStep, prevStep } = useFormProgessBar();
 
     const [formData, setFormData] = useState<FormData>({
         heightFeet: sessionStorage.getItem('heightFeet') ?? "",
@@ -37,7 +37,7 @@ const Step2: FC = () => {
     }
 
     const handleBack = () => {
-        prevStep();
+        // prevStep();
         navigate("/account/create/part-1-user-information");
     }
 
@@ -62,7 +62,7 @@ const Step2: FC = () => {
 
         console.log(sessionStorage.getItem('heightFeet'), sessionStorage.getItem('heightInches'), sessionStorage.getItem("weight"));
 
-        nextStep();
+        // nextStep();
         navigate("/account/create/part-3-body-type");
     }
 

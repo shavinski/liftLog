@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useFormProgessBar } from "./SignupForm";
+// import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     username: string,
@@ -18,7 +18,7 @@ interface ErrorData {
 
 const FinalStep: FC = () => {
     const navigate = useNavigate();
-    const { prevStep } = useFormProgessBar();
+    // const { prevStep } = useFormProgessBar();
 
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
@@ -72,7 +72,7 @@ const FinalStep: FC = () => {
     }
 
     const handleBack = () => {
-        prevStep();
+        // prevStep();
         navigate("/account/create/part-4-goal")
     }
 
