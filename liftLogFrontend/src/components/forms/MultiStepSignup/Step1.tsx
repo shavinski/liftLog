@@ -58,8 +58,6 @@ const Step1: FC = () => {
     }
 
     return (
-        // <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
-
 
         <form
             onSubmit={validateForm}
@@ -118,7 +116,6 @@ const Step1: FC = () => {
                 >Next</button>
             </div>
         </form>
-        // </div>
     );
 };
 

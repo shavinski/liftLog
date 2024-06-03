@@ -99,84 +99,82 @@ const FinalStep: FC = () => {
     }
 
     return (
-        <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
 
-            <form
-                onSubmit={validateForm}
-                className="flex flex-col w-full p-4 md:shadow-custom"
-                data-testid="first-last-name-form">
-                <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="first-last-name-form">
+            <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
 
-                {/* USERNAME INPUT */}
-                <div className="relative">
-                    <label
-                        className="absolute bg-white text-md p-1 left-3"
-                        htmlFor="username">
-                        Username
-                    </label>
-                    <input
-                        value={formData.username}
-                        onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
-                        type="username"
-                        name="username"
-                        id="username"
-                        autoComplete="username"
-                        required />
-                </div>
-                {errors.username && <span>{errors.username}</span>}
+            {/* USERNAME INPUT */}
+            <div className="relative">
+                <label
+                    className="absolute bg-white text-md p-1 left-3"
+                    htmlFor="username">
+                    Username
+                </label>
+                <input
+                    value={formData.username}
+                    onChange={handleChange}
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
+                    type="username"
+                    name="username"
+                    id="username"
+                    autoComplete="username"
+                    required />
+            </div>
+            {errors.username && <span>{errors.username}</span>}
 
-                {/* EMAIL INPUT */}
-                <div className="relative mt-6">
-                    <label
-                        className="absolute bg-white text-md p-1 left-3"
-                        htmlFor="email">
-                        Email
-                    </label>
-                    <input
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
-                        type="email"
-                        name="email"
-                        id="email"
-                        autoComplete="email"
-                        required />
-                </div>
-                {errors.email && <span>{errors.email}</span>}
+            {/* EMAIL INPUT */}
+            <div className="relative mt-6">
+                <label
+                    className="absolute bg-white text-md p-1 left-3"
+                    htmlFor="email">
+                    Email
+                </label>
+                <input
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
+                    type="email"
+                    name="email"
+                    id="email"
+                    autoComplete="email"
+                    required />
+            </div>
+            {errors.email && <span>{errors.email}</span>}
 
-                {/* PASSWORD INPUT */}
-                <div className="relative mt-6">
-                    <label
-                        className="absolute bg-white p-1 text-md left-3"
-                        htmlFor="password">
-                        Password
-                    </label>
-                    <input
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
-                        type="password"
-                        name="password"
-                        id="password"
-                        autoComplete="current-password"
-                        required />
-                </div>
-                {errors.password && <span>{errors.password}</span>}
-                <div className="flex gap-5 mt-8">
-                    <button
-                        type="button"
-                        onClick={handleBack}
-                        className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</button>
+            {/* PASSWORD INPUT */}
+            <div className="relative mt-6">
+                <label
+                    className="absolute bg-white p-1 text-md left-3"
+                    htmlFor="password">
+                    Password
+                </label>
+                <input
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
+                    type="password"
+                    name="password"
+                    id="password"
+                    autoComplete="current-password"
+                    required />
+            </div>
+            {errors.password && <span>{errors.password}</span>}
+            <div className="flex gap-5 mt-8">
+                <button
+                    type="button"
+                    onClick={handleBack}
+                    className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
+                >Back</button>
 
-                    <button
-                        type="submit"
-                        className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
-                    >Next</button>
-                </div>
-            </form>
-        </div>
+                <button
+                    type="submit"
+                    className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                >Next</button>
+            </div>
+        </form>
     )
 }
 

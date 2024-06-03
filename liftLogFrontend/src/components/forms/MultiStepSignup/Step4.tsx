@@ -60,37 +60,34 @@ const Step4: FC = () => {
     }
 
     return (
-        <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="goal-form">
 
-            <form
-                onSubmit={validateForm}
-                className="flex flex-col w-full p-4 md:shadow-custom"
-                data-testid="goal-form">
+            <h1 className="font-bold text-left mt-3 mb-3 text-lg">Personal Goals</h1>
+            <small className="mb-1">Please select one.</small>
 
-                <h1 className="font-bold text-left mt-3 mb-3 text-lg">Personal Goals</h1>
-                <small className="mb-1">Please select one.</small>
+            {GOAL_OPTIONS.map((goal, i) => {
+                return <GoalContainer currentValue={formData.goal} goal={goal} handleChange={handleChange} key={i} />;
+            })}
 
-                {GOAL_OPTIONS.map((goal, i) => {
-                    return <GoalContainer currentValue={formData.goal} goal={goal} handleChange={handleChange} key={i} />;
-                })}
+            {errors.goal && <span>{errors.goal}</span>}
 
-                {errors.goal && <span>{errors.goal}</span>}
+            <div className="flex gap-5 mt-8">
+                <button
+                    type="button"
+                    onClick={handleBack}
+                    className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
+                >Back</button>
 
-                <div className="flex gap-5 mt-8">
-                    <button
-                        type="button"
-                        onClick={handleBack}
-                        className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</button>
+                <button
+                    type="submit"
+                    className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                >Next</button>
 
-                    <button
-                        type="submit"
-                        className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
-                    >Next</button>
-
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 

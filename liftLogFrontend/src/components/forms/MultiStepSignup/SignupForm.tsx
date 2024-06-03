@@ -57,7 +57,6 @@ const SignupForm: FC = () => {
         setClickLink(!clickedLink);
     }
 
-
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
 
