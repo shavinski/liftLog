@@ -5,7 +5,8 @@ import mesomorphBody from "/images/bodyForm/mesomorphBody.jpg"
 import endomorphBody from "/images/bodyForm/endomorphBody.jpg"
 
 import BodyTypeContainer from "./Step3Container";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     body: string,
@@ -24,6 +25,8 @@ const BODY_TYPE_DETAILS: string[][] = [
 
 const Step3: FC = () => {
     const navigate = useNavigate();
+    const { nextStep, prevStep } = useFormProgessBar();
+
     const [formData, setFormData] = useState<FormData>({
         body: sessionStorage.getItem('body') ?? "",
     });
@@ -36,6 +39,11 @@ const Step3: FC = () => {
         const { name, value } = e.target;
 
         setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const handleBack = () => {
+        prevStep();
+        navigate("/account/create/part-2-height-weight");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -51,7 +59,8 @@ const Step3: FC = () => {
 
         console.log(sessionStorage.getItem('body'));
 
-        navigate("/account/create/goal");
+        nextStep();
+        navigate("/account/create/part-4-goal");
     }
 
     return (
@@ -71,10 +80,11 @@ const Step3: FC = () => {
                 {errors.body && <span>{errors.body}</span>}
 
                 <div className="flex gap-5 mt-8">
-                    <Link
-                        to="/account/create/height-weight"
+                    <button
+                        type="button"
+                        onClick={handleBack}
                         className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</Link>
+                    >Back</button>
 
                     <button
                         type="submit"

@@ -1,6 +1,15 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import { FC, ReactNode, useState } from "react";
+import { Outlet, useLocation, useNavigate, useOutletContext } from "react-router-dom";
+
+import useProgressBar from "../../../hooks/useProgressBar"
+
 import WelcomeMessage from "./WelcomeMessage";
+import Step1 from "./Step1";
+import Step2 from "./Step2";
+import Step3 from "./Step3";
+import Step4 from "./Step4";
+import FinalStep from "./FinalStep";
+import ProgressBar from "./ProgressBar";
 
 export interface FormValidation {
     firstName?: string;
@@ -12,41 +21,71 @@ export interface FormValidation {
     password?: string;
 }
 
+type ProgessBarContext = {
+    currentStep: number,
+    totalSteps: number,
+    nextStep: () => void,
+    prevStep: () => void,
+    calculteBarwidth: () => string,
+}
 
 const SignupForm: FC = () => {
+    const navigate = useNavigate();
+    const [clickedLink, setClickLink] = useState<boolean>(false);
+    const location = useLocation();
 
-    // const calculateProgressBarWidth = () => {
-    //     return ((currentStep + 1) / steps.length) * 100;
-    // };
+    const formSteps: ReactNode[] = [
+        <Step1 />,
+        <Step2 />,
+        <Step3 />,
+        <Step4 />,
+        <FinalStep />
+    ];
+
+    const { currentStep,
+        totalSteps,
+        nextStep,
+        prevStep,
+        calculateBarWidth
+    } = useProgressBar(formSteps.length);
+
+    console.log("currentStep =>", currentStep);
+
+    const handleSignupLink = () => {
+        navigate("/account/create/part-1-user-information");
+        nextStep();
+        setClickLink(!clickedLink);
+    }
+
 
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
-            {/* MOBILE PROGRESS BAR
-            // <div className="sm:invisible absolute -top-12 w-full bg-gray-300 h-2.5">
-            //     <div
-            //         className="sm:invisible bg-gradient-to-r from-[#00df9a] to-green-500 h-2.5"
-            //         style={{ transition: "width 1s", width: `${calculateProgressBarWidth()}%` }}></div>
-            // </div> */}
 
-            {<WelcomeMessage />}
+            {location.pathname !== "/account/create" &&
+                <ProgressBar calculateBarWidth={calculateBarWidth} />
+            }
 
-            {/* NON MOBILE PROGRESS BAR */}
-            {/* <div className="w-full bg-gray-300 rounded-t-lg h-2.5 hidden sm:block">
-                <div
-                    className="sm:block bg-gradient-to-r from-[#00df9a] to-green-500 h-2.5 rounded-t-lg hidden"
-                    style={{ transition: "width 1s", width: `${calculateProgressBarWidth()}%` }}></div>
-            </div> */}
+            {location.pathname === "/account/create" &&
+                <>
+                    {< WelcomeMessage />}
 
-            <div>
-                <h1>Begin here</h1>
-                <Link to="user-information">BEGIN!</Link>
-            </div>
+                    <div>
+                        <button
+                            type="button"
+                            onClick={handleSignupLink}>
+                            Begin Today!
+                        </button>
+                    </div>
+                </>
+            }
 
-            {/* Renders form based on current step */}
-            {/* {steps[currentStep]} */}
-
+            <Outlet context={{ currentStep, totalSteps, nextStep, prevStep, calculateBarWidth }} />
         </div >
     );
+};
+
+export function useFormProgessBar() {
+    return useOutletContext<ProgessBarContext>();
 }
 
 

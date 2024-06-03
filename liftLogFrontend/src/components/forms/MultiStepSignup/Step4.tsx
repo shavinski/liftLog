@@ -1,7 +1,8 @@
 import React, { FC, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import GoalContainer from "./Step4Container";
+import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     goal: string,
@@ -20,6 +21,8 @@ const GOAL_OPTIONS = [
 
 const Step4: FC = () => {
     const navigate = useNavigate();
+    const { nextStep, prevStep } = useFormProgessBar();
+
     const [formData, setFormData] = useState<FormData>({
         goal: sessionStorage.getItem('goal') ?? "",
     })
@@ -32,6 +35,11 @@ const Step4: FC = () => {
         const { name, value } = e.target;
 
         setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const handleBack = () => {
+        prevStep();
+        navigate("/account/create/part-3-body-type");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -47,8 +55,8 @@ const Step4: FC = () => {
 
         console.log(sessionStorage.getItem('goal'))
 
-        navigate("/account/create/account-information");
-        // goToNextForm();
+        nextStep();
+        navigate("/account/create/part-5-final-account-information");
     }
 
     return (
@@ -69,10 +77,11 @@ const Step4: FC = () => {
                 {errors.goal && <span>{errors.goal}</span>}
 
                 <div className="flex gap-5 mt-8">
-                    <Link
-                        to="/account/create/body-type"
+                    <button
+                        type="button"
+                        onClick={handleBack}
                         className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</Link>
+                    >Back</button>
 
                     <button
                         type="submit"

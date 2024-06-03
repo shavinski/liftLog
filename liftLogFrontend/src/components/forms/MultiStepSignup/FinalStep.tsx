@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     username: string,
@@ -14,15 +16,10 @@ interface ErrorData {
     password?: string,
 }
 
-// interface EmailPasswordUsernameProps {
-//     goToPreviousForm: () => void,
-//     handleSubmit: () => void
-// }
-
-
-
 const FinalStep: FC = () => {
     const navigate = useNavigate();
+    const { prevStep } = useFormProgessBar();
+
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
         email: sessionStorage.getItem('email') ?? "",
@@ -74,6 +71,11 @@ const FinalStep: FC = () => {
         sessionStorage.clear();
     }
 
+    const handleBack = () => {
+        prevStep();
+        navigate("/account/create/part-4-goal")
+    }
+
     const validateForm = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -104,6 +106,7 @@ const FinalStep: FC = () => {
                 className="flex flex-col w-full p-4 md:shadow-custom"
                 data-testid="first-last-name-form">
                 <h1 className="font-bold text-left mt-3 mb-3 text-lg">User Login Information</h1>
+
                 {/* USERNAME INPUT */}
                 <div className="relative">
                     <label
@@ -122,6 +125,7 @@ const FinalStep: FC = () => {
                         required />
                 </div>
                 {errors.username && <span>{errors.username}</span>}
+
                 {/* EMAIL INPUT */}
                 <div className="relative mt-6">
                     <label
@@ -140,6 +144,7 @@ const FinalStep: FC = () => {
                         required />
                 </div>
                 {errors.email && <span>{errors.email}</span>}
+
                 {/* PASSWORD INPUT */}
                 <div className="relative mt-6">
                     <label
@@ -159,16 +164,11 @@ const FinalStep: FC = () => {
                 </div>
                 {errors.password && <span>{errors.password}</span>}
                 <div className="flex gap-5 mt-8">
-                    {/* <button
-                        onClick={goToPreviousForm}
+                    <button
                         type="button"
+                        onClick={handleBack}
                         className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</button> */}
-
-                    <Link
-                        to="/account/create/goal"
-                        className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</Link>
+                    >Back</button>
 
                     <button
                         type="submit"

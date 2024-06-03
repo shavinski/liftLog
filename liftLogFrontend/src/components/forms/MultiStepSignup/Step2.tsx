@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     heightFeet: string,
@@ -16,6 +16,8 @@ interface ErrorData {
 
 const Step2: FC = () => {
     const navigate = useNavigate();
+    const { nextStep, prevStep } = useFormProgessBar();
+
     const [formData, setFormData] = useState<FormData>({
         heightFeet: sessionStorage.getItem('heightFeet') ?? "",
         heightInches: sessionStorage.getItem('heightInches') ?? "",
@@ -32,6 +34,11 @@ const Step2: FC = () => {
         const { name, value } = e.target;
 
         setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const handleBack = () => {
+        prevStep();
+        navigate("/account/create/part-1-user-information");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -55,12 +62,12 @@ const Step2: FC = () => {
 
         console.log(sessionStorage.getItem('heightFeet'), sessionStorage.getItem('heightInches'), sessionStorage.getItem("weight"));
 
-        navigate("/account/create/body-type");
+        nextStep();
+        navigate("/account/create/part-3-body-type");
     }
 
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
-
 
             <form
                 onSubmit={validateForm}
@@ -133,10 +140,11 @@ const Step2: FC = () => {
                 {errors.weight && <span>{errors.weight}</span>}
 
                 <div className="flex gap-5 mt-8">
-                    <Link
-                        to="/account/create/user-information"
+                    <button
+                        type="button"
+                        onClick={handleBack}
                         className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
-                    >Back</Link>
+                    >Back</button>
 
                     <button
                         type="submit"

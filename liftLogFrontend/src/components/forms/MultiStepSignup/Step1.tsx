@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     firstName: string,
@@ -14,6 +15,8 @@ interface ErrorData {
 
 const Step1: FC = () => {
     const navigate = useNavigate();
+    const { nextStep, prevStep } = useFormProgessBar();
+
     const [formData, setFormData] = useState<FormData>({
         firstName: sessionStorage.getItem('firstName') ?? "",
         lastName: sessionStorage.getItem('lastName') ?? "",
@@ -28,6 +31,11 @@ const Step1: FC = () => {
         const { name, value } = e.target;
 
         setFormData((prevState) => ({ ...prevState, [name]: value }));
+    }
+
+    const handleBack = () => {
+        prevStep();
+        navigate("/account/create");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -45,71 +53,72 @@ const Step1: FC = () => {
 
         console.log(sessionStorage.getItem('firstName'), sessionStorage.getItem('lastName'))
 
-        navigate("/account/create/height-weight");
+        nextStep();
+        navigate("/account/create/part-2-height-weight");
     }
 
     return (
-        <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
+        // <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto md:mt-12">
 
-            <form
-                onSubmit={validateForm}
-                className="flex flex-col w-full p-4 md:shadow-custom"
-                data-testid="first-last-name-form">
-                <h1 className="font-bold text-left mt-3 mb-3 text-lg">Account Information</h1>
 
-                {/* FIRST NAME INPUT */}
-                <div className="relative">
-                    <label
-                        className="absolute bg-white text-md left-3 p-1"
-                        htmlFor="firstName">
-                        First Name
-                    </label>
-                    <input
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
-                        type="firstName"
-                        name="firstName"
-                        id="firstName"
-                        required />
-                </div>
+        <form
+            onSubmit={validateForm}
+            className="flex flex-col w-full p-4 md:shadow-custom"
+            data-testid="first-last-name-form">
+            <h1 className="font-bold text-left mt-3 mb-3 text-lg">Account Information</h1>
 
-                {errors.firstName && <span>{errors.firstName}</span>}
+            {/* FIRST NAME INPUT */}
+            <div className="relative">
+                <label
+                    className="absolute bg-white text-md left-3 p-1"
+                    htmlFor="firstName">
+                    First Name
+                </label>
+                <input
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
+                    type="firstName"
+                    name="firstName"
+                    id="firstName"
+                    required />
+            </div>
 
-                {/* LAST NAME INPUT */}
-                <div className="relative mt-6">
-                    <label
-                        className="absolute bg-white text-md left-3 p-1"
-                        htmlFor="lastName">
-                        Last Name
-                    </label>
-                    <input
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
-                        type="lastName"
-                        name="lastName"
-                        id="lastName"
-                        required />
-                </div>
+            {errors.firstName && <span>{errors.firstName}</span>}
 
-                {errors.lastName && <span>{errors.lastName}</span>}
+            {/* LAST NAME INPUT */}
+            <div className="relative mt-6">
+                <label
+                    className="absolute bg-white text-md left-3 p-1"
+                    htmlFor="lastName">
+                    Last Name
+                </label>
+                <input
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500 rounded-lg"
+                    type="lastName"
+                    name="lastName"
+                    id="lastName"
+                    required />
+            </div>
 
-                <div className="flex gap-5 mt-8">
+            {errors.lastName && <span>{errors.lastName}</span>}
 
-                    <Link
-                        to="/account/create"
-                        className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]">
-                        Back
-                    </Link>
+            <div className="flex gap-5 mt-8">
+                <button
+                    type="button"
+                    onClick={handleBack}
+                    className="w-1/2 p-3 border-solid border-2 border-[#00df9a] rounded-md text-[#00df9a] text-center font-bold text-xl hover:border-[#10B981] hover:text-[#10B981]"
+                >Back</button>
 
-                    <button
-                        type="submit"
-                        className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
-                    >Next</button>
-                </div>
-            </form>
-        </div>
+                <button
+                    type="submit"
+                    className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
+                >Next</button>
+            </div>
+        </form>
+        // </div>
     );
 };
 
