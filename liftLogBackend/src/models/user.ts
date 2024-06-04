@@ -91,11 +91,21 @@ class User {
        { firstName, lastName }
    */
 
-    //     static async getUserFirstLastName({ firstName, lastName }) {
-    //         if (!firstName || !lastName) {
-    //             throw new Error("First name and last name are required!");
-    //         }
-    //     }
+    static async validatePartOneForm({ firstName, lastName }: Partial<createAccountData>) {
+        const errors: { code: string; message: string }[] = [];
+
+        if (!firstName) {
+            errors.push({ "code": "FIRST_NAME_INVAILD", "message": "First name is required" });
+        }
+
+        if (!lastName) {
+            errors.push({ "code": "LAST_NAME_INVAILD", "message": "Last name is required" });
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.map(err => err.message).join(" "));
+        }
+    }
 
     //     /**
     //        Getting user height and weight details 

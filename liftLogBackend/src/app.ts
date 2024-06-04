@@ -22,6 +22,19 @@ app.get("/create/account", async (req, res, next) => {
 app.post('/create/account', async (req, res, next) => {
     const createUser = await User.createAccount(req.body);
     return res.status(201).json({ createUser });
-})
+});
+
+app.post('/create/account/part-1-account-information', async (req, res, next) => {
+    // const createUser = await User.createAccount(req.body);
+    try {
+        const validateForm = User.validatePartOneForm(req.body);
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json(error)
+    };
+
+    return res.status(201).json("All good!");
+});
+
 
 export default app;
