@@ -35,7 +35,7 @@ const Step1: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/account/create");
+        navigate("/user/account/create");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -54,7 +54,7 @@ const Step1: FC = () => {
         console.log(sessionStorage.getItem('firstName'), sessionStorage.getItem('lastName'))
 
         // nextStep();
-        navigate("/account/create/part-2-height-weight");
+        navigate("/user/account/create/part-2-height-weight");
     }
 
     return (

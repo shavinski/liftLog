@@ -13,7 +13,7 @@ interface ProgressBar {
 const useProgressBar = (formAmount: number): ProgressBar => {
   const location = useLocation();
 
-  const isFormPage = location.pathname.includes('/account/create');
+  const isFormPage = location.pathname.includes('/user/account/create');
 
   const [currentStep, setCurrentStep] = useState<number>(
     isFormPage ? (Number(localStorage.getItem('currentStep')) ?? 0) : 0

@@ -69,7 +69,7 @@ const LoginForm: FC = () => {
             </form>
 
             <small className="text-center m-5">
-                Not a member? <Link to="/account/create" className="text-blue-700"> Sign up here!</Link>
+                Not a member? <Link to="/user/account/create" className="text-blue-700"> Sign up here!</Link>
             </small>
         </div>
     );

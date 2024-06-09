@@ -73,7 +73,7 @@ const FinalStep: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/account/create/part-4-goal")
+        navigate("/user/account/create/part-4-goal")
     }
 
     const validateForm = (e: React.FormEvent) => {

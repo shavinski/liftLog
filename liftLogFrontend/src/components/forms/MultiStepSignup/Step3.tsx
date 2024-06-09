@@ -43,7 +43,7 @@ const Step3: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/account/create/part-2-height-weight");
+        navigate("/user/account/create/part-2-height-weight");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -60,7 +60,7 @@ const Step3: FC = () => {
         console.log(sessionStorage.getItem('body'));
 
         // nextStep();
-        navigate("/account/create/part-4-goal");
+        navigate("/user/account/create/part-4-goal");
     }
 
     return (

@@ -39,7 +39,7 @@ const Step4: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/account/create/part-3-body-type");
+        navigate("/user/account/create/part-3-body-type");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -56,7 +56,7 @@ const Step4: FC = () => {
         console.log(sessionStorage.getItem('goal'))
 
         // nextStep();
-        navigate("/account/create/part-5-final-account-information");
+        navigate("/user/account/create/part-5-final-account-information");
     }
 
     return (
