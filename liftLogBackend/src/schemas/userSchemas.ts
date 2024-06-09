@@ -17,3 +17,9 @@ export const userCreateAccountPart1 = z.object({
     firstName: z.string(),
     lastName: z.string(),
 })
+
+export const userCreateAccountPart2 = z.object({
+    heightFeet: z.number().gte(2).lte(8),
+    heightInches: z.number().gte(0).lte(11),
+    weight: z.number().gte(40).lte(1000),
+})

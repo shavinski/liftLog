@@ -11,6 +11,16 @@ export const registerUserPart1 = async (req: Request, res: Response) => {
     }
 }
 
+export const registerUserPart2 = async (req: Request, res: Response) => {
+    try {
+        await User.validatePartTwoForm(req.body);
+        res.json({ message: "Part 2 success" })
+    } catch (error: any) {
+        console.log(error.messages);
+        res.status(400).json({ message: error.messages });
+    }
+}
+
 export const registerUserFinal = async (req: Request, res: Response) => {
     // Handle user registration logic using validated data from req.body
     try {

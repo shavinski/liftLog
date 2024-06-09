@@ -3,16 +3,27 @@ import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
 
 interface createAccountData {
-    firstName: string,
-    lastName: string,
-    heightFeet: string,
-    heightInches: string,
-    weight: string,
-    bodyType: string,
-    goal: string,
-    username: string,
-    email: string,
-    password: string
+    firstName: string;
+    lastName: string;
+    heightFeet: number;
+    heightInches: number;
+    weight: number;
+    bodyType: string;
+    goal: string;
+    username: string;
+    email: string;
+    password: string;
+}
+
+interface FormPartOneData {
+    firstName: string;
+    lastName: string;
+}
+
+interface FormPartTwoData {
+    heightFeet: number;
+    heightInches: number;
+    weight: number;
 }
 
 class User {
@@ -37,7 +48,7 @@ class User {
        { firstName, lastName }
    */
 
-    static async validatePartOneForm({ firstName, lastName }: Partial<createAccountData>): Promise<void> {
+    static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<void> {
         const errors: string[] = [];
 
         if (!firstName || firstName.trim() === '') {
@@ -60,9 +71,31 @@ class User {
     //        { heightFeet, heightInches, weight }
     //    */
 
-    //     static async getUserHeightWeight({ heightFeet, heightInches, weight }) {
+    static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<void> {
+        const errors: string[] = [];
 
-    //     }
+        if (!heightFeet) {
+            errors.push("Height (feet) is required.");
+        } else if (heightFeet < 2 || heightFeet > 8) {
+            errors.push("Height (feet) must be between 2 and 8");
+        }
+
+        if (!heightInches) {
+            errors.push("Height (inches) is required.");
+        } else if (heightInches < 0 || heightInches > 11) {
+            errors.push("Height (inches) must be between 0 and 11");
+        }
+
+        if (!weight) {
+            errors.push("Weight is required.");
+        } else if (weight < 40 || weight > 1000) {
+            errors.push("Weight must be between 40 and 1000");
+        }
+
+        if (errors.length > 0) {
+            throw { messages: errors };
+        }
+    }
 
     //     /**
     //        Getting user body details
