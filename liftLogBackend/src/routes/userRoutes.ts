@@ -2,14 +2,14 @@
 import express from 'express';
 import { validateData } from '../middleware/validationMiddleware';
 
-import { userCreateAccountSchema } from '../schemas/userSchemas';
+import { userCreateAccountSchema, userCreateAccountPart1 } from '../schemas/userSchemas';
 
 const userRouter = express.Router();
 
-import { registerUserFinal } from './userController';
+import { registerUserFinal, registerUserPart1 } from './userController';
 
+userRouter.post('/create/account/part-1-user-information', validateData(userCreateAccountPart1), registerUserPart1);
 userRouter.post('/create/account', validateData(userCreateAccountSchema), registerUserFinal);
-userRouter.post('/create/account/part-1-user-information', validateData(userCreateAccountSchema), registerUserFinal);
 
 // userRouter.post('/login', validateData(userLoginSchema), loginUser);
 

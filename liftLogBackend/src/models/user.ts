@@ -29,6 +29,75 @@ class User {
         return allUsers;
     };
 
+
+    /**
+       Getting user first name and last name from sign up form
+       
+       Data received should be:
+       { firstName, lastName }
+   */
+
+    static async validatePartOneForm({ firstName, lastName }: Partial<createAccountData>): Promise<void> {
+        const errors: string[] = [];
+
+        if (!firstName || firstName.trim() === '') {
+            errors.push('First name is required.');
+        }
+
+        if (!lastName || lastName.trim() === '') {
+            errors.push('Last name is required.');
+        }
+
+        if (errors.length > 0) {
+            throw { messages: errors };
+        }
+    }
+
+    //     /**
+    //        Getting user height and weight details 
+
+    //        Data received should be:
+    //        { heightFeet, heightInches, weight }
+    //    */
+
+    //     static async getUserHeightWeight({ heightFeet, heightInches, weight }) {
+
+    //     }
+
+    //     /**
+    //        Getting user body details
+
+    //        Data received should be:
+    //        { body }
+    //    */
+
+    //     static async getUserBodyType({ bodyType }) {
+
+    //     }
+
+    //     /**
+    //        Getting user goal 
+
+    //        Data received should be:
+    //        { goal }
+    //    */
+
+    //     static async getUserGoal({ goal }) {
+
+    //     }
+
+
+    //     /**
+    //        Getting user login details
+
+    //        Data received should be:
+    //        { username, email, password }
+    //    */
+
+    //     static async getUserLoginInfo({ username, email, password }) {
+
+    //     }
+
     /**
         Creating a user account from the sign up form 
         
@@ -84,73 +153,6 @@ class User {
         return result.rows[0];
     };
 
-    /**
-       Getting user first name and last name from sign up form
-       
-       Data received should be:
-       { firstName, lastName }
-   */
-
-    static async validatePartOneForm({ firstName, lastName }: Partial<createAccountData>) {
-        const errors: { code: string; message: string }[] = [];
-
-        if (!firstName) {
-            errors.push({ "code": "FIRST_NAME_INVAILD", "message": "First name is required" });
-        }
-
-        if (!lastName) {
-            errors.push({ "code": "LAST_NAME_INVAILD", "message": "Last name is required" });
-        }
-
-        if (errors.length > 0) {
-            throw new Error(errors.map(err => err.message).join(" "));
-        }
-    }
-
-    //     /**
-    //        Getting user height and weight details 
-
-    //        Data received should be:
-    //        { heightFeet, heightInches, weight }
-    //    */
-
-    //     static async getUserHeightWeight({ heightFeet, heightInches, weight }) {
-
-    //     }
-
-    //     /**
-    //        Getting user body details
-
-    //        Data received should be:
-    //        { body }
-    //    */
-
-    //     static async getUserBodyType({ bodyType }) {
-
-    //     }
-
-    //     /**
-    //        Getting user goal 
-
-    //        Data received should be:
-    //        { goal }
-    //    */
-
-    //     static async getUserGoal({ goal }) {
-
-    //     }
-
-
-    //     /**
-    //        Getting user login details
-
-    //        Data received should be:
-    //        { username, email, password }
-    //    */
-
-    //     static async getUserLoginInfo({ username, email, password }) {
-
-    //     }
 }
 
 export default User;
