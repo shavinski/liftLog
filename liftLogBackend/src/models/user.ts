@@ -26,6 +26,10 @@ interface FormPartTwoData {
     weight: number;
 }
 
+interface FormPartThreeData {
+    body: string;
+}
+
 class User {
     static async getAllUsers() {
         const result = await db.query(`
@@ -103,10 +107,17 @@ class User {
     //        Data received should be:
     //        { body }
     //    */
+    static async validatePartThreeForm({ body }: FormPartThreeData): Promise<void> {
+        const errors: string[] = [];
 
-    //     static async getUserBodyType({ bodyType }) {
+        if (!body) {
+            errors.push("Please select one body type.");
+        }
 
-    //     }
+        if (errors.length > 0) {
+            throw { messages: errors };
+        }
+    }
 
     //     /**
     //        Getting user goal 

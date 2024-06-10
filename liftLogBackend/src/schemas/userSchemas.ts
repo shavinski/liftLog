@@ -23,3 +23,7 @@ export const userCreateAccountPart2 = z.object({
     heightInches: z.number().gte(0).lte(11),
     weight: z.number().gte(40).lte(1000),
 })
+
+export const userCreateAccountPart3 = z.object({
+    body: z.string(),
+})
