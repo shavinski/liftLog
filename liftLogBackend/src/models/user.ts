@@ -208,18 +208,7 @@ class User {
         Check if user exists with email, then throw error 
     */
 
-    // TODO: Might break up the multistep form into different endpoints
     static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
-        const checkDuplicateUser = await db.query(`
-            SELECT username 
-            FROM users
-            WHERE username = $1`, [username]
-        );
-
-        if (checkDuplicateUser.rows.length > 0) {
-            throw new Error(`User already exists: ${username}`);
-        };
-
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
 
         const result = await db.query(
@@ -251,7 +240,9 @@ class User {
             ],
         );
 
+
         return result.rows[0];
+
     };
 
 }

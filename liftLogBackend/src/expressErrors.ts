@@ -1,7 +1,9 @@
+export class NotFoundError extends Error {
+    status: number;
 
-
-type HttpCode = 200 | 300 | 404 | 500;
-
-export class ValiationError extends Error {
-    
-}
+    constructor(message = 'Not Found') {
+        super(message);
+        this.status = 404;
+        Object.setPrototypeOf(this, NotFoundError.prototype);
+    }
+};

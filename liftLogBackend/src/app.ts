@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { NotFoundError } from './expressErrors';
 
-// MODEL IMPORTS 
-import User from './models/user';
+// ROUTE IMPORTS 
 import userRouter from './routes/userRoutes';
 
 const app = express();
@@ -14,32 +14,24 @@ app.use(cors());
 app.use('/user', userRouter);
 
 
+/** Handle 404 errors -- this matches everything */
+app.use(function (req, res, next) {
+    throw new NotFoundError();
+});
 
-app.get("/", async (req, res, next) => {
-    const users = await User.getAllUsers();
-    res.json({ users });
-})
+/** Generic error handler; anything unhandled goes here. */
+app.use((err: Error, req: Request, res: Response) => {
+    if (process.env.NODE_ENV !== 'test') console.error(err.stack);
+    const status = (err as any).status || 500; // Cast err to any to access status property
+    const message = err.message || 'Internal Server Error';
 
-// app.get("/create/account", async (req, res, next) => {
-//     res.json("test");
-// })
+    res.status(status).json({
+        error: { message, status },
+    });
+});
 
-// app.post('/create/account', async (req, res, next) => {
-//     const createUser = await User.createAccount(req.body);
-//     return res.status(201).json({ createUser });
-// });
-
-// app.post('/create/account/part-1-account-information', async (req, res, next) => {
-//     // const createUser = await User.createAccount(req.body);
-//     try {
-//         const validateForm = User.validatePartOneForm(req.body);
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(400).json(error)
-//     };
-
-//     return res.status(201).json("All good!");
-// });
-
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
 
 export default app;
