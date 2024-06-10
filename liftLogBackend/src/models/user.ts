@@ -30,6 +30,17 @@ interface FormPartThreeData {
     body: string;
 }
 
+interface FormPartFourData {
+    goal: string;
+}
+
+interface FormPartFiveData {
+    username: string,
+    email: string,
+    password: string,
+}
+
+
 class User {
     static async getAllUsers() {
         const result = await db.query(`
@@ -126,21 +137,46 @@ class User {
     //        { goal }
     //    */
 
-    //     static async getUserGoal({ goal }) {
+    static async validatePartFourForm({ goal }: FormPartFourData): Promise<void> {
+        const errors: string[] = [];
 
-    //     }
+        if (!goal) {
+            errors.push("Please select one goal.");
+        }
 
+        if (errors.length > 0) {
+            throw { messages: errors };
+        }
+    }
 
     //     /**
-    //        Getting user login details
+    //        Getting user login details, make sure email and username are unique
 
     //        Data received should be:
     //        { username, email, password }
     //    */
 
-    //     static async getUserLoginInfo({ username, email, password }) {
+    static async validatePartFiveForm({ username, email, password }: FormPartFiveData): Promise<void> {
+        const errors: string[] = [];
 
-    //     }
+        if (!username || username.trim() === '') {
+            errors.push('Username is required.');
+        }
+
+        if (!email) {
+            errors.push('Valid email address is required.');
+        }
+
+        if (!password) {
+            errors.push('Password is required.');
+        } else if (password.length < 6 || password.length > 14) {
+            errors.push('Password must be between 6 and 14 characters.');
+        }
+
+        if (errors.length > 0) {
+            throw { messages: errors };
+        }
+    }
 
     /**
         Creating a user account from the sign up form 

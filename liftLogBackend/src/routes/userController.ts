@@ -31,6 +31,26 @@ export const registerUserPart3 = async (req: Request, res: Response) => {
     }
 }
 
+export const registerUserPart4 = async (req: Request, res: Response) => {
+    try {
+        await User.validatePartFourForm(req.body);
+        res.json({ message: "Part 4 success" })
+    } catch (error: any) {
+        console.log(error.messages);
+        res.status(400).json({ message: error.messages });
+    }
+}
+
+export const registerUserPart5 = async (req: Request, res: Response) => {
+    try {
+        await User.validatePartFiveForm(req.body);
+        res.json({ message: "Part 5 success" })
+    } catch (error: any) {
+        console.log(error.messages);
+        res.status(400).json({ message: error.messages });
+    }
+}
+
 export const registerUserFinal = async (req: Request, res: Response) => {
     // Handle user registration logic using validated data from req.body
     try {
