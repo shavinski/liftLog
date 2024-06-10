@@ -50,7 +50,7 @@ const SignupForm: FC = () => {
     } = useProgressBar(formSteps.length);
 
     const handleSignupLink = () => {
-        navigate("/user/account/create/part-1-user-information");
+        navigate("/user/create/account/part-1-user-information");
         nextStep();
         setClickLink(!clickedLink);
     }
@@ -58,11 +58,11 @@ const SignupForm: FC = () => {
     return (
         <div className="relative flex flex-col justify-center items-center md:max-w-lg md:mx-auto mt-12">
 
-            {/* {location.pathname !== "/user/account/create" &&
+            {/* {location.pathname !== "/user/create/account" &&
                 <ProgressBar calculateBarWidth={calculateBarWidth} />
             } */}
 
-            {location.pathname === "/user/account/create" &&
+            {location.pathname === "/user/create/account" &&
                 <>
                     {< WelcomeMessage />}
 
