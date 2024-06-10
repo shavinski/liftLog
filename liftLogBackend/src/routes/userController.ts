@@ -48,12 +48,11 @@ export const registerUserPart5 = async (req: Request, res: Response) => {
 };
 
 export const registerUserFinal = async (req: Request, res: Response) => {
-    // Handle user registration logic using validated data from req.body
     try {
         const data = await User.createAccount(req.body);
         res.status(200).json({ message: 'User registered successfully', data });
     } catch (error: any) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: error.messages });
     }
 };
 
