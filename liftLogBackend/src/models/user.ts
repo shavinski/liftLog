@@ -173,9 +173,30 @@ class User {
             errors.push('Password must be between 6 and 14 characters.');
         }
 
+        const checkDuplicateUser = await db.query(`
+                SELECT username 
+                FROM users
+                WHERE username = $1`, [username]
+        );
+
+        if (checkDuplicateUser.rows.length > 0) {
+            errors.push(`User already exists: ${username}`);
+        }
+
+        const checkDuplicateEmail = await db.query(`
+                SELECT email 
+                FROM users
+                WHERE email = $1`, [email]
+        );
+
+        if (checkDuplicateEmail.rows.length > 0) {
+            errors.push(`Email already in use: ${email}`);
+        }
+
         if (errors.length > 0) {
             throw { messages: errors };
         }
+
     }
 
     /**
