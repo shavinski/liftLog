@@ -1,6 +1,7 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
+import { string } from "zod";
 
 interface createAccountData {
     firstName: string;
@@ -63,7 +64,7 @@ class User {
        { firstName, lastName }
    */
 
-    static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<void> {
+    static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<{ firstName: string, lastName: string }> {
         const errors: string[] = [];
 
         if (!firstName || firstName.trim() === '') {
@@ -77,6 +78,8 @@ class User {
         if (errors.length > 0) {
             throw { messages: errors };
         }
+
+        return { firstName, lastName };
     }
 
     //     /**

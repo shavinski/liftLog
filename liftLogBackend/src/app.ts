@@ -13,6 +13,10 @@ app.use(cors());
 // ROUTES
 app.use('/user', userRouter);
 
+app.post("/test", async (req: Request, res: Response) => {
+    res.send("Testing this for coverage")
+});
+
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {

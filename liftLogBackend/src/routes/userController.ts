@@ -4,8 +4,8 @@ import User from '../models/user';
 
 export const registerUserPart1 = async (req: Request, res: Response) => {
     try {
-        await User.validatePartOneForm(req.body);
-        res.status(200).json({ message: "Part 1 success" })
+        const info = await User.validatePartOneForm(req.body);
+        res.status(200).json({ message: "Part 1 success", info })
     } catch (error: any) {
         res.status(400).json({ message: error.messages });
     }
