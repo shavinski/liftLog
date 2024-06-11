@@ -47,19 +47,3 @@ export const registerUserPart5 = async (req: Request, res: Response) => {
         res.status(400).json({ error: 'Invalid data', messages: error.errors });
     }
 };
-
-// export const registerUserFinal = async (req: Request, res: Response) => {
-//     try {
-//         const data = await User.createAccount(req.body);
-//         res.status(200).json({ message: 'User registered successfully', data });
-//     } catch (error: any) {
-//         res.status(400).json({ message: error.messages });
-//     }
-// };
-
-
-
-// export const loginUser = (req: Request, res: Response) => {
-//     // Handle user login logic using validated data from req.body
-//     res.json({ message: 'User logged in successfully', data: req.body });
-// };

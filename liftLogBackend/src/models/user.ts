@@ -1,8 +1,6 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
-import { BadRequestError, ValidationError } from "../expressErrors";
-import { error } from "console";
 
 interface createAccountData {
     firstName: string;
