@@ -34,27 +34,28 @@ export const registerUserPart4 = async (req: Request, res: Response) => {
         await User.validatePartFourForm(req.body);
         res.status(200).json({ message: "Part 4 success" })
     } catch (error: any) {
-        res.status(400).json({ message: error.messages });
+        res.status(400).json({ messages: error.messages });
     }
 };
 
 export const registerUserPart5 = async (req: Request, res: Response) => {
     try {
-        await User.validatePartFiveForm(req.body);
-        res.status(200).json({ message: "Part 5 success" })
+        const user = await User.validatePartFiveForm(req.body);
+        res.status(200).json({ message: "Part 5 success", user })
     } catch (error: any) {
-        res.status(400).json({ message: error.messages });
+        console.log(error)
+        res.status(400).json({ error: 'Invalid data', messages: error.errors });
     }
 };
 
-export const registerUserFinal = async (req: Request, res: Response) => {
-    try {
-        const data = await User.createAccount(req.body);
-        res.status(200).json({ message: 'User registered successfully', data });
-    } catch (error: any) {
-        res.status(400).json({ message: error.messages });
-    }
-};
+// export const registerUserFinal = async (req: Request, res: Response) => {
+//     try {
+//         const data = await User.createAccount(req.body);
+//         res.status(200).json({ message: 'User registered successfully', data });
+//     } catch (error: any) {
+//         res.status(400).json({ message: error.messages });
+//     }
+// };
 
 
 

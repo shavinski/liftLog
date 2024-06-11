@@ -14,7 +14,6 @@ import {
 
 
 import {
-    registerUserFinal,
     registerUserPart1,
     registerUserPart2,
     registerUserPart3,

@@ -1,9 +1,8 @@
-class ExpressError extends Error {
+export class ExpressError extends Error {
     status: number;
 
     constructor(message: string, status: number) {
-        super();
-        this.message = message;
+        super(message);
         this.status = status;
     }
 }
@@ -27,11 +26,11 @@ export class UnauthorizedError extends ExpressError {
 /** 400 BAD REQUEST error. */
 
 export class BadRequestError extends ExpressError {
-    constructor(message = "Bad Request") {
+
+    constructor(message: string = "Bad Request") {
         super(message, 400);
     }
 }
-
 /** 403 BAD REQUEST error. */
 
 export class ForbiddenError extends ExpressError {

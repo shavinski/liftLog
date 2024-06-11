@@ -1,6 +1,8 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
+import { BadRequestError, ValidationError } from "../expressErrors";
+import { error } from "console";
 
 interface createAccountData {
     firstName: string;
@@ -156,21 +158,21 @@ class User {
     //        { username, email, password }
     //    */
 
-    static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<void> {
-        const errors: string[] = [];
+    static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
+        const errors: { message: string }[] = [];
 
         if (!username || username.trim() === '') {
-            errors.push('Username is required.');
+            errors.push({ message: 'Username is required.' });
         }
 
         if (!email) {
-            errors.push('Valid email address is required.');
+            errors.push({ message: 'Valid email address is required.' });
         }
 
         if (!password) {
-            errors.push('Password is required.');
+            errors.push({ message: 'Password is required.' });
         } else if (password.length < 6 || password.length > 14) {
-            errors.push('Password must be between 6 and 14 characters.');
+            errors.push({ message: 'Password must be between 6 and 14 characters.' });
         }
 
         const checkDuplicateUser = await db.query(`
@@ -180,7 +182,7 @@ class User {
         );
 
         if (checkDuplicateUser.rows.length > 0) {
-            errors.push(`User already exists: ${username}`);
+            errors.push({ message: `User already exists: ${username}` });
         }
 
         const checkDuplicateEmail = await db.query(`
@@ -190,15 +192,17 @@ class User {
         );
 
         if (checkDuplicateEmail.rows.length > 0) {
-            errors.push(`Email already in use: ${email}`);
+            errors.push({ message: `Email already in use: ${email}` });
         }
 
         if (errors.length > 0) {
-            throw { messages: errors };
+            throw ({ errors })
         } else {
             // After all error checks we will then create the new user account
-            this.createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password });
+            const user = this.createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password });
+            return user;
         }
+
     }
 
     /**
