@@ -20,12 +20,6 @@ export const userCreateAccountPart4 = z.object({
 });
 
 export const userCreateAccountPart5 = z.object({
-    username: z.string().min(3, { message: "Username must contain 3 characters" }),
-    email: z.string().email(),
-    password: z.string().min(6, { message: "Password must be between 6 and 14 characters." }).max(14, { message: "Password must be between 6 and 14 characters." })
-});
-
-export const userCreateAccountSchema = z.object({
     firstName: z.string().min(1, { message: "First name is required." }),
     lastName: z.string().min(1, { message: "Last name is required." }),
     heightFeet: z.number().gte(2, { message: "Height (feet) must be between 2 and 8." }).lte(8, { message: "Height (feet) must be between 2 and 8." }),

@@ -156,7 +156,7 @@ class User {
     //        { username, email, password }
     //    */
 
-    static async validatePartFiveForm({ username, email, password }: FormPartFiveData): Promise<void> {
+    static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<void> {
         const errors: string[] = [];
 
         if (!username || username.trim() === '') {
@@ -195,8 +195,10 @@ class User {
 
         if (errors.length > 0) {
             throw { messages: errors };
+        } else {
+            // After all error checks we will then create the new user account
+            this.createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password });
         }
-
     }
 
     /**
@@ -209,32 +211,6 @@ class User {
     */
 
     static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
-        const errors: string[] = [];
-
-        const checkDuplicateUser = await db.query(`
-            SELECT username 
-            FROM users
-            WHERE username = $1`, [username]
-        );
-
-        if (checkDuplicateUser.rows.length > 0) {
-            errors.push(`User already exists: ${username}`);
-        }
-
-        const checkDuplicateEmail = await db.query(`
-            SELECT email 
-            FROM users
-            WHERE email = $1`, [email]
-        );
-
-        if (checkDuplicateEmail.rows.length > 0) {
-            errors.push(`Email already in use: ${email}`);
-        }
-
-        if (errors.length > 0) {
-            throw { messages: errors };
-        }
-
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
 
         const result = await db.query(
