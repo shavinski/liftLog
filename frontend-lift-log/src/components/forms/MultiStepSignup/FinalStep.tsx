@@ -46,9 +46,9 @@ const FinalStep: FC = () => {
         const formData = {
             firstName: sessionStorage.getItem('firstName'),
             lastName: sessionStorage.getItem('lastName'),
-            heightFeet: sessionStorage.getItem('heightFeet'),
-            heightInches: sessionStorage.getItem('heightInches'),
-            weight: sessionStorage.getItem('weight'),
+            heightFeet: Number(sessionStorage.getItem('heightFeet')),
+            heightInches: Number(sessionStorage.getItem('heightInches')),
+            weight: Number(sessionStorage.getItem('weight')),
             bodyType: sessionStorage.getItem('body'),
             goal: sessionStorage.getItem('goal'),
             username: sessionStorage.getItem('username'),
@@ -58,7 +58,7 @@ const FinalStep: FC = () => {
 
         console.log(formData);
 
-        axios.post('http://localhost:3000/create/account', formData)
+        axios.post('http://localhost:3000/user/create/account/part-5-final-account-information', formData)
             .then(function (response) {
                 console.log(response);
             })
