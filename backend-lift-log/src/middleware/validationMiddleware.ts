@@ -15,7 +15,7 @@ export function validateData(schema: z.ZodObject<any, any>) {
                     message: `${issue.message}`,
                 }))
 
-                res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid data', messages: errorMessages });
+                res.status(StatusCodes.BAD_REQUEST).json({ zod: "Zod error", error: 'Invalid data', messages: errorMessages });
             } else {
                 res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
             }

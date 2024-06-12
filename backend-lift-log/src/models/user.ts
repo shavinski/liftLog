@@ -1,7 +1,6 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
-import { string } from "zod";
 
 interface createAccountData {
     firstName: string;
@@ -89,30 +88,32 @@ class User {
     //        { heightFeet, heightInches, weight }
     //    */
 
-    static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<void> {
-        const errors: string[] = [];
+    static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<{ heightFeet: number, heightInches: number, weight: number }> {
+        const errors: { message: string }[] = [];
 
         if (!heightFeet) {
-            errors.push("Height (feet) is required.");
+            errors.push({ message: "Height (feet) is required." });
         } else if (heightFeet < 2 || heightFeet > 8) {
-            errors.push("Height (feet) must be between 2 and 8");
+            errors.push({ message: "Height (feet) must be between 2 and 8" });
         }
 
         if (!heightInches) {
-            errors.push("Height (inches) is required.");
+            errors.push({ message: "Height (inches) is required." });
         } else if (heightInches < 0 || heightInches > 11) {
-            errors.push("Height (inches) must be between 0 and 11");
+            errors.push({ message: "Height (inches) must be between 0 and 11" });
         }
 
         if (!weight) {
-            errors.push("Weight is required.");
+            errors.push({ message: "Weight is required." });
         } else if (weight < 40 || weight > 1000) {
-            errors.push("Weight must be between 40 and 1000");
+            errors.push({ message: "Weight must be between 40 and 1000" });
         }
 
         if (errors.length > 0) {
             throw { messages: errors };
         }
+
+        return { heightFeet, heightInches, weight }
     }
 
     //     /**
@@ -121,7 +122,7 @@ class User {
     //        Data received should be:
     //        { body }
     //    */
-    static async validatePartThreeForm({ body }: FormPartThreeData): Promise<void> {
+    static async validatePartThreeForm({ body }: FormPartThreeData): Promise<{ body: string }> {
         const errors: string[] = [];
 
         if (!body) {
@@ -131,6 +132,8 @@ class User {
         if (errors.length > 0) {
             throw { messages: errors };
         }
+
+        return { body }
     }
 
     //     /**
@@ -140,7 +143,7 @@ class User {
     //        { goal }
     //    */
 
-    static async validatePartFourForm({ goal }: FormPartFourData): Promise<void> {
+    static async validatePartFourForm({ goal }: FormPartFourData): Promise<{ goal: string }> {
         const errors: string[] = [];
 
         if (!goal) {
@@ -150,6 +153,8 @@ class User {
         if (errors.length > 0) {
             throw { messages: errors };
         }
+
+        return { goal }
     }
 
     //     /**
@@ -166,8 +171,10 @@ class User {
             errors.push({ message: 'Username is required.' });
         }
 
-        if (!email) {
-            errors.push({ message: 'Valid email address is required.' });
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!email || emailRegex.test(email)) {
+            errors.push({ message: 'Invalid email.' });
         }
 
         if (!password) {
@@ -196,14 +203,15 @@ class User {
             errors.push({ message: `Email already in use: ${email}` });
         }
 
-        if (errors.length > 0) {
-            throw ({ errors })
-        } else {
-            // After all error checks we will then create the new user account
-            const user = this.createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password });
-            return user;
+        console.log("\n\n", errors, "\n\n")
+
+        if (errors.length > 0) { // Throw an error if there are any errors
+            throw { messages: errors };
         }
 
+        // After all error checks we will then create the new user account
+        const user = this.createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password });
+        return user;
     }
 
     /**
