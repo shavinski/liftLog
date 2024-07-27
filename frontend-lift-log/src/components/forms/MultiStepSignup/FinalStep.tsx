@@ -63,7 +63,7 @@ const FinalStep: FC = () => {
                 console.log(response);
             })
             .catch(function (error) {
-                console.log(error.message);
+                console.log(error);
             });
 
 

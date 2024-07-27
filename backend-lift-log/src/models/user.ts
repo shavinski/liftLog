@@ -167,22 +167,6 @@ class User {
     static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
         const errors: { message: string }[] = [];
 
-        if (!username || username.trim() === '') {
-            errors.push({ message: 'Username is required.' });
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!email || emailRegex.test(email)) {
-            errors.push({ message: 'Invalid email.' });
-        }
-
-        if (!password) {
-            errors.push({ message: 'Password is required.' });
-        } else if (password.length < 6 || password.length > 14) {
-            errors.push({ message: 'Password must be between 6 and 14 characters.' });
-        }
-
         const checkDuplicateUser = await db.query(`
                 SELECT username 
                 FROM users
@@ -203,27 +187,11 @@ class User {
             errors.push({ message: `Email already in use: ${email}` });
         }
 
-        console.log("\n\n", errors, "\n\n")
-
         if (errors.length > 0) { // Throw an error if there are any errors
             throw { messages: errors };
         }
 
         // After all error checks we will then create the new user account
-        const user = this.createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password });
-        return user;
-    }
-
-    /**
-        Creating a user account from the sign up form 
-        
-        Data received should be:
-        { firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }
-
-        Check if user exists with email, then throw error 
-    */
-
-    static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
         const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
 
         const result = await db.query(
@@ -256,8 +224,52 @@ class User {
         );
 
         return result.rows[0];
+    }
 
-    };
+    /**
+        Creating a user account from the sign up form 
+        
+        Data received should be:
+        { firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }
+
+        Check if user exists with email, then throw error 
+    */
+
+    // static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
+    //     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
+
+    //     const result = await db.query(
+    //         `
+    //         INSERT INTO users
+    //         (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password)
+    //         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    //         RETURNING
+    //             first_name AS "firstName",
+    //             last_name AS "lastName",
+    //             height_feet AS "heightFeet",
+    //             height_inches AS "heightInches",
+    //             weight,
+    //             body_type AS "body",
+    //             goal, 
+    //             username,
+    //             email`,
+    //         [
+    //             firstName,
+    //             lastName,
+    //             heightFeet,
+    //             heightInches,
+    //             weight,
+    //             bodyType,
+    //             goal,
+    //             username,
+    //             email,
+    //             hashedPassword
+    //         ],
+    //     );
+
+    //     return result.rows[0];
+
+    // };
 
 }
 

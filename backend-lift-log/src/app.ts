@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { NotFoundError } from './expressErrors';
+import { PORT } from './config';
 
 // ROUTE IMPORTS 
 import userRouter from './routes/userRoutes';
@@ -13,10 +14,13 @@ app.use(cors());
 // ROUTES
 app.use('/user', userRouter);
 
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
 app.post("/test", async (req: Request, res: Response) => {
     res.send("Testing this for coverage")
 });
-
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
@@ -35,7 +39,7 @@ app.use((err: Error, req: Request, res: Response) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+    console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;

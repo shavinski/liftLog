@@ -40,10 +40,11 @@ export const registerUserPart4 = async (req: Request, res: Response) => {
 
 export const registerUserPart5 = async (req: Request, res: Response) => {
     try {
+        console.log(req.body)
         const user = await User.validatePartFiveForm(req.body);
         res.status(200).json({ message: "Part 5 success", user })
     } catch (error: any) {
         console.log(error)
-        res.status(400).json({ error: 'Invalid data', messages: error.messages });
+        res.status(400).json({ uhoh: "uhoh", error: 'Invalid data', messages: error.messages });
     }
 };

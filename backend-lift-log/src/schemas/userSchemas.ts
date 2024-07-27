@@ -28,6 +28,6 @@ export const userCreateAccountPart5 = z.object({
     bodyType: z.string().min(1, { message: "Please select at least one body type" }),
     goal: z.string().min(1, { message: "Please select at least one goal." }),
     username: z.string().min(3, { message: "Username must contain 3 characters" }).max(25, { message: "Username must contain 3 characters" }),
-    email: z.string().email(),
+    email: z.string().email({ message: "Invaild email address" }),
     password: z.string().min(6, { message: "Password must be between 6 and 14 characters." }).max(14, { message: "Password must be between 6 and 14 characters." })
 });
