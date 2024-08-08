@@ -44,9 +44,7 @@ interface FormPartFiveData {
 class User {
     static async getAllUsers() {
         const result = await db.query(`
-            SELECT username,
-                   first_name as firstName,
-                   last_name as lastName
+            SELECT *
             FROM users;
         `);
 

@@ -2,6 +2,16 @@ import { Request, Response } from 'express';
 import User from '../models/user';
 
 
+
+export const getAllUsersTest = async(req: Request, res: Response) => {
+    try {
+        const result = await User.getAllUsers();
+        res.json(result);
+    } catch (err) {
+        res.status(500).send('Server Error');
+    }
+}
+
 export const registerUserPart1 = async (req: Request, res: Response) => {
     try {
         const info = await User.validatePartOneForm(req.body);
