@@ -23,6 +23,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.5",
     "rimraf": "^5.0.7",
     "typescript": "^5.4.5",
