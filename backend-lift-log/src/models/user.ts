@@ -2,7 +2,7 @@ import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
 
-interface createAccountData {
+export interface createAccountData {
     firstName: string;
     lastName: string;
     heightFeet: number;
@@ -13,6 +13,7 @@ interface createAccountData {
     username: string;
     email: string;
     password: string;
+    isAdmin?: boolean;
 }
 
 interface FormPartOneData {
@@ -162,7 +163,7 @@ class User {
     //        { username, email, password }
     //    */
 
-    static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
+    static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin}: createAccountData): Promise<createAccountData> {
         const errors: { message: string }[] = [];
 
         const checkDuplicateUser = await db.query(`
@@ -195,8 +196,8 @@ class User {
         const result = await db.query(
             `
             INSERT INTO users
-            (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password, is_admin)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             RETURNING
                 first_name AS "firstName",
                 last_name AS "lastName",
@@ -206,7 +207,8 @@ class User {
                 body_type AS "body",
                 goal, 
                 username,
-                email`,
+                email,
+                is_admin AS "isAdmin"`,
             [
                 firstName,
                 lastName,
@@ -217,7 +219,8 @@ class User {
                 goal,
                 username,
                 email,
-                hashedPassword
+                hashedPassword,
+                isAdmin
             ],
         );
 

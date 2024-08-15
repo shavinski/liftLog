@@ -229,6 +229,7 @@ describe("Testing user model", () => {
             weight: 180,
             bodyType: "Ectomorph",
             goal: "Gain muscle",
+            isAdmin: false,
         }
 
         test('should throw error if username is empty', async () => {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../models/user';
-
+import { createToken } from '../helpers/tokens';
 
 
 export const getAllUsersTest = async(req: Request, res: Response) => {
@@ -50,9 +50,11 @@ export const registerUserPart4 = async (req: Request, res: Response) => {
 
 export const registerUserPart5 = async (req: Request, res: Response) => {
     try {
-        console.log(req.body)
-        const user = await User.validatePartFiveForm(req.body);
-        res.status(200).json({ message: "Part 5 success", user })
+        const user = await User.validatePartFiveForm({...req.body, isAdmin: false});
+        console.log("user => \n\n", user)
+        // Create variable that will be helper function to create a json web token
+        const token = createToken(user);
+        res.status(200).json({ message: "Sign up success", token})
     } catch (error: any) {
         console.log(error)
         res.status(400).json({ uhoh: "uhoh", error: 'Invalid data', messages: error.messages });
