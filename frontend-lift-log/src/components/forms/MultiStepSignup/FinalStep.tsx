@@ -1,8 +1,7 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-// import { useFormProgessBar } from "./SignupForm";
+import { LiftLogApi } from "../../../api/liftLogApi";
 
 interface FormData {
     username: string,
@@ -16,7 +15,26 @@ interface ErrorData {
     password?: string,
 }
 
-const FinalStep: FC = () => {
+export interface CreateAccountData {
+    firstName: string | "";
+    lastName: string | "";
+    heightFeet: number;
+    heightInches: number;
+    weight: number;
+    bodyType: string | "";
+    goal: string | "";
+    username: string | "";
+    email: string | "";
+    password: string | "";
+    isAdmin?: boolean;
+}
+
+interface SignupFormProps {
+    signup: (formData: CreateAccountData) => Promise<void>; // Define the type for the signup function prop
+  }
+
+
+const FinalStep: FC<SignupFormProps> = ({ signup }) => {
     const navigate = useNavigate();
     // const { prevStep } = useFormProgessBar();
 
@@ -43,29 +61,21 @@ const FinalStep: FC = () => {
 
         console.log("Sending data beep boop")
 
-        const formData = {
-            firstName: sessionStorage.getItem('firstName'),
-            lastName: sessionStorage.getItem('lastName'),
+        const formData: CreateAccountData = {
+            firstName: sessionStorage.getItem('firstName') || "",
+            lastName: sessionStorage.getItem('lastName') || "",
             heightFeet: Number(sessionStorage.getItem('heightFeet')),
             heightInches: Number(sessionStorage.getItem('heightInches')),
             weight: Number(sessionStorage.getItem('weight')),
-            bodyType: sessionStorage.getItem('body'),
-            goal: sessionStorage.getItem('goal'),
-            username: sessionStorage.getItem('username'),
-            email: sessionStorage.getItem('email'),
-            password: sessionStorage.getItem('password'),
+            bodyType: sessionStorage.getItem('body') || "",
+            goal: sessionStorage.getItem('goal') || "",
+            username: sessionStorage.getItem('username') || "",
+            email: sessionStorage.getItem('email') || "",
+            password: sessionStorage.getItem('password') || "",
         };
 
-        console.log(formData);
-
-        axios.post('http://localhost:3000/user/create/account/part-5-final-account-information', formData)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
+        signup(formData);
+        console.log("Submitted data on front end");
 
         navigate("/");
         sessionStorage.clear();
@@ -73,7 +83,7 @@ const FinalStep: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/user/create/account/part-4-goal")
+        navigate("/users/create/account/part-4-goal")
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -172,7 +182,7 @@ const FinalStep: FC = () => {
                 <button
                     type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
-                >Next</button>
+                >Submit</button>
             </div>
         </form>
     )
