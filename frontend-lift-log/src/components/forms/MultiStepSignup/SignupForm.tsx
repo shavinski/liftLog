@@ -67,7 +67,7 @@ const SignupForm: FC = () => {
                     {< WelcomeMessage />}
 
                     <div>
-                        <button
+                        <button className="bg-[#00df9a] font-bold text-base p-3 rounded-tl-2xl rounded-br-2xl mt-6 md:mt-0 hover:bg-[#13FFB6] active:bg-[#00df9a] transform transition duration-300 hover:scale-105"
                             type="button"
                             onClick={handleSignupLink}>
                             Begin Today!
