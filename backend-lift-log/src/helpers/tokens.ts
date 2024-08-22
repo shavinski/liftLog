@@ -8,5 +8,5 @@ export function createToken(user: CreateAccountData ) {
         isAdmin: user.isAdmin || false,
     }
 
-    return jwt.sign(payload, SECRET_KEY);
+    return jwt.sign(payload, SECRET_KEY, {expiresIn: '1h'});
 }
