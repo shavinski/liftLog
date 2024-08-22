@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Navbar from './components/Navbar.tsx';
 import Home from "./components/Home.tsx";
+
 import LoginForm from './components/forms/LoginForm.tsx';
 import SignupForm from './components/forms/MultiStepSignup/SignupForm.tsx';
 import Step1 from './components/forms/MultiStepSignup/Step1.tsx';
@@ -9,6 +10,7 @@ import Step2 from './components/forms/MultiStepSignup/Step2.tsx';
 import Step3 from './components/forms/MultiStepSignup/Step3.tsx';
 import Step4 from './components/forms/MultiStepSignup/Step4.tsx';
 import FinalStep from './components/forms/MultiStepSignup/FinalStep.tsx';
+
 import { useEffect, useState } from 'react';
 
 import { JwtPayload, jwtDecode } from 'jwt-decode';
@@ -22,7 +24,7 @@ interface CustomJwtPayload extends JwtPayload {
 const LOCAL_STORAGE_TOKEN = "";
 
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
   const [currentUser, setCurrentUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 

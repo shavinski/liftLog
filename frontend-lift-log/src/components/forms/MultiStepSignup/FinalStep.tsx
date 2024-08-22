@@ -1,7 +1,5 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { LiftLogApi } from "../../../api/liftLogApi";
 
 interface FormData {
     username: string,
@@ -29,14 +27,13 @@ export interface CreateAccountData {
     isAdmin?: boolean;
 }
 
-interface SignupFormProps {
+export interface SignupFormProps {
     signup: (formData: CreateAccountData) => Promise<void>; // Define the type for the signup function prop
   }
 
 
 const FinalStep: FC<SignupFormProps> = ({ signup }) => {
     const navigate = useNavigate();
-    // const { prevStep } = useFormProgessBar();
 
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
@@ -82,7 +79,6 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
     }
 
     const handleBack = () => {
-        // prevStep();
         navigate("/users/create/account/part-4-goal")
     }
 
