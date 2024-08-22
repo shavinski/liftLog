@@ -56,8 +56,6 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
     const handleSubmit = () => {
         alert("Submitted")
 
-        console.log("Sending data beep boop")
-
         const formData: CreateAccountData = {
             firstName: sessionStorage.getItem('firstName') || "",
             lastName: sessionStorage.getItem('lastName') || "",
@@ -72,8 +70,6 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         };
 
         signup(formData);
-        console.log("Submitted data on front end");
-
         navigate("/");
         sessionStorage.clear();
     }
@@ -98,8 +94,6 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         sessionStorage.setItem("username", formData.username);
         sessionStorage.setItem("email", formData.email);
         sessionStorage.setItem("password", formData.password);
-
-        console.log(sessionStorage.getItem('username'), sessionStorage.getItem('email'), sessionStorage.getItem('password'))
 
         handleSubmit();
     }

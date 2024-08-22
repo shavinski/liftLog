@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { UserContext } from './context/UserContext.ts';
 
 import Navbar from './components/Navbar.tsx';
 import Home from "./components/Home.tsx";
@@ -25,7 +26,7 @@ const LOCAL_STORAGE_TOKEN = "";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
-  const [currentUser, setCurrentUser] = useState("");
+  const [user, setUser] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -35,10 +36,11 @@ function App() {
         localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
         const { username } = jwtDecode<CustomJwtPayload>(token);
         const userData = await LiftLogApi.getSingleUserData(username);
-        setCurrentUser(userData);
+        console.log("Username: ", username, "\n\n\n" + "User data App.tsx: ", userData)
+        setUser(userData.user);
       } else {
         localStorage.removeItem(LOCAL_STORAGE_TOKEN);
-        setCurrentUser("");
+        setUser(undefined);
       }
 
       setIsLoading(false);
@@ -47,7 +49,7 @@ function App() {
     getUser();
   }, [token]);
 
-   async function signup(formData: signUpData) {
+  async function signup(formData: signUpData) {
     const token = await LiftLogApi.signup(formData);
     setToken(token);
   }
@@ -69,15 +71,17 @@ function App() {
         { path: "part-2-height-weight", element: <Step2 /> },
         { path: "part-3-body-type", element: <Step3 /> },
         { path: "part-4-goal", element: <Step4 /> },
-        { path: "signup", element: <FinalStep signup={signup}/> },
+        { path: "signup", element: <FinalStep signup={signup} /> },
       ]
     },
   ]);
 
   return (
     <>
-      <Navbar />
-      <RouterProvider router={router}/>
+      <UserContext.Provider value={{ user }} >
+        <Navbar />
+        <RouterProvider router={router} />
+      </UserContext.Provider >
     </>
   );
 }

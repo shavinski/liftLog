@@ -53,9 +53,6 @@ const Step4: FC = () => {
 
         sessionStorage.setItem("goal", formData.goal);
 
-        console.log(sessionStorage.getItem('goal'))
-
-        // nextStep();
         navigate("/users/create/account/signup");
     }
 

@@ -51,9 +51,6 @@ const Step1: FC = () => {
         sessionStorage.setItem("firstName", formData.firstName);
         sessionStorage.setItem("lastName", formData.lastName);
 
-        console.log(sessionStorage.getItem('firstName'), sessionStorage.getItem('lastName'))
-
-        // nextStep();
         navigate("/users/create/account/part-2-height-weight");
     }
 

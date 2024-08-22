@@ -19,7 +19,6 @@ const LoginForm: FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Sending to server...");
         console.log(formData);
         // TODO: SEND FORM INFO TO BACKEND LATER ON
     }

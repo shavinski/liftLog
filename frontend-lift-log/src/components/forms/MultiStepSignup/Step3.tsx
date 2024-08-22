@@ -57,9 +57,6 @@ const Step3: FC = () => {
 
         sessionStorage.setItem("body", formData.body);
 
-        console.log(sessionStorage.getItem('body'));
-
-        // nextStep();
         navigate("/users/create/account/part-4-goal");
     }
 

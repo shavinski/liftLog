@@ -60,9 +60,6 @@ const Step2: FC = () => {
         sessionStorage.setItem("heightInches", formData.heightInches);
         sessionStorage.setItem("weight", formData.weight);
 
-        console.log(sessionStorage.getItem('heightFeet'), sessionStorage.getItem('heightInches'), sessionStorage.getItem("weight"));
-
-        // nextStep();
         navigate("/users/create/account/part-3-body-type");
     }
 

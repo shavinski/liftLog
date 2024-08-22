@@ -22,13 +22,12 @@ export class LiftLogApi {
 
     // Get user method for setting current user on webpage
     static async getSingleUserData(username: string) {
-        const user = await axios.get(`/users/${username}`);
+        const user = await axios.get(`${BASE_URL}/users/${username}`);
         return user.data;
     }
 
     // create a sign up method
     static async signup(formData:signUpData) {
-        console.log(formData)
         try {
             const res = await axios.post(`${BASE_URL}/users/create/signup`, formData);
             return res.data.token;
