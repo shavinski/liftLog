@@ -2,9 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 const Home = () => {
+    // Not sure how to fix this type issue with UserContext 
     const { user } = useContext(UserContext);
-
-    console.log("Current User: ", user)
 
     return (
         <div>
