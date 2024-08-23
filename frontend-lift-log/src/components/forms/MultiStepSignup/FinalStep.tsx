@@ -65,7 +65,6 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
 
     const handleSubmit = async (e: React.FormEvent ) => {
         e.preventDefault(); 
-        alert("Submitted");
         
         const formData: CreateAccountData = {
             firstName: sessionStorage.getItem('firstName') || "",
@@ -85,8 +84,15 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
             sessionStorage.clear();
             navigate("/");
         } catch (errors) {
-            console.error(errors);
-            setErrors(errors);
+            const newErrors : ErrorData = {};
+            const formErrors:any = errors;
+            console.log(errors)
+            for (const error of formErrors) {
+                if (error.message.includes("User already exists")) newErrors.username = error.message;
+                if (error.message.includes("Email already in use")) newErrors.email = error.message;
+                if (error.message.includes("Password")) newErrors.password = error.message;
+            }
+            setErrors(newErrors);
             return;
         }
     }
@@ -140,7 +146,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
                     autoComplete="username"
                     required />
             </div>
-            {errors.username && <span>{errors.username}</span>}
+            {errors.username && <span className="">{errors.username}</span>}
 
             {/* EMAIL INPUT */}
             <div className="relative mt-6">
