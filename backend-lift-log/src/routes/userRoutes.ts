@@ -30,7 +30,7 @@ userRouter.post('/create/account/part-1-user-information', validateData(userCrea
 userRouter.post('/create/account/part-2-height-weight', validateData(userCreateAccountPart2), registerUserPart2);
 userRouter.post('/create/account/part-3-body-type', validateData(userCreateAccountPart3), registerUserPart3);
 userRouter.post('/create/account/part-4-goal', validateData(userCreateAccountPart4), registerUserPart4);
-userRouter.post('/create/signup', validateData(userCreateAccountPart5), signup);
+userRouter.post('/create/account/signup', validateData(userCreateAccountPart5), signup);
 
 // userRouter.post('/login', validateData(userLoginSchema), loginUser);
 

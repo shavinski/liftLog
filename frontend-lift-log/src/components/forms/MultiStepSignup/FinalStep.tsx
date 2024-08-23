@@ -27,9 +27,19 @@ export interface CreateAccountData {
     isAdmin?: boolean;
 }
 
+interface SignupSuccessResponse {
+    token: string;
+}
+
+interface SignupErrorResponse {
+    messages: string | string[];
+}
+
+type SignupResponse = SignupSuccessResponse | SignupErrorResponse;
+
 export interface SignupFormProps {
-    signup: (formData: CreateAccountData) => Promise<void>; // Define the type for the signup function prop
-  }
+    signup: (formData: CreateAccountData) => Promise<SignupResponse>;
+}
 
 
 const FinalStep: FC<SignupFormProps> = ({ signup }) => {
@@ -41,7 +51,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         password: sessionStorage.getItem('password') ?? "",
     });
 
-    const [errors, setErrors] = useState<ErrorData>({
+    const [errors, setErrors] = useState<any>({
         username: "",
         email: "",
         password: ""
@@ -53,9 +63,10 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = () => {
-        alert("Submitted")
-
+    const handleSubmit = async (e: React.FormEvent ) => {
+        e.preventDefault(); 
+        alert("Submitted");
+        
         const formData: CreateAccountData = {
             firstName: sessionStorage.getItem('firstName') || "",
             lastName: sessionStorage.getItem('lastName') || "",
@@ -69,9 +80,15 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
             password: sessionStorage.getItem('password') || "",
         };
 
-        signup(formData);
-        navigate("/");
-        sessionStorage.clear();
+        try {
+            await signup(formData);
+            sessionStorage.clear();
+            navigate("/");
+        } catch (errors) {
+            console.error(errors);
+            setErrors(errors);
+            return;
+        }
     }
 
     const handleBack = () => {
@@ -95,7 +112,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         sessionStorage.setItem("email", formData.email);
         sessionStorage.setItem("password", formData.password);
 
-        handleSubmit();
+        handleSubmit(e);
     }
 
     return (

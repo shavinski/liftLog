@@ -64,7 +64,7 @@ class User {
                 goal,
                 body_type AS "bodyType",
                 height_feet AS "heightFeet",
-                height_inches AS "heightInches",
+                height_inches AS "hFeightInches",
                 is_admin AS "isAdmin"
             FROM users
             WHERE username = $1
@@ -209,7 +209,8 @@ class User {
             errors.push({ message: `Email already in use: ${email}` });
         }
 
-        if (errors.length > 0) { // Throw an error if there are any errors
+        // Throw an error if there are any errors
+        if (errors.length > 0) { 
             throw { messages: errors };
         }
 

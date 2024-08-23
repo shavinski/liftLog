@@ -10,7 +10,7 @@ const Home = () => {
             {!user ? (
                 <h1>WELCOME</h1>
             ) : (
-                <h1>A user logged in: {user.username}</h1>
+                <h1 className="m-5 flex flex-col justify-center items-center">A user logged in: {user.username}</h1>
             )}
         </div>
     )

@@ -15,8 +15,7 @@ import FinalStep from './components/forms/MultiStepSignup/FinalStep.tsx';
 import { useEffect, useState } from 'react';
 
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LiftLogApi } from './api/liftLogApi.ts';
-import { signUpData } from './api/liftLogApi.ts';
+import { LiftLogApi, signUpData } from './api/liftLogApi.ts';
 
 interface CustomJwtPayload extends JwtPayload {
   username: string;
@@ -36,7 +35,6 @@ function App() {
         localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
         const { username } = jwtDecode<CustomJwtPayload>(token);
         const userData = await LiftLogApi.getSingleUserData(username);
-        console.log("Username: ", username, "\n\n\n" + "User data App.tsx: ", userData)
         setUser(userData.user);
       } else {
         localStorage.removeItem(LOCAL_STORAGE_TOKEN);
@@ -50,8 +48,13 @@ function App() {
   }, [token]);
 
   async function signup(formData: signUpData) {
-    const token = await LiftLogApi.signup(formData);
-    setToken(token);
+    try {
+      const token = await LiftLogApi.signup(formData);
+      console.log(token, 'setting token here?');
+      setToken(token);
+    } catch (error) {
+      throw error;
+    }
   }
 
   const router = createBrowserRouter([
