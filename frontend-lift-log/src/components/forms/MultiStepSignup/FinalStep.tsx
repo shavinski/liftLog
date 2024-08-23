@@ -27,18 +27,8 @@ export interface CreateAccountData {
     isAdmin?: boolean;
 }
 
-interface SignupSuccessResponse {
-    token: string;
-}
-
-interface SignupErrorResponse {
-    messages: string | string[];
-}
-
-type SignupResponse = SignupSuccessResponse | SignupErrorResponse;
-
 export interface SignupFormProps {
-    signup: (formData: CreateAccountData) => Promise<SignupResponse>;
+    signup: (formData: CreateAccountData) => Promise<void>;
 }
 
 
@@ -85,7 +75,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
             navigate("/");
         } catch (errors) {
             const newErrors : ErrorData = {};
-            const formErrors:any = errors;
+            const formErrors = errors;
             console.log(errors)
             for (const error of formErrors) {
                 if (error.message.includes("User already exists")) newErrors.username = error.message;
@@ -107,9 +97,9 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         const newErrors: ErrorData = {}
-        if (!formData.username) newErrors.username = "❌ Please input a username"
-        if (!emailRegex.test(formData.email)) newErrors.email = "❌ Please input a valid email";
-        if (!formData.password) newErrors.password = "❌ Please input a password"
+        if (!formData.username) newErrors.username = "Please input a username"
+        if (!emailRegex.test(formData.email)) newErrors.email = "Please input a valid email";
+        if (!formData.password) newErrors.password = "Please input a password"
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
@@ -146,7 +136,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
                     autoComplete="username"
                     required />
             </div>
-            {errors.username && <span className="">{errors.username}</span>}
+            {errors.username && <span className="text-red-500 ml-2 text-sm">{errors.username}</span>}
 
             {/* EMAIL INPUT */}
             <div className="relative mt-6">
@@ -165,7 +155,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
                     autoComplete="email"
                     required />
             </div>
-            {errors.email && <span>{errors.email}</span>}
+            {errors.email && <span className="text-red-500 ml-2 text-sm">{errors.email}</span>}
 
             {/* PASSWORD INPUT */}
             <div className="relative mt-6">
@@ -184,7 +174,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
                     autoComplete="current-password"
                     required />
             </div>
-            {errors.password && <span>{errors.password}</span>}
+            {errors.password && <span className="text-red-500 ml-2 text-sm">{errors.password}</span>}
             <div className="flex gap-5 mt-8">
                 <button
                     type="button"

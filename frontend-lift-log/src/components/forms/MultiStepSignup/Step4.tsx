@@ -46,7 +46,7 @@ const Step4: FC = () => {
         e.preventDefault();
 
         const newErrors: ErrorData = {}
-        if (!formData.goal) newErrors.goal = "❌ Please choose one goal"
+        if (!formData.goal) newErrors.goal = "Please choose one goal"
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
@@ -69,7 +69,7 @@ const Step4: FC = () => {
                 return <GoalContainer currentValue={formData.goal} goal={goal} handleChange={handleChange} key={i} />;
             })}
 
-            {errors.goal && <span>{errors.goal}</span>}
+            {errors.goal && <span className="text-red-500 ml-2 text-sm">{errors.goal}</span>}
 
             <div className="flex gap-5 mt-8">
                 <button

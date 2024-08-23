@@ -50,7 +50,7 @@ const Step3: FC = () => {
         e.preventDefault();
 
         const newErrors: ErrorData = {}
-        if (!formData.body) newErrors.body = "❌ Please select one body type"
+        if (!formData.body) newErrors.body = "Please select one body type"
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
@@ -73,7 +73,7 @@ const Step3: FC = () => {
                 return <BodyTypeContainer currentValue={formData.body} body={type[0]} imagePath={type[1]} info={type[2]} handleChange={handleChange} key={i} />;
             })}
 
-            {errors.body && <span>{errors.body}</span>}
+            {errors.body && <span className="text-red-500 ml-2 text-sm">{errors.body}</span>}
 
             <div className="flex gap-5 mt-8">
                 <button

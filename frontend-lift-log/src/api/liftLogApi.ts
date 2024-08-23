@@ -26,7 +26,7 @@ export class LiftLogApi {
             const user = await axios.get(`${BASE_URL}/users/${username}`);
             return user.data;
         } catch (errors) {
-            console.log(error);
+            throw errors;
         }
     }
 

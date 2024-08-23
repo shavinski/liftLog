@@ -12,8 +12,8 @@ export type UserType = {
     isAdmin: boolean;
 }
 
-export type UserContextType = undefined | {
-    user: undefined | UserType;
-}
+export type UserContextType = {
+    user?: UserType;
+};
 
-export const UserContext = createContext<UserContextType>({ user: undefined });
+export const UserContext = createContext<UserContextType>({});
