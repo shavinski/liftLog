@@ -1,8 +1,5 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
-// import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
     username: string,
@@ -16,9 +13,27 @@ interface ErrorData {
     password?: string,
 }
 
-const FinalStep: FC = () => {
+export interface CreateAccountData {
+    firstName: string | "";
+    lastName: string | "";
+    heightFeet: number;
+    heightInches: number;
+    weight: number;
+    bodyType: string | "";
+    goal: string | "";
+    username: string | "";
+    email: string | "";
+    password: string | "";
+    isAdmin?: boolean;
+}
+
+export interface SignupFormProps {
+    signup: (formData: CreateAccountData) => Promise<void>;
+}
+
+
+const FinalStep: FC<SignupFormProps> = ({ signup }) => {
     const navigate = useNavigate();
-    // const { prevStep } = useFormProgessBar();
 
     const [formData, setFormData] = useState<FormData>({
         username: sessionStorage.getItem('username') ?? "",
@@ -26,7 +41,7 @@ const FinalStep: FC = () => {
         password: sessionStorage.getItem('password') ?? "",
     });
 
-    const [errors, setErrors] = useState<ErrorData>({
+    const [errors, setErrors] = useState<any>({
         username: "",
         email: "",
         password: ""
@@ -38,42 +53,42 @@ const FinalStep: FC = () => {
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = () => {
-        alert("Submitted")
-
-        console.log("Sending data beep boop")
-
-        const formData = {
-            firstName: sessionStorage.getItem('firstName'),
-            lastName: sessionStorage.getItem('lastName'),
+    const handleSubmit = async (e: React.FormEvent ) => {
+        e.preventDefault(); 
+        
+        const formData: CreateAccountData = {
+            firstName: sessionStorage.getItem('firstName') || "",
+            lastName: sessionStorage.getItem('lastName') || "",
             heightFeet: Number(sessionStorage.getItem('heightFeet')),
             heightInches: Number(sessionStorage.getItem('heightInches')),
             weight: Number(sessionStorage.getItem('weight')),
-            bodyType: sessionStorage.getItem('body'),
-            goal: sessionStorage.getItem('goal'),
-            username: sessionStorage.getItem('username'),
-            email: sessionStorage.getItem('email'),
-            password: sessionStorage.getItem('password'),
+            bodyType: sessionStorage.getItem('body') || "",
+            goal: sessionStorage.getItem('goal') || "",
+            username: sessionStorage.getItem('username') || "",
+            email: sessionStorage.getItem('email') || "",
+            password: sessionStorage.getItem('password') || "",
         };
 
-        console.log(formData);
-
-        axios.post('http://localhost:3000/user/create/account/part-5-final-account-information', formData)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-
-        navigate("/");
-        sessionStorage.clear();
+        try {
+            await signup(formData);
+            sessionStorage.clear();
+            navigate("/");
+        } catch (errors) {
+            const newErrors : ErrorData = {};
+            const formErrors = errors;
+            console.log(errors)
+            for (const error of formErrors) {
+                if (error.message.includes("User already exists")) newErrors.username = error.message;
+                if (error.message.includes("Email already in use")) newErrors.email = error.message;
+                if (error.message.includes("Password")) newErrors.password = error.message;
+            }
+            setErrors(newErrors);
+            return;
+        }
     }
 
     const handleBack = () => {
-        // prevStep();
-        navigate("/user/create/account/part-4-goal")
+        navigate("/users/create/account/part-4-goal")
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -82,9 +97,9 @@ const FinalStep: FC = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         const newErrors: ErrorData = {}
-        if (!formData.username) newErrors.username = "❌ Please input a username"
-        if (!emailRegex.test(formData.email)) newErrors.email = "❌ Please input a valid email";
-        if (!formData.password) newErrors.password = "❌ Please input a password"
+        if (!formData.username) newErrors.username = "Please input a username"
+        if (!emailRegex.test(formData.email)) newErrors.email = "Please input a valid email";
+        if (!formData.password) newErrors.password = "Please input a password"
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
@@ -93,9 +108,7 @@ const FinalStep: FC = () => {
         sessionStorage.setItem("email", formData.email);
         sessionStorage.setItem("password", formData.password);
 
-        console.log(sessionStorage.getItem('username'), sessionStorage.getItem('email'), sessionStorage.getItem('password'))
-
-        handleSubmit();
+        handleSubmit(e);
     }
 
     return (
@@ -123,7 +136,7 @@ const FinalStep: FC = () => {
                     autoComplete="username"
                     required />
             </div>
-            {errors.username && <span>{errors.username}</span>}
+            {errors.username && <span className="text-red-500 ml-2 text-sm">{errors.username}</span>}
 
             {/* EMAIL INPUT */}
             <div className="relative mt-6">
@@ -142,7 +155,7 @@ const FinalStep: FC = () => {
                     autoComplete="email"
                     required />
             </div>
-            {errors.email && <span>{errors.email}</span>}
+            {errors.email && <span className="text-red-500 ml-2 text-sm">{errors.email}</span>}
 
             {/* PASSWORD INPUT */}
             <div className="relative mt-6">
@@ -161,7 +174,7 @@ const FinalStep: FC = () => {
                     autoComplete="current-password"
                     required />
             </div>
-            {errors.password && <span>{errors.password}</span>}
+            {errors.password && <span className="text-red-500 ml-2 text-sm">{errors.password}</span>}
             <div className="flex gap-5 mt-8">
                 <button
                     type="button"
@@ -172,7 +185,7 @@ const FinalStep: FC = () => {
                 <button
                     type="submit"
                     className="w-1/2 p-3 bg-[#00df9a] rounded-md hover:bg-[#10B981] text-white font-bold text-xl"
-                >Next</button>
+                >Submit</button>
             </div>
         </form>
     )

@@ -8,7 +8,16 @@ export const getAllUsersTest = async(req: Request, res: Response) => {
         const result = await User.getAllUsers();
         res.json(result);
     } catch (err) {
-        res.status(500).send('Server Error');
+        res.status(400).send('Cannot find this source');
+    }
+}
+
+export const getSingleUserData = async(req: Request, res: Response) => {
+    try {
+        const user = await User.getSingleUserData(req.params.username);
+        return res.json({user});
+    } catch (err) {
+        res.status(400).send("User not found");
     }
 }
 
@@ -48,13 +57,11 @@ export const registerUserPart4 = async (req: Request, res: Response) => {
     }
 };
 
-export const registerUserPart5 = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
     try {
-        const user = await User.validatePartFiveForm({...req.body, isAdmin: false});
-        console.log("user => \n\n", user)
-        // Create variable that will be helper function to create a json web token
+        const user = await User.signup({...req.body, isAdmin: false});
         const token = createToken(user);
-        res.status(200).json({ message: "Sign up success", token})
+        return res.status(200).json({ message: "Sign up success", token})
     } catch (error: any) {
         console.log(error)
         res.status(400).json({ uhoh: "uhoh", error: 'Invalid data', messages: error.messages });

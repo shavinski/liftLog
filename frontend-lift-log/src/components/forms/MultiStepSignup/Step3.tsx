@@ -43,24 +43,21 @@ const Step3: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/user/create/account/part-2-height-weight");
+        navigate("/users/create/account/part-2-height-weight");
     }
 
     const validateForm = (e: React.FormEvent) => {
         e.preventDefault();
 
         const newErrors: ErrorData = {}
-        if (!formData.body) newErrors.body = "❌ Please select one body type"
+        if (!formData.body) newErrors.body = "Please select one body type"
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
 
         sessionStorage.setItem("body", formData.body);
 
-        console.log(sessionStorage.getItem('body'));
-
-        // nextStep();
-        navigate("/user/create/account/part-4-goal");
+        navigate("/users/create/account/part-4-goal");
     }
 
     return (
@@ -76,7 +73,7 @@ const Step3: FC = () => {
                 return <BodyTypeContainer currentValue={formData.body} body={type[0]} imagePath={type[1]} info={type[2]} handleChange={handleChange} key={i} />;
             })}
 
-            {errors.body && <span>{errors.body}</span>}
+            {errors.body && <span className="text-red-500 ml-2 text-sm">{errors.body}</span>}
 
             <div className="flex gap-5 mt-8">
                 <button

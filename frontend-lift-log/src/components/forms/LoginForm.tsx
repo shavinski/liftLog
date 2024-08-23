@@ -19,7 +19,6 @@ const LoginForm: FC = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Sending to server...");
         console.log(formData);
         // TODO: SEND FORM INFO TO BACKEND LATER ON
     }
@@ -69,7 +68,7 @@ const LoginForm: FC = () => {
             </form>
 
             <small className="text-center m-5">
-                Not a member? <Link to="/user/create/account" className="text-blue-700"> Sign up here!</Link>
+                Not a member? <Link to="/users/create/account" className="text-blue-700"> Sign up here!</Link>
             </small>
         </div>
     );

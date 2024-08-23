@@ -220,7 +220,7 @@ describe("Testing user model", () => {
         });
     });
 
-    describe("validatePartFiveForm", () => {
+    describe("signup", () => {
         const extraData = {
             firstName: "test-fn",
             lastName: "test-ln",
@@ -236,7 +236,7 @@ describe("Testing user model", () => {
             const mockData = { ...extraData, username: "", email: "test@gmail.com", password: "testpass" };
 
             try {
-                await User.validatePartFiveForm(mockData);
+                await User.signup(mockData);
             } catch (error) {
                 expect(error).toEqual({
                     messages: [
@@ -250,7 +250,7 @@ describe("Testing user model", () => {
             const mockData = { ...extraData, username: "test-user", email: "", password: "testpass" };
 
             try {
-                await User.validatePartFiveForm(mockData);
+                await User.signup(mockData);
             } catch (error) {
                 expect(error).toEqual({
                     messages: [

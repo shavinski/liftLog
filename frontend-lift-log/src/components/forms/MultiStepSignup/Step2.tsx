@@ -38,7 +38,7 @@ const Step2: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/user/create/account/part-1-user-information");
+        navigate("/users/create/account/part-1-user-information");
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -49,9 +49,9 @@ const Step2: FC = () => {
         const weightInt = parseInt(formData.weight);
 
         const newErrors: ErrorData = {}
-        if (!formData.heightFeet || heightFeetInt < 2 || heightFeetInt > 8) newErrors.heightFeet = "❌ Input a height (feet) between 2 and 8"
-        if (!formData.heightInches || heightInchesInt < 0 || heightInchesInt > 11) newErrors.heightInches = "❌ Input a height (inches) between 0 and 11"
-        if (!formData.weight || weightInt > 1000 || weightInt < 40) newErrors.weight = "❌ Input a weight between 40 and 1000";
+        if (!formData.heightFeet || heightFeetInt < 2 || heightFeetInt > 8) newErrors.heightFeet = "Input a height (feet) between 2 and 8"
+        if (!formData.heightInches || heightInchesInt < 0 || heightInchesInt > 11) newErrors.heightInches = "Input a height (inches) between 0 and 11"
+        if (!formData.weight || weightInt > 1000 || weightInt < 40) newErrors.weight = "Input a weight between 40 and 1000";
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length > 0) return;
@@ -60,10 +60,7 @@ const Step2: FC = () => {
         sessionStorage.setItem("heightInches", formData.heightInches);
         sessionStorage.setItem("weight", formData.weight);
 
-        console.log(sessionStorage.getItem('heightFeet'), sessionStorage.getItem('heightInches'), sessionStorage.getItem("weight"));
-
-        // nextStep();
-        navigate("/user/create/account/part-3-body-type");
+        navigate("/users/create/account/part-3-body-type");
     }
 
     return (
@@ -111,8 +108,8 @@ const Step2: FC = () => {
             </div>
 
             <div className="flex flex-col">
-                {errors.heightFeet && <span>{errors.heightFeet}</span>}
-                {errors.heightInches && <span>{errors.heightInches}</span>}
+                {errors.heightFeet && <span className="text-red-500 ml-2 text-sm">{errors.heightFeet}</span>}
+                {errors.heightInches && <span className="text-red-500 ml-2 text-sm">{errors.heightInches}</span>}
             </div>
 
             <h1 className="font-bold text-left mt-6 mb-3 text-lg">What is your current weight?</h1>
@@ -136,7 +133,7 @@ const Step2: FC = () => {
                 </div>
             </div>
 
-            {errors.weight && <span>{errors.weight}</span>}
+            {errors.weight && <span className="text-red-500 ml-2 text-sm">{errors.weight}</span>}
 
             <div className="flex gap-5 mt-8">
                 <button

@@ -2,7 +2,7 @@ import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
 
-export interface createAccountData {
+export interface CreateAccountData {
     firstName: string;
     lastName: string;
     heightFeet: number;
@@ -53,6 +53,29 @@ class User {
 
         return allUsers;
     };
+
+    // Get single user data by using their unique username 
+    static async getSingleUserData(username: string) {
+        const result = await db.query(`
+            SELECT username,
+                first_name AS "firstName",
+                last_name AS "lastName",
+                email,
+                goal,
+                body_type AS "bodyType",
+                height_feet AS "heightFeet",
+                height_inches AS "hFeightInches",
+                is_admin AS "isAdmin"
+            FROM users
+            WHERE username = $1
+            `,
+            [
+                username
+            ]
+        );
+
+        return result.rows[0];
+    }
 
 
     /**
@@ -163,7 +186,7 @@ class User {
     //        { username, email, password }
     //    */
 
-    static async validatePartFiveForm({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin}: createAccountData): Promise<createAccountData> {
+    static async signup({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin }: CreateAccountData): Promise<CreateAccountData> {
         const errors: { message: string }[] = [];
 
         const checkDuplicateUser = await db.query(`
@@ -186,7 +209,8 @@ class User {
             errors.push({ message: `Email already in use: ${email}` });
         }
 
-        if (errors.length > 0) { // Throw an error if there are any errors
+        // Throw an error if there are any errors
+        if (errors.length > 0) { 
             throw { messages: errors };
         }
 
@@ -226,52 +250,6 @@ class User {
 
         return result.rows[0];
     }
-
-    /**
-        Creating a user account from the sign up form 
-        
-        Data received should be:
-        { firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }
-
-        Check if user exists with email, then throw error 
-    */
-
-    // static async createAccount({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password }: createAccountData): Promise<createAccountData> {
-    //     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR)
-
-    //     const result = await db.query(
-    //         `
-    //         INSERT INTO users
-    //         (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password)
-    //         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-    //         RETURNING
-    //             first_name AS "firstName",
-    //             last_name AS "lastName",
-    //             height_feet AS "heightFeet",
-    //             height_inches AS "heightInches",
-    //             weight,
-    //             body_type AS "body",
-    //             goal, 
-    //             username,
-    //             email`,
-    //         [
-    //             firstName,
-    //             lastName,
-    //             heightFeet,
-    //             heightInches,
-    //             weight,
-    //             bodyType,
-    //             goal,
-    //             username,
-    //             email,
-    //             hashedPassword
-    //         ],
-    //     );
-
-    //     return result.rows[0];
-
-    // };
-
 }
 
 export default User;
