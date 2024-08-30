@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { CreateAccountData } from '../models/user';
+import { LoginData, SignupData } from '../models/user';
 import { SECRET_KEY } from '../config';
 
-export function createToken(user: CreateAccountData ) {
+export function createToken(user: SignupData | LoginData) {
     let payload = {
         username: user.username,
         isAdmin: user.isAdmin || false,

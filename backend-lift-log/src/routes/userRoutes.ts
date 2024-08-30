@@ -9,7 +9,8 @@ import {
     userCreateAccountPart2,
     userCreateAccountPart3,
     userCreateAccountPart4,
-    userCreateAccountPart5
+    userCreateAccountPart5,
+    userLoginSchema,
 } from '../schemas/userSchemas';
 
 
@@ -20,7 +21,8 @@ import {
     registerUserPart2,
     registerUserPart3,
     registerUserPart4,
-    signup
+    signup,
+    login
 } from './userController';
 
 userRouter.get('/all', getAllUsersTest);
@@ -32,6 +34,6 @@ userRouter.post('/create/account/part-3-body-type', validateData(userCreateAccou
 userRouter.post('/create/account/part-4-goal', validateData(userCreateAccountPart4), registerUserPart4);
 userRouter.post('/create/account/signup', validateData(userCreateAccountPart5), signup);
 
-// userRouter.post('/login', validateData(userLoginSchema), loginUser);
+userRouter.post('/account/login', validateData(userLoginSchema), login);
 
 export default userRouter;

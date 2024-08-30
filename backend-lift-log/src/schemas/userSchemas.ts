@@ -31,3 +31,8 @@ export const userCreateAccountPart5 = z.object({
     email: z.string().email({ message: "Invaild email address" }),
     password: z.string().min(6, { message: "Password must be between 6 and 14 characters." }).max(14, { message: "Password must be between 6 and 14 characters." })
 });
+
+export const userLoginSchema = z.object({
+    username: z.string().min(1, "Username is required"),
+    password: z.string().min(1, "Password is required"),
+})

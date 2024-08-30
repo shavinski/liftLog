@@ -2,13 +2,13 @@ import React, { useState, FC } from "react";
 import { Link } from "react-router-dom";
 
 interface LoginFormData {
-    email: string;
+    username: string;
     password: string;
 }
 
 const LoginForm: FC = () => {
     const [formData, setFormData] = useState<LoginFormData>({
-        email: "",
+        username: "",
         password: "",
     });
 
@@ -33,15 +33,15 @@ const LoginForm: FC = () => {
                 <div className="relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
-                        htmlFor="email">
-                        Email Address
+                        htmlFor="username">
+                        Username
                     </label>
                     <input
-                        value={formData.email} onChange={handleChange}
+                        value={formData.username} onChange={handleChange}
                         className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
-                        type="email"
-                        name="email"
-                        id="email" />
+                        type="username"
+                        name="username"
+                        id="username" />
                 </div>
 
                 {/* PASSWORD INPUT */}

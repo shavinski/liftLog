@@ -21,6 +21,18 @@ export const getSingleUserData = async(req: Request, res: Response) => {
     }
 }
 
+export const login = async (req: Request, res: Response) => {
+    try {
+        const user = await User.login({...req.body});
+        const token = createToken(user);
+        return res.status(200).json({ message: "Log in success", token})
+    } catch (error: any) {
+        console.log(error)
+        res.status(400).json({ error: 'Invalid data', messages: error.messages });
+    }
+};
+
+
 export const registerUserPart1 = async (req: Request, res: Response) => {
     try {
         const info = await User.validatePartOneForm(req.body);
