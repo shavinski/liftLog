@@ -153,10 +153,15 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
+- [ ] Create Log In/ Sign up functionality
+  - [x] Users can sign up and create an account
+  - [ ] Users can log into an exisiting account  
+- [ ] Gym Program Creation   
+  - [ ] Users can create their own workouts with titles
+  - [ ] Users can put in their exerices in their workout programs
+  - [ ] Users can add the sets and exercises
+  - [ ] Users can add the current weight they are lifting
+  - [ ] User should be able to create, update and delete different programs 
 
 See the [open issues](https://github.com/shavinski/liftLog/issues) for a full list of proposed features (and known issues).
 
