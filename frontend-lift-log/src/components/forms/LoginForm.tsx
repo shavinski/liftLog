@@ -1,26 +1,39 @@
 import React, { useState, FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginFormData {
-    email: string;
+    username: string;
     password: string;
 }
 
-const LoginForm: FC = () => {
+export interface LoginFormProps {
+    login: (formData: LoginFormData) => Promise<void>;
+}
+
+const LoginForm: FC<LoginFormProps> = ({login}) => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState<LoginFormData>({
-        email: "",
+        username: "",
         password: "",
     });
+
+    const [error, setError] = useState<string>("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formData);
-        // TODO: SEND FORM INFO TO BACKEND LATER ON
+        try {
+            await login(formData);
+            navigate("/");
+        } catch (error) {
+            setError(error)
+            console.log("error here in login:", error)
+        }
     }
 
     return (
@@ -29,19 +42,19 @@ const LoginForm: FC = () => {
 
             <form className="flex flex-col w-full p-4 md:shadow-custom" onSubmit={handleSubmit}>
 
-                {/* EMAIL INPUT */}
+                {/* USERNAME INPUT */}
                 <div className="relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
-                        htmlFor="email">
-                        Email Address
+                        htmlFor="username">
+                        Username
                     </label>
                     <input
-                        value={formData.email} onChange={handleChange}
+                        value={formData.username} onChange={handleChange}
                         className="mt-4 mb-2 p-3 text-lg w-full border-solid border-4 border-light-grey-500"
-                        type="email"
-                        name="email"
-                        id="email" />
+                        type="username"
+                        name="username"
+                        id="username" />
                 </div>
 
                 {/* PASSWORD INPUT */}
@@ -58,6 +71,8 @@ const LoginForm: FC = () => {
                         name="password"
                         id="password" />
                 </div>
+
+            {error && <span className="text-red-500 ml-2 text-sm">{error}</span>}
 
                 {/* SUBMIT BUTTON */}
                 <button

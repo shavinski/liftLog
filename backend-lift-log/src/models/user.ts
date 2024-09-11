@@ -2,7 +2,13 @@ import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
 
-export interface CreateAccountData {
+export interface LoginData {
+    username: string;
+    password: string;
+    isAdmin?: boolean;
+}
+
+export interface SignupData {
     firstName: string;
     lastName: string;
     heightFeet: number;
@@ -77,6 +83,29 @@ class User {
         return result.rows[0];
     }
 
+
+    static async login({ username, password }: LoginData): Promise<{ username: string, isAdmin: boolean }> {
+        const errors: string[] = [];
+
+        const result = await db.query(`
+            SELECT username,
+                    password,
+                    is_admin AS "isAdmin"
+                    FROM users
+                    WHERE username = $1
+        `, [username]);
+
+        const user = result.rows[0];
+        const validatePassowrd = await bcrypt.compare(password, user.password);
+        
+        delete user.password;
+
+        if (!user || !validatePassowrd) {
+            throw { messages: ["Invalid username or password"] }
+        }
+
+        return user;
+    }
 
     /**
        Getting user first name and last name from sign up form
@@ -186,7 +215,7 @@ class User {
     //        { username, email, password }
     //    */
 
-    static async signup({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin }: CreateAccountData): Promise<CreateAccountData> {
+    static async signup({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin }: SignupData): Promise<SignupData> {
         const errors: { message: string }[] = [];
 
         const checkDuplicateUser = await db.query(`
@@ -210,7 +239,7 @@ class User {
         }
 
         // Throw an error if there are any errors
-        if (errors.length > 0) { 
+        if (errors.length > 0) {
             throw { messages: errors };
         }
 

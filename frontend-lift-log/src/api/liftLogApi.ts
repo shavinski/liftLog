@@ -16,6 +16,11 @@ export type signUpData = {
     isAdmin?: boolean;
 };
 
+export type loginData = {
+    username: string,
+    password: string
+}
+
 export class LiftLogApi {
 
     static token = "";
@@ -44,5 +49,15 @@ export class LiftLogApi {
         }
 
     // create a login method 
+        static async login(formData: loginData) {
+            try {
+                const res = await axios.post(`${BASE_URL}/users/account/login`, formData);
+                return res.data.token;
+            } catch (error) {
+                const isAxiosError = axios.isAxiosError(error);
+                const messages = isAxiosError ? error?.response?.data.messages : "An unexpected error occured";
+                throw messages;
+            }
+        }
 
 }

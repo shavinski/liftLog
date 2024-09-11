@@ -15,7 +15,7 @@ import FinalStep from './components/forms/MultiStepSignup/FinalStep.tsx';
 import { useEffect, useState } from 'react';
 
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LiftLogApi, signUpData } from './api/liftLogApi.ts';
+import { LiftLogApi, loginData, signUpData } from './api/liftLogApi.ts';
 
 interface CustomJwtPayload extends JwtPayload {
   username: string;
@@ -50,11 +50,20 @@ function App() {
   async function signup(formData: signUpData) {
     try {
       const token = await LiftLogApi.signup(formData);
-      console.log(token, 'setting token here?');
       setToken(token);
     } catch (error) {
       throw error;
     }
+  }
+
+  async function login(formData: loginData) {
+    try {
+      const token = await LiftLogApi.login(formData);
+      setToken(token);
+    } catch (error) {
+      throw error;
+    }
+    
   }
 
   const router = createBrowserRouter([
@@ -64,7 +73,7 @@ function App() {
     },
     {
       path: "/account/login",
-      element: <LoginForm />
+      element: <LoginForm login={login}/>
     },
     {
       path: "/users/create/account",
