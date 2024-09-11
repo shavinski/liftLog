@@ -2,7 +2,12 @@ import jwt from 'jsonwebtoken';
 import { LoginData, SignupData } from '../models/user';
 import { SECRET_KEY } from '../config';
 
-export function createToken(user: SignupData | LoginData) {
+interface LoginToken {
+    username: string,
+    isAdmin: boolean
+}
+
+export function createToken(user: SignupData | LoginToken) {
     let payload = {
         username: user.username,
         isAdmin: user.isAdmin || false,

@@ -97,14 +97,12 @@ class User {
 
         const user = result.rows[0];
         const validatePassowrd = await bcrypt.compare(password, user.password);
+        
+        delete user.password;
 
-        console.log(validatePassowrd);
-    
         if (!user || !validatePassowrd) {
             throw { messages: ["Invalid username or password"] }
         }
-
-        delete user.password;
 
         return user;
     }

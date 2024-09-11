@@ -76,7 +76,6 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         } catch (errors) {
             const newErrors : ErrorData = {};
             const formErrors = errors;
-            console.log(errors)
             for (const error of formErrors) {
                 if (error.message.includes("User already exists")) newErrors.username = error.message;
                 if (error.message.includes("Email already in use")) newErrors.email = error.message;

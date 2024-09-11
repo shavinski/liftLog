@@ -1,26 +1,39 @@
 import React, { useState, FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginFormData {
     username: string;
     password: string;
 }
 
-const LoginForm: FC = () => {
+export interface LoginFormProps {
+    login: (formData: LoginFormData) => Promise<void>;
+}
+
+const LoginForm: FC<LoginFormProps> = ({login}) => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState<LoginFormData>({
         username: "",
         password: "",
     });
+
+    const [error, setError] = useState<string>("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(formData);
-        // TODO: SEND FORM INFO TO BACKEND LATER ON
+        try {
+            await login(formData);
+            navigate("/");
+        } catch (error) {
+            setError(error)
+            console.log("error here in login:", error)
+        }
     }
 
     return (
@@ -29,7 +42,7 @@ const LoginForm: FC = () => {
 
             <form className="flex flex-col w-full p-4 md:shadow-custom" onSubmit={handleSubmit}>
 
-                {/* EMAIL INPUT */}
+                {/* USERNAME INPUT */}
                 <div className="relative">
                     <label
                         className="absolute bg-white text-md left-3 p-1"
@@ -58,6 +71,8 @@ const LoginForm: FC = () => {
                         name="password"
                         id="password" />
                 </div>
+
+            {error && <span className="text-red-500 ml-2 text-sm">{error}</span>}
 
                 {/* SUBMIT BUTTON */}
                 <button
