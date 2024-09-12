@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
-const Navbar = () => {
+
+interface NavbarProps {
+    logout: () => void;
+}
+
+const Navbar:FC<NavbarProps> = ({logout}) => {
     const [nav, setNav] = useState(false);
 
     const handleNav = () => {

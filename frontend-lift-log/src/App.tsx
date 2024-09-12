@@ -66,6 +66,11 @@ function App() {
     
   }
 
+  function logout() {
+    LiftLogApi.logout();
+    setToken("");
+  }
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -91,7 +96,7 @@ function App() {
   return (
     <>
       <UserContext.Provider value={{ user }} >
-        <Navbar />
+        <Navbar logout={logout} />
         <RouterProvider router={router} />
       </UserContext.Provider >
     </>

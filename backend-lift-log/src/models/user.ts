@@ -280,6 +280,8 @@ class User {
         throw { messages: ["Invalid username or password"] }
     }
 
+    
+
 }
 
 export default User;
