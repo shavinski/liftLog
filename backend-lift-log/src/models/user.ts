@@ -83,30 +83,6 @@ class User {
         return result.rows[0];
     }
 
-
-    static async login({ username, password }: LoginData): Promise<{ username: string, isAdmin: boolean }> {
-        const errors: string[] = [];
-
-        const result = await db.query(`
-            SELECT username,
-                    password,
-                    is_admin AS "isAdmin"
-                    FROM users
-                    WHERE username = $1
-        `, [username]);
-
-        const user = result.rows[0];
-        const validatePassowrd = await bcrypt.compare(password, user.password);
-        
-        delete user.password;
-
-        if (!user || !validatePassowrd) {
-            throw { messages: ["Invalid username or password"] }
-        }
-
-        return user;
-    }
-
     /**
        Getting user first name and last name from sign up form
        
@@ -279,6 +255,31 @@ class User {
 
         return result.rows[0];
     }
+
+    static async login({ username, password }: LoginData): Promise<{ username: string, isAdmin: boolean }> {
+        
+        const result = await db.query(`
+            SELECT username,
+                    password,
+                    is_admin AS "isAdmin"
+                    FROM users
+                    WHERE username = $1
+        `, [username]);
+
+        const user = result.rows[0];
+
+        if (user) {
+            const validatePassowrd = await bcrypt.compare(password, user.password);
+
+            if (validatePassowrd) {
+                delete user.password;
+                return user;
+            }
+        }
+        
+        throw { messages: ["Invalid username or password"] }
+    }
+
 }
 
 export default User;
