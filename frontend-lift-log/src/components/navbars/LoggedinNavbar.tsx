@@ -15,7 +15,7 @@ const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
 
     const navItems = [
         { id: 1, text: 'Home', location: '/' },
-        { id: 2, text: 'Log In', location: '/account/login' },
+        { id: 2, text: 'Log Out', location: '/'},
     ];
 
     return (
@@ -31,8 +31,15 @@ const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
             <ul className='hidden md:flex'>
                 {navItems.map(item => (
                     <li key={item.id}>
-                        <a href={item.location} className='p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer duration-300 hover:text-black'>{item.text}</a>
-                    </li>
+                
+                    <a 
+                        href={item.location} 
+                        className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'
+                        onClick={item.text == "Log Out" ? logout : undefined}
+                        >
+                            {item.text}
+                        </a>
+                </li>
                 ))}
             </ul>
 
@@ -58,7 +65,14 @@ const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
                 {/* Mobile Navigation Items */}
                 {navItems.map(item => (
                     <li key={item.id}>
-                        <a href={item.location} className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'>{item.text}</a>
+                        
+                        <a 
+                            href={item.location} 
+                            className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'
+                            onClick={item.text == "Log Out" ? logout : undefined}
+                            >
+                                {item.text}
+                            </a>
                     </li>
                 ))}
             </ul>

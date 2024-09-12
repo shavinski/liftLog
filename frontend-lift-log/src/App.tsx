@@ -15,7 +15,7 @@ import FinalStep from './components/forms/MultiStepSignup/FinalStep.tsx';
 import { useEffect, useState } from 'react';
 
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LiftLogApi, loginData, signUpData } from './api/liftLogApi.ts';
+import { LiftLogApi, loginData, signUpData } from './api/LiftLogApi.ts';
 
 interface CustomJwtPayload extends JwtPayload {
   username: string;
@@ -63,11 +63,11 @@ function App() {
     } catch (error) {
       throw error;
     }
-    
   }
 
   function logout() {
     LiftLogApi.logout();
+    console.log("Execute log out on app")
     setToken("");
   }
 
