@@ -6,7 +6,7 @@ interface NavbarProps {
     logout: () => void;
 }
 
-const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
+const LoggedinNavbar: FC<NavbarProps> = ({ logout }) => {
     const [nav, setNav] = useState(false);
 
     const handleNav = () => {
@@ -15,7 +15,7 @@ const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
 
     const navItems = [
         { id: 1, text: 'Home', location: '/' },
-        { id: 2, text: 'Log Out', location: '/'},
+        { id: 2, text: 'Log Out', location: '/' },
     ];
 
     return (
@@ -31,15 +31,15 @@ const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
             <ul className='hidden md:flex'>
                 {navItems.map(item => (
                     <li key={item.id}>
-                
-                    <a 
-                        href={item.location} 
-                        className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'
-                        onClick={item.text == "Log Out" ? logout : undefined}
+
+                        <a
+                            href={item.location}
+                            className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'
+                            onClick={item.text == "Log Out" ? logout : undefined}
                         >
                             {item.text}
                         </a>
-                </li>
+                    </li>
                 ))}
             </ul>
 
@@ -65,14 +65,14 @@ const LoggedinNavbar:FC<NavbarProps> = ({logout}) => {
                 {/* Mobile Navigation Items */}
                 {navItems.map(item => (
                     <li key={item.id}>
-                        
-                        <a 
-                            href={item.location} 
+
+                        <a
+                            href={item.location}
                             className='flex p-4 hover:bg-[#00df9a] rounded-xl m-2 cursor-pointer hover:text-black'
                             onClick={item.text == "Log Out" ? logout : undefined}
-                            >
-                                {item.text}
-                            </a>
+                        >
+                            {item.text}
+                        </a>
                     </li>
                 ))}
             </ul>

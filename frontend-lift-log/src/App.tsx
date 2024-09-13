@@ -1,21 +1,23 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { UserContext } from './context/UserContext.ts';
 
-import Navbar from './components/Navbar.tsx';
+import Navbar from './components/navbars/Navbar.tsx';
 import Home from "./components/Home.tsx";
 
 import LoginForm from './components/forms/LoginForm.tsx';
 import SignupForm from './components/forms/MultiStepSignup/SignupForm.tsx';
-import Step1 from './components/forms/MultiStepSignup/Step1.tsx';
-import Step2 from './components/forms/MultiStepSignup/Step2.tsx';
-import Step3 from './components/forms/MultiStepSignup/Step3.tsx';
-import Step4 from './components/forms/MultiStepSignup/Step4.tsx';
-import FinalStep from './components/forms/MultiStepSignup/FinalStep.tsx';
+import Step1 from './components/forms/MultiStepSignup/Part1.tsx';
+import Step2 from './components/forms/MultiStepSignup/Part2.tsx';
+import Step3 from './components/forms/MultiStepSignup/Part3.tsx';
+import Step4 from './components/forms/MultiStepSignup/Part4.tsx';
+import FinalStep from './components/forms/MultiStepSignup/Signup.tsx';
 
 import { useEffect, useState } from 'react';
 
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LiftLogApi, loginData, signUpData } from './api/LiftLogApi.ts';
+import { LiftLogApi, loginData, signUpData } from './api/LiftLogApi.ts'
+
+import authEndpoints from './constants/urls.ts';
 
 interface CustomJwtPayload extends JwtPayload {
   username: string;
@@ -77,18 +79,18 @@ function App() {
       element: <Home />
     },
     {
-      path: "/account/login",
-      element: <LoginForm login={login}/>
+      path: `/auth/${authEndpoints.loginPath}`,
+      element: <LoginForm login={login} />
     },
     {
-      path: "/users/create/account",
+      path: "/auth",
       element: <SignupForm />,
       children: [
-        { path: "part-1-user-information", element: <Step1 /> },
-        { path: "part-2-height-weight", element: <Step2 /> },
-        { path: "part-3-body-type", element: <Step3 /> },
-        { path: "part-4-goal", element: <Step4 /> },
-        { path: "signup", element: <FinalStep signup={signup} /> },
+        { path: authEndpoints.part1Path, element: <Step1 /> },
+        { path: authEndpoints.part2Path, element: <Step2 /> },
+        { path: authEndpoints.part3Path, element: <Step3 /> },
+        { path: authEndpoints.part4Path, element: <Step4 /> },
+        { path: authEndpoints.signupPath, element: <FinalStep signup={signup} /> },
       ]
     },
   ]);

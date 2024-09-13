@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import authEndpoints from "../../../constants/urls";
 // import { useFormProgessBar } from "./SignupForm";
 
 interface FormData {
@@ -14,7 +15,7 @@ interface ErrorData {
     weight?: string,
 }
 
-const Step2: FC = () => {
+const Part2: FC = () => {
     const navigate = useNavigate();
     // const { nextStep, prevStep } = useFormProgessBar();
 
@@ -38,7 +39,7 @@ const Step2: FC = () => {
 
     const handleBack = () => {
         // prevStep();
-        navigate("/users/create/account/part-1-user-information");
+        navigate(`/auth/${authEndpoints.part1Path}`);
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -60,7 +61,7 @@ const Step2: FC = () => {
         sessionStorage.setItem("heightInches", formData.heightInches);
         sessionStorage.setItem("weight", formData.weight);
 
-        navigate("/users/create/account/part-3-body-type");
+        navigate(`/auth/${authEndpoints.part3Path}`);
     }
 
     return (
@@ -151,4 +152,4 @@ const Step2: FC = () => {
     )
 }
 
-export default Step2;
+export default Part2;
