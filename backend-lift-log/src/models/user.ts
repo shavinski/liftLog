@@ -257,7 +257,8 @@ class User {
     }
 
     static async login({ username, password }: LoginData): Promise<{ username: string, isAdmin: boolean }> {
-        
+        const errors: { message: string }[] = [];
+
         const result = await db.query(`
             SELECT username,
                     password,
@@ -275,12 +276,14 @@ class User {
                 delete user.password;
                 return user;
             }
+        } else {
+            errors.push({ message: "Invalid username or passwrod" });
         }
-        
-        throw { messages: ["Invalid username or password"] }
+
+        throw { messages: [{ message: "Invalid username or password" }] }
     }
 
-    
+
 
 }
 

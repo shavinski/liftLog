@@ -45,7 +45,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         username: "",
         email: "",
         password: ""
-    })
+    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

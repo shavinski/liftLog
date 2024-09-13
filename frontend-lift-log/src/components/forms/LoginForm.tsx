@@ -6,11 +6,17 @@ interface LoginFormData {
     password: string;
 }
 
+interface ErrorData {
+    username?: string,
+    password?: string,
+    invalid?: string,
+}
+
 export interface LoginFormProps {
     login: (formData: LoginFormData) => Promise<void>;
 }
 
-const LoginForm: FC<LoginFormProps> = ({login}) => {
+const LoginForm: FC<LoginFormProps> = ({ login }) => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState<LoginFormData>({
@@ -18,8 +24,11 @@ const LoginForm: FC<LoginFormProps> = ({login}) => {
         password: "",
     });
 
-    const [error, setError] = useState<string>("");
-
+    const [errors, setErrors] = useState<any>({
+        username: "",
+        email: "",
+        password: ""
+    });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
@@ -30,9 +39,16 @@ const LoginForm: FC<LoginFormProps> = ({login}) => {
         try {
             await login(formData);
             navigate("/");
-        } catch (error) {
-            setError(error)
-            console.log("error here in login:", error)
+        } catch (errors) {
+            const newErrors: ErrorData = {};
+            const formErrors = errors;
+            for (const error of formErrors) {
+                if (error.message.includes("Please enter a username")) newErrors.username = error.message;
+                if (error.message.includes("Please enter a password")) newErrors.password = error.message;
+                if (error.message.includes("Invalid username or password")) newErrors.invalid = error.message;
+            }
+            console.log("error here in login:", errors)
+            setErrors(newErrors)
         }
     }
 
@@ -55,6 +71,8 @@ const LoginForm: FC<LoginFormProps> = ({login}) => {
                         type="username"
                         name="username"
                         id="username" />
+                    {errors.username && <span className="text-red-500 ml-2 text-sm">{errors.username}</span>}
+
                 </div>
 
                 {/* PASSWORD INPUT */}
@@ -70,9 +88,11 @@ const LoginForm: FC<LoginFormProps> = ({login}) => {
                         type="password"
                         name="password"
                         id="password" />
+                    {errors.password && <span className="text-red-500 ml-2 text-sm">{errors.password}</span>}
+
                 </div>
 
-            {error && <span className="text-red-500 ml-2 text-sm">{error}</span>}
+                {errors.invalid && <span className="text-red-500 ml-2 text-sm">{errors.invalid}</span>}
 
                 {/* SUBMIT BUTTON */}
                 <button
