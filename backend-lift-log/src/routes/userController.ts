@@ -21,7 +21,6 @@ export const getSingleUserData = async(req: Request, res: Response) => {
     }
 }
 
-
 export const registerUserPart1 = async (req: Request, res: Response) => {
     try {
         const info = await User.validatePartOneForm(req.body);
@@ -64,8 +63,7 @@ export const signup = async (req: Request, res: Response) => {
         const token = createToken(user);
         return res.status(200).json({ message: "Sign up success", token})
     } catch (error: any) {
-        console.log(error)
-        res.status(400).json({ uhoh: "uhoh", error: 'Invalid data', messages: error.messages });
+        res.status(400).json({ error: 'Invalid data', messages: error.messages });
     }
 };
 
@@ -76,7 +74,6 @@ export const login = async (req: Request, res: Response) => {
         const token = createToken(user);
         return res.status(200).json({ message: "Log in success", token})
     } catch (error: any) {
-        console.log(error)
         res.status(400).json({ error: 'Invalid data', messages: error.messages });
     }
 

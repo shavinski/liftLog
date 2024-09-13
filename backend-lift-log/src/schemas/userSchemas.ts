@@ -33,6 +33,6 @@ export const userCreateAccountPart5 = z.object({
 });
 
 export const userLoginSchema = z.object({
-    username: z.string().min(1, "Username is required"),
-    password: z.string().min(1, "Password is required"),
+    username: z.string().min(1, "Please enter a username"),
+    password: z.string().min(1, "Please enter a password"),
 });

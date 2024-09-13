@@ -60,4 +60,8 @@ export class LiftLogApi {
             }
         }
 
+        static logout() {
+            this.token = "";
+        }
+
 }
