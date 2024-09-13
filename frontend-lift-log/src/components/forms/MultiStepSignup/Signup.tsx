@@ -32,7 +32,7 @@ export interface SignupFormProps {
 }
 
 
-const FinalStep: FC<SignupFormProps> = ({ signup }) => {
+const Signup: FC<SignupFormProps> = ({ signup }) => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState<FormData>({
@@ -53,9 +53,9 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
         setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
 
-    const handleSubmit = async (e: React.FormEvent ) => {
-        e.preventDefault(); 
-        
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
         const formData: CreateAccountData = {
             firstName: sessionStorage.getItem('firstName') || "",
             lastName: sessionStorage.getItem('lastName') || "",
@@ -74,7 +74,7 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
             sessionStorage.clear();
             navigate("/");
         } catch (errors) {
-            const newErrors : ErrorData = {};
+            const newErrors: ErrorData = {};
             const formErrors = errors;
             for (const error of formErrors) {
                 if (error.message.includes("User already exists")) newErrors.username = error.message;
@@ -190,4 +190,4 @@ const FinalStep: FC<SignupFormProps> = ({ signup }) => {
     )
 }
 
-export default FinalStep;
+export default Signup;

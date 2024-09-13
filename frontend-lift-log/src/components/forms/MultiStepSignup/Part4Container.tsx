@@ -9,7 +9,7 @@ interface GoalContainerProps extends UserData {
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
-const Step4Container: FC<GoalContainerProps> = ({ currentValue, goal, handleChange }) => {
+const Part4Container: FC<GoalContainerProps> = ({ currentValue, goal, handleChange }) => {
 
     return (
         <>
@@ -33,4 +33,4 @@ const Step4Container: FC<GoalContainerProps> = ({ currentValue, goal, handleChan
     )
 }
 
-export default Step4Container;
+export default Part4Container;

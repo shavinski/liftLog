@@ -1,5 +1,6 @@
 import { useState, FC } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import authEndpoints from '../../constants/urls';
 
 
 const LoggedoutNavbar = () => {
@@ -11,7 +12,7 @@ const LoggedoutNavbar = () => {
 
     const navItems = [
         { id: 1, text: 'Home', location: '/' },
-        { id: 2, text: 'Log In', location: '/account/login' },
+        { id: 2, text: 'Log In', location: `/auth/${authEndpoints.loginPath}` },
     ];
 
     return (

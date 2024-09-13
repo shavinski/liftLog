@@ -1,5 +1,6 @@
 import React, { useState, FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import authEndpoints from "../../constants/urls";
 
 interface LoginFormData {
     username: string;
@@ -103,7 +104,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
             </form>
 
             <small className="text-center m-5">
-                Not a member? <Link to="/users/create/account" className="text-blue-700"> Sign up here!</Link>
+                Not a member? <Link to={`/auth/${authEndpoints.part1Path}`} className="text-blue-700"> Sign up here!</Link>
             </small>
         </div>
     );

@@ -40,7 +40,7 @@ const SignupForm: FC = () => {
                 </>
             }
 
-            <Outlet context={{ }} />
+            <Outlet context={{}} />
         </div >
     );
 };
