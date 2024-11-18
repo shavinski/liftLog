@@ -29,7 +29,6 @@ CREATE TABLE programs (
 
 CREATE TABLE program_exercises (
     program_exercises_id SERIAL PRIMARY KEY,
-    exercise_name TEXT NOT NULL,
     program_id INT NOT NULL,
     exercise_id INT NOT NULL,
     CONSTRAINT fk_program FOREIGN KEY (program_id) REFERENCES programs(program_id) ON DELETE CASCADE,
