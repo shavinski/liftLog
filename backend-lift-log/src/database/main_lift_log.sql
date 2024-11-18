@@ -15,6 +15,7 @@ CREATE DATABASE lift_log_api;
 \i src/database/lift_log_schema.sql
 \i src/database/users_data.sql
 \i src/database/exercises_data.sql
+\i src/database/program_data.sql
 
 \echo 'Delete and recreate lift_log_api_test db?'
 \prompt 'Return for yes or control-C to cancel > ' foo
@@ -27,3 +28,4 @@ CREATE DATABASE lift_log_api_test;
 \i src/database/lift_log_schema.sql
 \i src/database/users_data.sql
 \i src/database/exercises_data.sql
+\i src/database/program_data.sql

@@ -23,18 +23,5 @@ VALUES (
         2,
         180,
         FALSE
-    ),
-    (
-        'user2@example.com',
-        'user2',
-        'password2',
-        'Jane',
-        'Smith',
-        'build muscle',
-        'ectomorph',
-        5,
-        9,
-        150,
-        FALSE
-    );
+    )
 
