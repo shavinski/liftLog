@@ -14,3 +14,8 @@ CREATE TABLE users (
     is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE exercises (
+    id SERIAL PRIMARY KEY,
+    exercise_name TEXT NOT NULL
+);
+
