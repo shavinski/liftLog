@@ -23,7 +23,7 @@ export const registerUserPart2 = async (req: Request, res: Response) => {
 export const registerUserPart3 = async (req: Request, res: Response) => {
     try {
         const info = await User.validatePartThreeForm(req.body);
-        res.status(200).json({ message: "Part 3 success", info})
+        res.status(200).json({ message: "Part 3 success", info })
     } catch (error: any) {
         res.status(400).json({ error: 'Invalid data', message: error.messages });
     }
@@ -51,7 +51,6 @@ export const signup = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
     try {
         const user = await User.login({ ...req.body });
-        console.log(req.body)
         const token = createToken(user);
         return res.status(200).json({ message: "Log in success", token })
     } catch (error: any) {

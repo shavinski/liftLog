@@ -20,6 +20,7 @@ export interface SignupData {
     email: string;
     password: string;
     isAdmin?: boolean;
+    userId?: number;
 }
 
 interface FormPartOneData {
@@ -256,35 +257,39 @@ class User {
         return result.rows[0];
     }
 
-    static async login({ username, password }: LoginData): Promise<{ username: string, isAdmin: boolean }> {
-        const errors: { message: string }[] = [];
-
-        const result = await db.query(`
+    static async login({ username, password }: LoginData): Promise<{ username: string, userId: number, isAdmin: boolean } | null> {
+        //    Need to find a better way to handle these errors, this is supper un readable 
+        // Issue here was that I was just throwing generic errors like "Invalid username/password" but the error was actually dealing with my db.query missing a comma
+        // This made it extremely difficult to find the exact cause of the error 
+        // TODO: Find a better way to handle throwing errors for both users of app and developers of the app 
+        try {
+            const result = await db.query(`
             SELECT username,
                     password,
+                    user_id AS "userId",
                     is_admin AS "isAdmin"
-                    FROM users
-                    WHERE username = $1
+            FROM users
+            WHERE username = $1
         `, [username]);
 
-        const user = result.rows[0];
+            const user = result.rows[0];
 
-        if (user) {
-            const validatePassowrd = await bcrypt.compare(password, user.password);
+            if (user) {
+                const validatePassword = await bcrypt.compare(password, user.password);
 
-            if (validatePassowrd) {
-                delete user.password;
-                return user;
+                if (validatePassword) {
+                    delete user.password;
+                    return user;
+                }
             }
-        } else {
-            errors.push({ message: "Invalid username or passwrod" });
+
+        } catch (err: any) {
+            console.error("Error during login:", err.message);
+            throw new Error("Invalid username or password");
         }
 
-        throw { messages: [{ message: "Invalid username or password" }] }
+        return null;
     }
-
-
-
 }
 
 export default User;

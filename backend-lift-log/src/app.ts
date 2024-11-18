@@ -6,7 +6,7 @@ import { PORT } from './config';
 // ROUTE IMPORTS 
 import userRouter from './routes/userRoutes';
 import authRouter from './routes/authRoutes';
-
+import programRouter from './routes/programRoutes';
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(cors());
 // ROUTES
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
+app.use('/programs', programRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello World');
