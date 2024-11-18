@@ -11,8 +11,9 @@ DROP DATABASE lift_log_api;
 CREATE DATABASE lift_log_api;
 \connect lift_log_api
 
+-- Include and execute the following sql scripts for production env
 \i src/database/liftLog-schema.sql
-\i src/database/liftLog-seed.sql
+\i src/database/users_data.sql
 
 \echo 'Delete and recreate lift_log_api_test db?'
 \prompt 'Return for yes or control-C to cancel > ' foo
@@ -21,5 +22,6 @@ DROP DATABASE lift_log_api_test;
 CREATE DATABASE lift_log_api_test;
 \connect lift_log_api_test
 
+-- Include and execute the following sql scripts for test env
 \i src/database/liftLog-schema.sql
-\i src/database/liftLog-seed.sql
+\i src/database/users_data.sql
