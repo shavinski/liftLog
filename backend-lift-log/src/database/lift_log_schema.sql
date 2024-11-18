@@ -17,6 +17,6 @@ CREATE TABLE users (
 CREATE TABLE exercises (
     id SERIAL PRIMARY KEY,
     exercise_name TEXT NOT NULL,
-    muscle_group TEXT NOT NULL,
+    muscle_group TEXT NOT NULL
 );
 
