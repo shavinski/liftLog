@@ -3,7 +3,7 @@ import db from '../db'
 
 class Program {
 
-    static async getAllPrograms(userId: number) {
+    static async getAllUserPrograms(userId: number) {
         const result = await db.query(`
             SELECT * 
             FROM programs 
@@ -14,7 +14,21 @@ class Program {
             ]
         )
 
-        return result.rows
+        return result.rows;
+    }
+
+    static async getSingleUserProgram(programId: number) {
+        const result = await db.query(`
+                SELECT *
+                FROM programs
+                WHERE program_id = $1
+            `,
+            [
+                programId
+            ]
+        )
+
+        return result.rows[0];
     }
 
 }
