@@ -1,3 +1,4 @@
+import { RestartProcess } from 'concurrently';
 import db from '../db'
 
 class Program {
@@ -12,6 +13,8 @@ class Program {
                 userId
             ]
         )
+
+        return result.rows
     }
 
 }
