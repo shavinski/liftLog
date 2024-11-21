@@ -1,4 +1,5 @@
-INSERT INTO users (
+INSERT INTO
+    users (
         email,
         username,
         password,
@@ -11,7 +12,8 @@ INSERT INTO users (
         weight,
         is_admin
     )
-VALUES (
+VALUES
+    (
         'user1@example.com',
         'user1',
         'password1',
@@ -24,4 +26,4 @@ VALUES (
         180,
         FALSE
     )
-
+    
