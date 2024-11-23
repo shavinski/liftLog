@@ -1,12 +1,17 @@
+// Global dependencies
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { NotFoundError } from './expressErrors';
-import { PORT } from './config';
+import "express-async-errors";
 
 // ROUTE IMPORTS 
 import userRouter from './routes/userRoutes';
 import authRouter from './routes/authRoutes';
 import programRouter from './routes/programRoutes';
+
+// Project Dependencies
+import { PORT } from './config';
+import { errorHandler } from './middleware/errors';
+
 
 const app = express();
 
@@ -27,20 +32,11 @@ app.post("/test", async (req: Request, res: Response) => {
 });
 
 /** Handle 404 errors -- this matches everything */
-app.use(function (req, res, next) {
-    throw new NotFoundError();
-});
+// app.use(function (req, res, next) {
+//     throw new NotFoundError();
+// });
 
-/** Generic error handler; anything unhandled goes here. */
-app.use((err: Error, req: Request, res: Response) => {
-    if (process.env.NODE_ENV !== 'test') console.error(err.stack);
-    const status = (err as any).status || 500; // Cast err to any to access status property
-    const message = err.message || 'Internal Server Error';
-
-    res.status(status).json({
-        error: { message, status },
-    });
-});
+app.use(errorHandler)
 
 app.listen(3000, () => {
     console.log(`Server is running on port ${PORT}`);

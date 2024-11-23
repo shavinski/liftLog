@@ -63,6 +63,11 @@ class User {
 
     // Get single user data by using their unique username 
     static async getSingleUserData(username: string) {
+         if (!username) {
+            throw new Error("Name is required!")
+            // return res.status(400).send({ message: "Name is required!" });
+        }
+
         const result = await db.query(`
             SELECT username,
                 first_name AS "firstName",

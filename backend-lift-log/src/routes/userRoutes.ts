@@ -8,7 +8,7 @@ import {
 } from '../controllers/userController';
 
 userRouter.get('/all', getAllUsersTest);
-userRouter.get('/:username', getSingleUserData);
+userRouter.get('/single', getSingleUserData);
 
 
 export default userRouter;

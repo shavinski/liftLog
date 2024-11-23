@@ -12,10 +12,12 @@ export const getAllUsersTest = async (req: Request, res: Response) => {
 
 export const getSingleUserData = async (req: Request, res: Response) => {
     try {
-        const user = await User.getSingleUserData(req.params.username);
+        const { username } = req.body
+        const user = await User.getSingleUserData(username);
         return res.json({ user });
     } catch (err) {
-        res.status(400).send("User not found");
+        // res.status(400).send("User not found");
+        throw new Error("Name is required")
     }
 }
 
