@@ -1,6 +1,7 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
+import BadRequestError from "../middleware/BadRequestError";
 
 export interface LoginData {
     username: string;
@@ -63,8 +64,8 @@ class User {
 
     // Get single user data by using their unique username 
     static async getSingleUserData(username: string) {
-         if (!username) {
-            throw new Error("Name is required!")
+        if (!username) {
+            throw new BadRequestError({ code: 400, message: "Name is required!", logging: true })
             // return res.status(400).send({ message: "Name is required!" });
         }
 

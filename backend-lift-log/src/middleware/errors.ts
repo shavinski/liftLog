@@ -1,16 +1,22 @@
 import { NextFunction, Request, Response } from "express";
+import { CustomError } from "./CustomError";
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.log(err);
-    res.status(500).send({ errors: [{ message: "Something went wrong" }] })
-}
-/** Generic error handler; anything unhandled goes here. */
-// app.use((err: Error, req: Request, res: Response) => {
-//     if (process.env.NODE_ENV !== 'test') console.error(err.stack);
-//     const status = (err as any).status || 500; // Cast err to any to access status property
-//     const message = err.message || 'Internal Server Error';
+    // Handled errors
+    if (err instanceof CustomError) {
+        const { statusCode, errors, logging } = err;
+        if (logging) {
+            console.error(JSON.stringify({
+                code: err.statusCode,
+                errors: err.errors,
+                stack: err.stack,
+            }, null, 2));
+        }
 
-//     res.status(status).json({
-//         error: { message, status },
-//     });
-// });
+        return res.status(statusCode).send({ errors });
+    }
+
+    // Unhandled errors
+    console.error(JSON.stringify(err, null, 2));
+    return res.status(500).send({ errors: [{ message: "Something went wrong" }] });
+};
