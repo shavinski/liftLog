@@ -1,4 +1,5 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import BadRequestError from '../middleware/BadRequestError';
 import User from '../models/user';
 
 export const getAllUsersTest = async (req: Request, res: Response) => {
@@ -10,14 +11,19 @@ export const getAllUsersTest = async (req: Request, res: Response) => {
     }
 }
 
-export const getSingleUserData = async (req: Request, res: Response) => {
+export const getSingleUserData = async (req: Request, res: Response, next: NextFunction) => {
+    const { username } = req.body
+
+    if (!username) {
+        throw new BadRequestError({ code: 400, message: "Username is required!", logging: true })
+    }
+
     try {
-        const { username } = req.body
         const user = await User.getSingleUserData(username);
         return res.json({ user });
     } catch (err) {
-        // res.status(400).send("User not found");
-        throw new Error("Name is required")
+        console.error(err)
+        next(err)
     }
 }
 

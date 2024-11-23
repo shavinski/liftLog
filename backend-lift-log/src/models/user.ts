@@ -64,21 +64,19 @@ class User {
 
     // Get single user data by using their unique username 
     static async getSingleUserData(username: string) {
-        if (!username) {
-            throw new BadRequestError({ code: 400, message: "Name is required!", logging: true })
-            // return res.status(400).send({ message: "Name is required!" });
-        }
+
+        console.log("Starting query for username:", username);
 
         const result = await db.query(`
             SELECT username,
-                first_name AS "firstName",
-                last_name AS "lastName",
-                email,
-                goal,
-                body_type AS "bodyType",
-                height_feet AS "heightFeet",
-                height_inches AS "hFeightInches",
-                is_admin AS "isAdmin"
+            first_name AS "firstName",
+            last_name AS "lastName",
+            email,
+            goal,
+            body_type AS "bodyType",
+            height_feet AS "heightFeet",
+            height_inches AS "hFeightInches",
+            is_admin AS "isAdmin"
             FROM users
             WHERE username = $1
             `,
@@ -86,6 +84,11 @@ class User {
                 username
             ]
         );
+        console.log("Query completed:", result.rows);
+
+        if (result.rows.length === 0) {
+            throw new BadRequestError({ code: 400, message: "User not found", logging: true })
+        }
 
         return result.rows[0];
     }
