@@ -1,6 +1,6 @@
 "use strict";
 
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import User from '../models/user';
 import { createToken } from '../helpers/tokens';
 
@@ -50,13 +50,13 @@ export const signup = async (req: Request, res: Response) => {
     }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = await User.login({ ...req.body });
         const token = createToken(user);
         return res.status(200).json({ message: "Log in success", token })
-    } catch (error: any) {
-        res.status(400).json({ error: 'Invalid data', messages: error.messages });
+    } catch (err: any) {
+        console.error(err)
+        return next(err)
     }
-
 };

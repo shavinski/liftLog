@@ -59,12 +59,8 @@ function App() {
   }
 
   async function login(formData: loginData) {
-    try {
-      const token = await LiftLogApi.login(formData);
-      setToken(token);
-    } catch (error) {
-      throw error;
-    }
+    const token = await LiftLogApi.login(formData);
+    setToken(token);
   }
 
   function logout() {

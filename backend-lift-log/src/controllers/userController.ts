@@ -1,7 +1,8 @@
 "use strict";
 
 import { NextFunction, Request, Response } from 'express';
-import BadRequestError from '../middleware/BadRequestError';
+// import BadRequestError from '../middleware/BadRequestError';
+import { BadRequestError } from '../middleware/errors';
 import User from '../models/user';
 
 export const getAllUsersTest = async (req: Request, res: Response) => {
@@ -25,7 +26,7 @@ export const getSingleUserData = async (req: Request, res: Response, next: NextF
         return res.json({ user });
     } catch (err) {
         console.error(err)
-        next(err)
+        return next(err)
     }
 }
 

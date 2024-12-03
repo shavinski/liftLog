@@ -3,7 +3,8 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
-import BadRequestError from "../middleware/BadRequestError";
+// import BadRequestError from "../middleware/BadRequestError";
+import { BadRequestError, NotFoundError, ServerError, UnauthorizedError } from "../middleware/errors";
 
 export interface LoginData {
     username: string;
@@ -66,30 +67,26 @@ class User {
 
     // Get single user data by using their unique username 
     static async getSingleUserData(username: string) {
-
-        console.log("Starting query for username:", username);
-
         const result = await db.query(`
-            SELECT username,
-            first_name AS "firstName",
-            last_name AS "lastName",
-            email,
-            goal,
-            body_type AS "bodyType",
-            height_feet AS "heightFeet",
-            height_inches AS "hFeightInches",
-            is_admin AS "isAdmin"
-            FROM users
-            WHERE username = $1
-            `,
+                SELECT username,
+                first_name AS "firstName",
+                last_name AS "lastName",
+                email,
+                goal,
+                body_type AS "bodyType",
+                height_feet AS "heightFeet",
+                height_inches AS "hFeightInches",
+                is_admin AS "isAdmin"
+                FROM users
+                WHERE username = $1
+                `,
             [
                 username
             ]
         );
-        console.log("Query completed:", result.rows);
 
         if (result.rows.length === 0) {
-            throw new BadRequestError({ code: 400, message: "User not found", logging: true })
+            throw new NotFoundError({ code: 404, message: "User not found", logging: true })
         }
 
         return result.rows[0];
@@ -273,8 +270,7 @@ class User {
         // Issue here was that I was just throwing generic errors like "Invalid username/password" but the error was actually dealing with my db.query missing a comma
         // This made it extremely difficult to find the exact cause of the error 
         // TODO: Find a better way to handle throwing errors for both users of app and developers of the app 
-        try {
-            const result = await db.query(`
+        const result = await db.query(`
             SELECT username,
                     password,
                     user_id AS "userId",
@@ -283,23 +279,18 @@ class User {
             WHERE username = $1
         `, [username]);
 
-            const user = result.rows[0];
+        const user = result.rows[0];
 
-            if (user) {
-                const validatePassword = await bcrypt.compare(password, user.password);
+        if (user) {
+            const validatePassword = await bcrypt.compare(password, user.password);
 
-                if (validatePassword) {
-                    delete user.password;
-                    return user;
-                }
+            if (validatePassword) {
+                delete user.password;
+                return user;
             }
-
-        } catch (err: any) {
-            console.error("Error during login:", err.message);
-            throw new Error("Invalid username or password");
         }
 
-        return null;
+        throw new UnauthorizedError({ code: 401, message: "Invalid username/password", logging: true });
     }
 }
 
