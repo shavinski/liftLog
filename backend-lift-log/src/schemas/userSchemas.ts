@@ -1,3 +1,5 @@
+"use strict";
+
 import { z } from "zod";
 
 export const userCreateAccountPart1 = z.object({

@@ -1,3 +1,5 @@
+"use strict";
+
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";

@@ -1,3 +1,5 @@
+"use strict";
+
 import express, { NextFunction } from 'express';
 const programRouter = express.Router();
 

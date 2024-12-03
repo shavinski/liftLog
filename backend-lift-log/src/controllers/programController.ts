@@ -1,3 +1,5 @@
+"use strict";
+
 import { Request, Response } from 'express';
 import Program from '../models/program';
 

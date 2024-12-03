@@ -1,3 +1,5 @@
+"use strict";
+
 import { Request, Response } from 'express';
 import User from '../models/user';
 import { createToken } from '../helpers/tokens';

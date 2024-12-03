@@ -1,3 +1,5 @@
+"use strict";
+
 // src/routes/userRoutes.ts
 import express from 'express';
 const authRouter = express.Router();

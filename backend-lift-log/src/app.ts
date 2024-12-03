@@ -1,3 +1,5 @@
+"use strict";
+
 // Global dependencies
 import express, { Request, Response } from 'express';
 import cors from 'cors';

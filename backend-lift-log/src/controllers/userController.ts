@@ -1,3 +1,5 @@
+"use strict";
+
 import { NextFunction, Request, Response } from 'express';
 import BadRequestError from '../middleware/BadRequestError';
 import User from '../models/user';
@@ -12,7 +14,7 @@ export const getAllUsersTest = async (req: Request, res: Response) => {
 }
 
 export const getSingleUserData = async (req: Request, res: Response, next: NextFunction) => {
-    const { username } = req.body
+    const { username } = req.params
 
     if (!username) {
         throw new BadRequestError({ code: 400, message: "Username is required!", logging: true })
