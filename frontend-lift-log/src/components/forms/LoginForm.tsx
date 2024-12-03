@@ -8,10 +8,11 @@ interface LoginFormData {
     password: string;
 }
 
-interface ErrorData {
-    username?: string,
-    password?: string,
-    invalid?: string,
+interface ErrorState {
+    usernameErr: string;
+    passwordErr: string;
+    authError: string;
+    unexpected: string;
 }
 
 export interface LoginFormProps {
@@ -27,7 +28,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
     });
 
 
-    const [errors, setErrors] = useState<any>({
+    const [errors, setErrors] = useState<ErrorState>({
         usernameErr: "",
         passwordErr: "",
         authError: "",
@@ -140,8 +141,6 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                     {errors.unexpected && <span className="text-red-500 ml-2 text-sm">{errors.unexpected}</span>}
 
                 </div>
-
-                {errors.invalid && <span className="text-red-500 ml-2 text-sm">{errors.invalid}</span>}
 
                 {/* SUBMIT BUTTON */}
                 <button
