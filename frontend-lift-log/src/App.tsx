@@ -15,7 +15,7 @@ import FinalStep from './components/forms/MultiStepSignup/Signup.tsx';
 import { useEffect, useState } from 'react';
 
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LiftLogApi, loginData, signUpData } from './api/LiftLogApi.ts'
+import { LiftLogApi, loginData, signUpData } from './api/liftLogApi.ts'
 
 import authEndpoints from './constants/urls.ts';
 
