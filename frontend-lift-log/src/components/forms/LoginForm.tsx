@@ -60,7 +60,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                         ...prev,
                         usernameErr,
                         passwordErr,
-                        authError: "", // Clear auth error if previously set
+                        authError: "",
                         unexpected: ""
                     }))
 
@@ -71,8 +71,8 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
 
                     setErrors((prev) => ({
                         ...prev,
-                        usernameErr: "", // Clear username error if previously set
-                        passwordErr: "", // Clear password error if previously set
+                        usernameErr: "",
+                        passwordErr: "",
                         authError,
                         unexpected: ""
                     }));
@@ -81,18 +81,19 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                     console.error("Unexpected Error:", error.response.data || "An error occurred.");
                     setErrors((prev) => ({
                         ...prev,
-                        usernameErr: "", // Clear username error if previously set
-                        passwordErr: "", // Clear password error if previously set
+                        usernameErr: "",
+                        passwordErr: "",
                         authError: "",
                         unexpected: "Something unexpected happened."
                     }));
                 }
             } else {
+                // Handles any unhandled non-axios errors
                 console.error("Network Error or Unexpected Error:", error);
                 setErrors((prev) => ({
                     ...prev,
-                    usernameErr: "", // Clear username error if previously set
-                    passwordErr: "", // Clear password error if previously set
+                    usernameErr: "",
+                    passwordErr: "",
                     authError: "",
                     unexpected: "Something unexpected happened."
                 }));
