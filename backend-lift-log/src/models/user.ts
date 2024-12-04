@@ -3,8 +3,8 @@
 import db from "../db";
 import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
-// import BadRequestError from "../middleware/BadRequestError";
-import { BadRequestError, NotFoundError, ServerError, UnauthorizedError } from "../middleware/errors";
+import { NotFoundError } from "../errors/NotFoundError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 
 export interface LoginData {
     username: string;

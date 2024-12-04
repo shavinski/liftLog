@@ -1,7 +1,7 @@
 "use strict";
 
 import { NextFunction, Request, Response } from 'express';
-import { BadRequestError } from '../middleware/errors';
+import { BadRequestError } from '../errors/BadRequestError';
 import User from '../models/user';
 
 export const getAllUsersTest = async (req: Request, res: Response, next: NextFunction) => {
@@ -9,8 +9,7 @@ export const getAllUsersTest = async (req: Request, res: Response, next: NextFun
         const result = await User.getAllUsers();
         res.json(result);
     } catch (err) {
-        console.error(err);
-        return next(err)
+        next(err)
     }
 }
 
@@ -25,8 +24,7 @@ export const getSingleUserData = async (req: Request, res: Response, next: NextF
         const user = await User.getSingleUserData(username);
         return res.json({ user });
     } catch (err) {
-        console.error(err)
-        return next(err)
+        next(err)
     }
 }
 
