@@ -1,3 +1,5 @@
+"use strict";
+
 // src/routes/userRoutes.ts
 import express from 'express';
 const userRouter = express.Router();
@@ -7,7 +9,7 @@ import {
     getSingleUserData,
 } from '../controllers/userController';
 
-userRouter.get('/all', getAllUsersTest);
+userRouter.get('/', getAllUsersTest);
 userRouter.get('/:username', getSingleUserData);
 
 

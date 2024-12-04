@@ -1,3 +1,5 @@
+"use strict";
+
 import { Client } from "pg";
 import { getDatabaseUri } from "./config";
 

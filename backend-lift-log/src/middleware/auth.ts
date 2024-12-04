@@ -1,3 +1,5 @@
+"use strict";
+
 import jwt from 'jsonwebtoken';
 import { SECRET_KEY } from '../config';
 import { Request, Response, NextFunction } from 'express';

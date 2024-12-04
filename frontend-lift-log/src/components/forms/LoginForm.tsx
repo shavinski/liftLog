@@ -1,16 +1,18 @@
 import React, { useState, FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import authEndpoints from "../../constants/urls";
+import axios from "axios";
 
 interface LoginFormData {
     username: string;
     password: string;
 }
 
-interface ErrorData {
-    username?: string,
-    password?: string,
-    invalid?: string,
+interface ErrorState {
+    usernameErr: string;
+    passwordErr: string;
+    authError: string;
+    unexpected: string;
 }
 
 export interface LoginFormProps {
@@ -25,11 +27,14 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
         password: "",
     });
 
-    const [errors, setErrors] = useState<any>({
-        username: "",
-        email: "",
-        password: ""
-    });
+
+    const [errors, setErrors] = useState<ErrorState>({
+        usernameErr: "",
+        passwordErr: "",
+        authError: "",
+        unexpected: ""
+    })
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
@@ -40,16 +45,59 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
         try {
             await login(formData);
             navigate("/");
-        } catch (errors) {
-            const newErrors: ErrorData = {};
-            const formErrors = errors;
-            for (const error of formErrors) {
-                if (error.message.includes("Please enter a username")) newErrors.username = error.message;
-                if (error.message.includes("Please enter a password")) newErrors.password = error.message;
-                if (error.message.includes("Invalid username or password")) newErrors.invalid = error.message;
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                const status = error.response.status;
+
+                if (status === 400) {
+                    // Handles Zod validation error, when inputs are blank
+                    const zodValidationErrors = error.response.data.messages;
+                    const usernameErr = zodValidationErrors.find((err: any) => err.message.includes("username"))?.message || "";
+                    const passwordErr = zodValidationErrors.find((err: any) => err.message.includes("password"))?.message || "";
+                    console.error("Validation Errors:", zodValidationErrors);
+
+                    setErrors((prev) => ({
+                        ...prev,
+                        usernameErr,
+                        passwordErr,
+                        authError: "",
+                        unexpected: ""
+                    }))
+
+                } else if (status === 401) {
+                    // Handles our custom Authentication error on backend
+                    const authError = error.response.data.errors[0].message;
+                    console.error("Authentication Error:", authError);
+
+                    setErrors((prev) => ({
+                        ...prev,
+                        usernameErr: "",
+                        passwordErr: "",
+                        authError,
+                        unexpected: ""
+                    }));
+                } else {
+                    // Other errors that I was not expecting which is an axios error
+                    console.error("Unexpected Error:", error.response.data || "An error occurred.");
+                    setErrors((prev) => ({
+                        ...prev,
+                        usernameErr: "",
+                        passwordErr: "",
+                        authError: "",
+                        unexpected: "Something unexpected happened."
+                    }));
+                }
+            } else {
+                // Handles any unhandled non-axios errors
+                console.error("Network Error or Unexpected Error:", error);
+                setErrors((prev) => ({
+                    ...prev,
+                    usernameErr: "",
+                    passwordErr: "",
+                    authError: "",
+                    unexpected: "Something unexpected happened."
+                }));
             }
-            console.log("error here in login:", errors)
-            setErrors(newErrors)
         }
     }
 
@@ -72,7 +120,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                         type="username"
                         name="username"
                         id="username" />
-                    {errors.username && <span className="text-red-500 ml-2 text-sm">{errors.username}</span>}
+                    {errors.usernameErr && <span className="text-red-500 ml-2 text-sm">{errors.usernameErr}</span>}
 
                 </div>
 
@@ -89,11 +137,11 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                         type="password"
                         name="password"
                         id="password" />
-                    {errors.password && <span className="text-red-500 ml-2 text-sm">{errors.password}</span>}
+                    {errors.passwordErr && <span className="text-red-500 ml-2 text-sm">{errors.passwordErr}</span>}
+                    {errors.authError && <span className="text-red-500 ml-2 text-sm">{errors.authError}</span>}
+                    {errors.unexpected && <span className="text-red-500 ml-2 text-sm">{errors.unexpected}</span>}
 
                 </div>
-
-                {errors.invalid && <span className="text-red-500 ml-2 text-sm">{errors.invalid}</span>}
 
                 {/* SUBMIT BUTTON */}
                 <button

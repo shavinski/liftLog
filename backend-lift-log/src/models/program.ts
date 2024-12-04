@@ -1,4 +1,5 @@
-import { RestartProcess } from 'concurrently';
+"use strict";
+
 import db from '../db'
 
 class Program {

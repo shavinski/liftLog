@@ -1,3 +1,5 @@
+"use strict";
+
 import jwt from 'jsonwebtoken';
 import { LoginData, SignupData } from '../models/user';
 import { SECRET_KEY } from '../config';

@@ -1,3 +1,5 @@
+"use strict";
+
 // src/middleware/validationMiddleware.ts
 import { Request, Response, NextFunction } from 'express';
 import { z, ZodError } from 'zod';
