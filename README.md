@@ -206,8 +206,11 @@ Project Link: [https://github.com/shavinski/liftLog](https://github.com/shavinsk
 
 ## Acknowledgments
 
-- []()
-- []()
+- []()https://dev.to/qbentil/how-to-write-custom-error-handler-middleware-in-expressjs-using-javascript-29j1 
+Article I read to assist in writing my errorHandler middleware. I decided to look into this issue because of an error I was getting, but I had no clue where it was occurring in my code. This will help me handle errors that I did not expect. 
+
+- []()https://medium.com/@xiaominghu19922/proper-error-handling-in-express-server-with-typescript-8cd4ffb67188
+The article I read helped me write custom errors, which will help me write more consistent errors on my back end. It will also allow my code to be more easily tested in the future.
 - []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
