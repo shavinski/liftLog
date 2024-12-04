@@ -1,16 +1,16 @@
 "use strict";
 
 import { NextFunction, Request, Response } from 'express';
-// import BadRequestError from '../middleware/BadRequestError';
 import { BadRequestError } from '../middleware/errors';
 import User from '../models/user';
 
-export const getAllUsersTest = async (req: Request, res: Response) => {
+export const getAllUsersTest = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await User.getAllUsers();
         res.json(result);
     } catch (err) {
-        res.status(400).send('Cannot find this source');
+        console.error(err);
+        return next(err)
     }
 }
 

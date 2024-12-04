@@ -62,6 +62,10 @@ class User {
 
         const allUsers = result.rows;
 
+        if (result.rows.length === 0) {
+            throw new NotFoundError({ code: 404, message: "List of all users cannot be found.", logging: true })
+        }
+
         return allUsers;
     };
 
