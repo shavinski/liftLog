@@ -276,9 +276,11 @@ class User {
             if (validatePassword) {
                 delete user.password;
                 return user;
+            } else {
+                messages.push("Invalid username/password");
             }
         } else {
-            messages.push("Invalid username/password")
+            messages.push("Invalid username/password");
         }
 
         throw new UnauthorizedError({ messages, logging: true });
