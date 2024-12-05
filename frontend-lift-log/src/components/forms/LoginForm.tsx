@@ -11,7 +11,7 @@ interface LoginFormData {
 interface ErrorState {
     usernameErr: string;
     passwordErr: string;
-    authError: string;
+    authErr: string;
     unexpected: string;
 }
 
@@ -31,7 +31,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
     const [errors, setErrors] = useState<ErrorState>({
         usernameErr: "",
         passwordErr: "",
-        authError: "",
+        authErr: "",
         unexpected: ""
     })
 
@@ -46,8 +46,23 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
             await login(formData);
             navigate("/");
         } catch (error: any) {
-            console.log(error)
             // TODO: Implement new errors in the log in form here
+
+            const newErrors: ErrorState = {
+                usernameErr: "",
+                passwordErr: "",
+                authErr: "",
+                unexpected: ""
+            };
+
+            error.forEach((msg: string) => {
+                if (msg.includes("Please enter a username")) newErrors.usernameErr = msg;
+                if (msg.includes("Please enter a password")) newErrors.passwordErr = msg;
+                if (msg.includes("Invalid username/password")) newErrors.authErr = msg;
+                if (msg.includes("Something went wrong")) newErrors.unexpected = msg;
+            });
+
+            setErrors(newErrors);
         }
     }
 
@@ -88,7 +103,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                         name="password"
                         id="password" />
                     {errors.passwordErr && <span className="text-red-500 ml-2 text-sm">{errors.passwordErr}</span>}
-                    {errors.authError && <span className="text-red-500 ml-2 text-sm">{errors.authError}</span>}
+                    {errors.authErr && <span className="text-red-500 ml-2 text-sm">{errors.authErr}</span>}
                     {errors.unexpected && <span className="text-red-500 ml-2 text-sm">{errors.unexpected}</span>}
 
                 </div>
