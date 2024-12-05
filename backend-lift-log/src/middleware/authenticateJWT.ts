@@ -3,7 +3,6 @@
 import jwt from 'jsonwebtoken';
 import { SECRET_KEY } from '../config';
 import { Request, Response, NextFunction } from 'express';
-import { error } from 'console';
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction): void => {
     const authHeader = req.headers?.authorization;

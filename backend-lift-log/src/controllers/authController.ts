@@ -4,12 +4,12 @@ import { NextFunction, Request, Response } from 'express';
 import User from '../models/user';
 import { createToken } from '../helpers/tokens';
 
-export const registerUserPart1 = async (req: Request, res: Response) => {
+export const registerUserPart1 = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const info = await User.validatePartOneForm(req.body);
         res.status(200).json({ message: "Part 1 success", info })
     } catch (error: any) {
-        res.status(400).json({ error: 'Invalid data', message: error.messages });
+        next(error);
     }
 };
 
@@ -22,12 +22,12 @@ export const registerUserPart2 = async (req: Request, res: Response) => {
     }
 };
 
-export const registerUserPart3 = async (req: Request, res: Response) => {
+export const registerUserPart3 = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const info = await User.validatePartThreeForm(req.body);
         res.status(200).json({ message: "Part 3 success", info })
     } catch (error: any) {
-        res.status(400).json({ error: 'Invalid data', message: error.messages });
+        next(error)
     }
 };
 

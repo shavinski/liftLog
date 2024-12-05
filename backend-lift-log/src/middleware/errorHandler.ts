@@ -1,7 +1,7 @@
 "use strict";
 
 import { NextFunction, Request, Response } from "express";
-import { CustomError } from "./CustomError";
+import { CustomError } from "../errors/CustomError";
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     // Handled errors
@@ -15,7 +15,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
             }, null, 2));
         }
 
-        return res.status(statusCode).send({ errors });
+        return res.status(statusCode).send({ ...errors });
     }
 
     // Unhandled errors

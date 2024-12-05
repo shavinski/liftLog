@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { BadRequestError } from "../errors/BadRequestError";
 
 export interface LoginData {
     username: string;
@@ -63,7 +64,7 @@ class User {
         const allUsers = result.rows;
 
         if (result.rows.length === 0) {
-            throw new NotFoundError({ code: 404, message: "List of all users cannot be found.", logging: true })
+            throw new NotFoundError({ logging: true })
         }
 
         return allUsers;
@@ -90,7 +91,7 @@ class User {
         );
 
         if (result.rows.length === 0) {
-            throw new NotFoundError({ code: 404, message: "User not found", logging: true })
+            throw new NotFoundError({ logging: true })
         }
 
         return result.rows[0];
@@ -104,18 +105,18 @@ class User {
    */
 
     static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<{ firstName: string, lastName: string }> {
-        const errors: string[] = [];
+        const messages: string[] = [];
 
         if (!firstName || firstName.trim() === '') {
-            errors.push('First name is required.');
+            messages.push('First name is required.');
         }
 
         if (!lastName || lastName.trim() === '') {
-            errors.push('Last name is required.');
+            messages.push('Last name is required.');
         }
 
-        if (errors.length > 0) {
-            throw { messages: errors };
+        if (messages.length > 0) {
+            throw new BadRequestError({ logging: true, messages: messages });
         }
 
         return { firstName, lastName };
@@ -163,14 +164,14 @@ class User {
     //        { body }
     //    */
     static async validatePartThreeForm({ body }: FormPartThreeData): Promise<{ body: string }> {
-        const errors: string[] = [];
+        const messages: string[] = [];
 
-        if (!body) {
-            errors.push("Please select one body type.");
+        if (!body || body.trim() === "") {
+            messages.push("Please select one body type.");
         }
 
-        if (errors.length > 0) {
-            throw { messages: errors };
+        if (messages.length > 0) {
+            throw new BadRequestError({ messages });
         }
 
         return { body }
@@ -274,6 +275,8 @@ class User {
         // Issue here was that I was just throwing generic errors like "Invalid username/password" but the error was actually dealing with my db.query missing a comma
         // This made it extremely difficult to find the exact cause of the error 
         // TODO: Find a better way to handle throwing errors for both users of app and developers of the app 
+        const messages = [];
+
         const result = await db.query(`
             SELECT username,
                     password,
@@ -292,9 +295,11 @@ class User {
                 delete user.password;
                 return user;
             }
+        } else {
+            messages.push("Invalid username/password")
         }
 
-        throw new UnauthorizedError({ code: 401, message: "Invalid username/password", logging: true });
+        throw new UnauthorizedError({ messages, logging: true });
     }
 }
 

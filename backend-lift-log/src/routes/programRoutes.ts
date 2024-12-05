@@ -4,7 +4,7 @@ import express, { NextFunction } from 'express';
 const programRouter = express.Router();
 
 import { getUserWorkoutPrograms, getSingleUserProgram } from '../controllers/programController';
-import { authenticateJWT } from '../middleware/auth';
+import { authenticateJWT } from '../middleware/authenticateJWT';
 
 // Arguments in order for routes
 // First arg  will be the endpoint we want
