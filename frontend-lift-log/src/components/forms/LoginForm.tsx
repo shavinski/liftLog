@@ -45,59 +45,9 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
         try {
             await login(formData);
             navigate("/");
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                const status = error.response.status;
-
-                if (status === 400) {
-                    // Handles Zod validation error, when inputs are blank
-                    const zodValidationErrors = error.response.data.messages;
-                    const usernameErr = zodValidationErrors.find((err: any) => err.message.includes("username"))?.message || "";
-                    const passwordErr = zodValidationErrors.find((err: any) => err.message.includes("password"))?.message || "";
-                    console.error("Validation Errors:", zodValidationErrors);
-
-                    setErrors((prev) => ({
-                        ...prev,
-                        usernameErr,
-                        passwordErr,
-                        authError: "",
-                        unexpected: ""
-                    }))
-
-                } else if (status === 401) {
-                    // Handles our custom Authentication error on backend
-                    const authError = error.response.data.errors[0].message;
-                    console.error("Authentication Error:", authError);
-
-                    setErrors((prev) => ({
-                        ...prev,
-                        usernameErr: "",
-                        passwordErr: "",
-                        authError,
-                        unexpected: ""
-                    }));
-                } else {
-                    // Other errors that I was not expecting which is an axios error
-                    console.error("Unexpected Error:", error.response.data || "An error occurred.");
-                    setErrors((prev) => ({
-                        ...prev,
-                        usernameErr: "",
-                        passwordErr: "",
-                        authError: "",
-                        unexpected: "Something unexpected happened."
-                    }));
-                }
-            } else {
-                // Handles any unhandled non-axios errors
-                console.error("Network Error or Unexpected Error:", error);
-                setErrors((prev) => ({
-                    ...prev,
-                    usernameErr: "",
-                    passwordErr: "",
-                    authError: "",
-                    unexpected: "Something unexpected happened."
-                }));
-            }
+        } catch (error: any) {
+            console.log(error)
+            // TODO: Implement new errors in the log in form here
         }
     }
 

@@ -50,12 +50,8 @@ function App() {
   }, [token]);
 
   async function signup(formData: signUpData) {
-    try {
-      const token = await LiftLogApi.signup(formData);
-      setToken(token);
-    } catch (error) {
-      throw error;
-    }
+    const token = await LiftLogApi.signup(formData);
+    setToken(token);
   }
 
   async function login(formData: loginData) {

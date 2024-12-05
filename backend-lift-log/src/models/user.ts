@@ -184,7 +184,7 @@ class User {
     //    */
 
     static async signup({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin }: SignupData): Promise<SignupData> {
-        const errors: { message: string }[] = [];
+        const messages: string[] = [];
 
         const checkDuplicateUser = await db.query(`
                 SELECT username 
@@ -193,7 +193,7 @@ class User {
         );
 
         if (checkDuplicateUser.rows.length > 0) {
-            errors.push({ message: `User already exists: ${username}` });
+            messages.push(`User already exists: ${username}`);
         }
 
         const checkDuplicateEmail = await db.query(`
@@ -203,12 +203,16 @@ class User {
         );
 
         if (checkDuplicateEmail.rows.length > 0) {
-            errors.push({ message: `Email already in use: ${email}` });
+            messages.push(`Email already in use: ${email}`);
+        }
+    
+        if (password.length < 6 || password.length > 14) {
+            messages.push('Password must be between 6 and 14 characters.')
         }
 
-        // Throw an error if there are any errors
-        if (errors.length > 0) {
-            throw { messages: errors };
+        // Throw an error if there are any messages to display
+        if (messages.length > 0) {
+            throw new BadRequestError({ messages });
         }
 
         // After all error checks we will then create the new user account

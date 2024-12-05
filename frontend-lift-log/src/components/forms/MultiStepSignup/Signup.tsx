@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import authEndpoints from "../../../constants/urls";
+
 interface FormData {
     username: string,
     email: string,
@@ -73,13 +75,13 @@ const Signup: FC<SignupFormProps> = ({ signup }) => {
             await signup(formData);
             sessionStorage.clear();
             navigate("/");
-        } catch (errors) {
+        } catch (error: any) {
             const newErrors: ErrorData = {};
-            const formErrors = errors;
+            const formErrors = error.messages;
             for (const error of formErrors) {
-                if (error.message.includes("User already exists")) newErrors.username = error.message;
-                if (error.message.includes("Email already in use")) newErrors.email = error.message;
-                if (error.message.includes("Password")) newErrors.password = error.message;
+                if (error.includes("User already exists")) newErrors.username = error;
+                if (error.includes("Email already in use")) newErrors.email = error;
+                if (error.includes("Password")) newErrors.password = error;
             }
             setErrors(newErrors);
             return;
@@ -87,7 +89,7 @@ const Signup: FC<SignupFormProps> = ({ signup }) => {
     }
 
     const handleBack = () => {
-        navigate("/users/create/account/part-4-goal")
+        navigate(`/auth/${authEndpoints.part3Path}`)
     }
 
     const validateForm = (e: React.FormEvent) => {

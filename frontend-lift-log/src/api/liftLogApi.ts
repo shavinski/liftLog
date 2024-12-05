@@ -40,25 +40,28 @@ export class LiftLogApi {
         try {
             const res = await axios.post(`${BASE_URL}/auth/${authEndpoints.signupPath}`, formData);
             return res.data.token;
-        } catch (error) {
-            // TODO: Make this into a helper function 
-            const isAxiosError = axios.isAxiosError(error);
-            const messages = isAxiosError ? error?.response?.data.messages : "An unexpected error occured";
-            throw messages;
+        } catch (error: any) {
+            console.debug("API Error:\n", error.response.data)
+            throw error.response.data
         }
     }
 
     // create a login method 
     static async login(formData: loginData) {
-        // try {
-        const res = await axios.post(`${BASE_URL}/auth/${authEndpoints.loginPath}`, formData);
-        return res.data.token;
-        // } catch (error) {
-        // console.error(error)
-        // const isAxiosError = axios.isAxiosError(error);
-        // const messages = isAxiosError ? error?.response?.data.messages : "An unexpected error occured";
-        // throw messages;
-        // }
+        try {
+            const res = await axios.post(`${BASE_URL}/auth/${authEndpoints.loginPath}`, formData);
+            return res.data.token;
+        } catch (error: any) {
+            let messages = []
+            if (error.response) {
+                messages = error.response.data.messages;
+            } else {
+                messages = ["Something went wrong, please try again later."]
+            }
+
+            console.warn("API Error:\n", error);
+            throw Array.isArray(messages) ? messages : [messages];
+        }
     }
 
     // Log out method
