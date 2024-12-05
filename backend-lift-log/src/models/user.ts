@@ -130,30 +130,8 @@ class User {
     //    */
 
     static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<{ heightFeet: number, heightInches: number, weight: number }> {
-        const errors: { message: string }[] = [];
 
-        if (!heightFeet) {
-            errors.push({ message: "Height (feet) is required." });
-        } else if (heightFeet < 2 || heightFeet > 8) {
-            errors.push({ message: "Height (feet) must be between 2 and 8" });
-        }
-
-        if (!heightInches) {
-            errors.push({ message: "Height (inches) is required." });
-        } else if (heightInches < 0 || heightInches > 11) {
-            errors.push({ message: "Height (inches) must be between 0 and 11" });
-        }
-
-        if (!weight) {
-            errors.push({ message: "Weight is required." });
-        } else if (weight < 40 || weight > 1000) {
-            errors.push({ message: "Weight must be between 40 and 1000" });
-        }
-
-        if (errors.length > 0) {
-            throw { messages: errors };
-        }
-
+        // Zod will handle my validation against the schema I created, maybe this is pointless? Idk
         return { heightFeet, heightInches, weight }
     }
 

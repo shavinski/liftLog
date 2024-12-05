@@ -13,12 +13,12 @@ export const registerUserPart1 = async (req: Request, res: Response, next: NextF
     }
 };
 
-export const registerUserPart2 = async (req: Request, res: Response) => {
+export const registerUserPart2 = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const info = await User.validatePartTwoForm(req.body);
+        const info = User.validatePartTwoForm(req.body);
         res.status(200).json({ message: "Part 2 success", info })
     } catch (error: any) {
-        res.status(400).json({ error: 'Invalid data', message: error.messages });
+        next(error);
     }
 };
 
