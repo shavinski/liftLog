@@ -103,23 +103,24 @@ class User {
        { firstName, lastName }
    */
 
-    static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<{ firstName: string, lastName: string }> {
-        const messages: string[] = [];
+    // TODO: Decide if I want to keep this
+    // static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<{ firstName: string, lastName: string }> {
+    //     const messages: string[] = [];
 
-        if (!firstName || firstName.trim() === '') {
-            messages.push('First name is required.');
-        }
+    //     if (!firstName || firstName.trim() === '') {
+    //         messages.push('First name is required.');
+    //     }
 
-        if (!lastName || lastName.trim() === '') {
-            messages.push('Last name is required.');
-        }
+    //     if (!lastName || lastName.trim() === '') {
+    //         messages.push('Last name is required.');
+    //     }
 
-        if (messages.length > 0) {
-            throw new BadRequestError({ messages: messages });
-        }
+    //     if (messages.length > 0) {
+    //         throw new BadRequestError({ messages: messages });
+    //     }
 
-        return { firstName, lastName };
-    }
+    //     return { firstName, lastName };
+    // }
 
     //     /**
     //        Getting user height and weight details 
@@ -127,12 +128,12 @@ class User {
     //        Data received should be:
     //        { heightFeet, heightInches, weight }
     //    */
+    // TODO: Decide if I want to keep this
+    // static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<{ heightFeet: number, heightInches: number, weight: number }> {
 
-    static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<{ heightFeet: number, heightInches: number, weight: number }> {
-
-        // Zod will handle my validation against the schema I created, maybe this is pointless? Idk
-        return { heightFeet, heightInches, weight }
-    }
+    //     // Zod will handle my validation against the schema I created, maybe this is pointless? Idk
+    //     return { heightFeet, heightInches, weight }
+    // }
 
     //     /**
     //        Getting user body details
@@ -140,40 +141,42 @@ class User {
     //        Data received should be:
     //        { body }
     //    */
-    static async validatePartThreeForm({ body }: FormPartThreeData): Promise<{ body: string }> {
-        const messages: string[] = [];
+    // TODO: Decide if I want to keep this
+    // static async validatePartThreeForm({ body }: FormPartThreeData): Promise<{ body: string }> {
+    //     const messages: string[] = [];
 
-        if (!body || body.trim() === "") {
-            messages.push("Please select one body type.");
-        }
+    //     if (!body || body.trim() === "") {
+    //         messages.push("Please select one body type.");
+    //     }
 
-        if (messages.length > 0) {
-            throw new BadRequestError({ messages });
-        }
+    //     if (messages.length > 0) {
+    //         throw new BadRequestError({ messages });
+    //     }
 
-        return { body }
-    }
+    //     return { body }
+    // }
 
+
+    // TODO: Decide if I want to keep this
     //     /**
     //        Getting user goal 
 
     //        Data received should be:
     //        { goal }
     //    */
+    // static async validatePartFourForm({ goal }: FormPartFourData): Promise<{ goal: string }> {
+    //     const errors: string[] = [];
 
-    static async validatePartFourForm({ goal }: FormPartFourData): Promise<{ goal: string }> {
-        const errors: string[] = [];
+    //     if (!goal) {
+    //         errors.push("Please select one goal.");
+    //     }
 
-        if (!goal) {
-            errors.push("Please select one goal.");
-        }
+    //     if (errors.length > 0) {
+    //         throw { messages: errors };
+    //     }
 
-        if (errors.length > 0) {
-            throw { messages: errors };
-        }
-
-        return { goal }
-    }
+    //     return { goal }
+    // }
 
     //     /**
     //        Getting user login details, make sure email and username are unique
@@ -252,10 +255,6 @@ class User {
     }
 
     static async login({ username, password }: LoginData): Promise<{ username: string, userId: number, isAdmin: boolean } | null> {
-        //    Need to find a better way to handle these errors, this is supper un readable 
-        // Issue here was that I was just throwing generic errors like "Invalid username/password" but the error was actually dealing with my db.query missing a comma
-        // This made it extremely difficult to find the exact cause of the error 
-        // TODO: Find a better way to handle throwing errors for both users of app and developers of the app 
         const messages = [];
 
         const result = await db.query(`
