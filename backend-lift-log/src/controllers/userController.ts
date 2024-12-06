@@ -7,9 +7,9 @@ import User from '../models/user';
 export const getAllUsersTest = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await User.getAllUsers();
-        res.json(result);
-    } catch (err) {
-        next(err)
+        res.status(200).json(result);
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -17,14 +17,14 @@ export const getSingleUserData = async (req: Request, res: Response, next: NextF
     const { username } = req.params
 
     if (!username) {
-        throw new BadRequestError({ code: 400, message: "Username is required!", logging: true })
+        throw new BadRequestError({ logging: true })
     }
 
     try {
         const user = await User.getSingleUserData(username);
-        return res.json({ user });
-    } catch (err) {
-        next(err)
+        return res.status(200).json({ user });
+    } catch (error) {
+        next(error)
     }
 }
 

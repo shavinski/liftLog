@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { BCRYPT_WORK_FACTOR } from "../config";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { BadRequestError } from "../errors/BadRequestError";
 
 export interface LoginData {
     username: string;
@@ -63,7 +64,7 @@ class User {
         const allUsers = result.rows;
 
         if (result.rows.length === 0) {
-            throw new NotFoundError({ code: 404, message: "List of all users cannot be found.", logging: true })
+            throw new NotFoundError({ logging: true })
         }
 
         return allUsers;
@@ -75,7 +76,6 @@ class User {
                 SELECT username,
                 first_name AS "firstName",
                 last_name AS "lastName",
-                email,
                 goal,
                 body_type AS "bodyType",
                 height_feet AS "heightFeet",
@@ -90,7 +90,7 @@ class User {
         );
 
         if (result.rows.length === 0) {
-            throw new NotFoundError({ code: 404, message: "User not found", logging: true })
+            throw new NotFoundError({ logging: true })
         }
 
         return result.rows[0];
@@ -104,18 +104,18 @@ class User {
    */
 
     static async validatePartOneForm({ firstName, lastName }: FormPartOneData): Promise<{ firstName: string, lastName: string }> {
-        const errors: string[] = [];
+        const messages: string[] = [];
 
         if (!firstName || firstName.trim() === '') {
-            errors.push('First name is required.');
+            messages.push('First name is required.');
         }
 
         if (!lastName || lastName.trim() === '') {
-            errors.push('Last name is required.');
+            messages.push('Last name is required.');
         }
 
-        if (errors.length > 0) {
-            throw { messages: errors };
+        if (messages.length > 0) {
+            throw new BadRequestError({ logging: true, messages: messages });
         }
 
         return { firstName, lastName };
@@ -129,30 +129,8 @@ class User {
     //    */
 
     static async validatePartTwoForm({ heightFeet, heightInches, weight }: FormPartTwoData): Promise<{ heightFeet: number, heightInches: number, weight: number }> {
-        const errors: { message: string }[] = [];
 
-        if (!heightFeet) {
-            errors.push({ message: "Height (feet) is required." });
-        } else if (heightFeet < 2 || heightFeet > 8) {
-            errors.push({ message: "Height (feet) must be between 2 and 8" });
-        }
-
-        if (!heightInches) {
-            errors.push({ message: "Height (inches) is required." });
-        } else if (heightInches < 0 || heightInches > 11) {
-            errors.push({ message: "Height (inches) must be between 0 and 11" });
-        }
-
-        if (!weight) {
-            errors.push({ message: "Weight is required." });
-        } else if (weight < 40 || weight > 1000) {
-            errors.push({ message: "Weight must be between 40 and 1000" });
-        }
-
-        if (errors.length > 0) {
-            throw { messages: errors };
-        }
-
+        // Zod will handle my validation against the schema I created, maybe this is pointless? Idk
         return { heightFeet, heightInches, weight }
     }
 
@@ -163,14 +141,14 @@ class User {
     //        { body }
     //    */
     static async validatePartThreeForm({ body }: FormPartThreeData): Promise<{ body: string }> {
-        const errors: string[] = [];
+        const messages: string[] = [];
 
-        if (!body) {
-            errors.push("Please select one body type.");
+        if (!body || body.trim() === "") {
+            messages.push("Please select one body type.");
         }
 
-        if (errors.length > 0) {
-            throw { messages: errors };
+        if (messages.length > 0) {
+            throw new BadRequestError({ messages });
         }
 
         return { body }
@@ -205,7 +183,7 @@ class User {
     //    */
 
     static async signup({ firstName, lastName, heightFeet, heightInches, weight, bodyType, goal, username, email, password, isAdmin }: SignupData): Promise<SignupData> {
-        const errors: { message: string }[] = [];
+        const messages: string[] = [];
 
         const checkDuplicateUser = await db.query(`
                 SELECT username 
@@ -214,7 +192,7 @@ class User {
         );
 
         if (checkDuplicateUser.rows.length > 0) {
-            errors.push({ message: `User already exists: ${username}` });
+            messages.push(`User already exists: ${username}`);
         }
 
         const checkDuplicateEmail = await db.query(`
@@ -224,12 +202,16 @@ class User {
         );
 
         if (checkDuplicateEmail.rows.length > 0) {
-            errors.push({ message: `Email already in use: ${email}` });
+            messages.push(`Email already in use: ${email}`);
+        }
+    
+        if (password.length < 6 || password.length > 14) {
+            messages.push('Password must be between 6 and 14 characters.')
         }
 
-        // Throw an error if there are any errors
-        if (errors.length > 0) {
-            throw { messages: errors };
+        // Throw an error if there are any messages to display
+        if (messages.length > 0) {
+            throw new BadRequestError({ messages });
         }
 
         // After all error checks we will then create the new user account
@@ -274,6 +256,8 @@ class User {
         // Issue here was that I was just throwing generic errors like "Invalid username/password" but the error was actually dealing with my db.query missing a comma
         // This made it extremely difficult to find the exact cause of the error 
         // TODO: Find a better way to handle throwing errors for both users of app and developers of the app 
+        const messages = [];
+
         const result = await db.query(`
             SELECT username,
                     password,
@@ -291,10 +275,14 @@ class User {
             if (validatePassword) {
                 delete user.password;
                 return user;
+            } else {
+                messages.push("Invalid username/password");
             }
+        } else {
+            messages.push("Invalid username/password");
         }
 
-        throw new UnauthorizedError({ code: 401, message: "Invalid username/password", logging: true });
+        throw new UnauthorizedError({ messages, logging: true });
     }
 }
 

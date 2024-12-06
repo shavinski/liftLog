@@ -8,10 +8,10 @@ interface LoginFormData {
     password: string;
 }
 
-interface ErrorState {
+export interface ErrorState {
     usernameErr: string;
     passwordErr: string;
-    authError: string;
+    authErr: string;
     unexpected: string;
 }
 
@@ -31,7 +31,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
     const [errors, setErrors] = useState<ErrorState>({
         usernameErr: "",
         passwordErr: "",
-        authError: "",
+        authErr: "",
         unexpected: ""
     })
 
@@ -45,59 +45,24 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
         try {
             await login(formData);
             navigate("/");
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                const status = error.response.status;
+        } catch (error: any) {
+            // TODO: Implement new errors in the log in form here
 
-                if (status === 400) {
-                    // Handles Zod validation error, when inputs are blank
-                    const zodValidationErrors = error.response.data.messages;
-                    const usernameErr = zodValidationErrors.find((err: any) => err.message.includes("username"))?.message || "";
-                    const passwordErr = zodValidationErrors.find((err: any) => err.message.includes("password"))?.message || "";
-                    console.error("Validation Errors:", zodValidationErrors);
+            const newErrors: ErrorState = {
+                usernameErr: "",
+                passwordErr: "",
+                authErr: "",
+                unexpected: ""
+            };
 
-                    setErrors((prev) => ({
-                        ...prev,
-                        usernameErr,
-                        passwordErr,
-                        authError: "",
-                        unexpected: ""
-                    }))
+            error.forEach((msg: string) => {
+                if (msg.includes("Please enter a username")) newErrors.usernameErr = msg;
+                if (msg.includes("Please enter a password")) newErrors.passwordErr = msg;
+                if (msg.includes("Invalid username/password")) newErrors.authErr = msg;
+                if (msg.includes("Something went wrong")) newErrors.unexpected = msg;
+            });
 
-                } else if (status === 401) {
-                    // Handles our custom Authentication error on backend
-                    const authError = error.response.data.errors[0].message;
-                    console.error("Authentication Error:", authError);
-
-                    setErrors((prev) => ({
-                        ...prev,
-                        usernameErr: "",
-                        passwordErr: "",
-                        authError,
-                        unexpected: ""
-                    }));
-                } else {
-                    // Other errors that I was not expecting which is an axios error
-                    console.error("Unexpected Error:", error.response.data || "An error occurred.");
-                    setErrors((prev) => ({
-                        ...prev,
-                        usernameErr: "",
-                        passwordErr: "",
-                        authError: "",
-                        unexpected: "Something unexpected happened."
-                    }));
-                }
-            } else {
-                // Handles any unhandled non-axios errors
-                console.error("Network Error or Unexpected Error:", error);
-                setErrors((prev) => ({
-                    ...prev,
-                    usernameErr: "",
-                    passwordErr: "",
-                    authError: "",
-                    unexpected: "Something unexpected happened."
-                }));
-            }
+            setErrors(newErrors);
         }
     }
 
@@ -138,7 +103,7 @@ const LoginForm: FC<LoginFormProps> = ({ login }) => {
                         name="password"
                         id="password" />
                     {errors.passwordErr && <span className="text-red-500 ml-2 text-sm">{errors.passwordErr}</span>}
-                    {errors.authError && <span className="text-red-500 ml-2 text-sm">{errors.authError}</span>}
+                    {errors.authErr && <span className="text-red-500 ml-2 text-sm">{errors.authErr}</span>}
                     {errors.unexpected && <span className="text-red-500 ml-2 text-sm">{errors.unexpected}</span>}
 
                 </div>

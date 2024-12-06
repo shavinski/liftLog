@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import authEndpoints from "../../../constants/urls";
+
 interface FormData {
     username: string,
     email: string,
@@ -11,6 +13,13 @@ interface ErrorData {
     username?: string,
     email?: string,
     password?: string,
+}
+
+export interface ErrorState {
+    username: string;
+    email: string,
+    password: string;
+    unexpected: string;
 }
 
 export interface CreateAccountData {
@@ -73,21 +82,27 @@ const Signup: FC<SignupFormProps> = ({ signup }) => {
             await signup(formData);
             sessionStorage.clear();
             navigate("/");
-        } catch (errors) {
-            const newErrors: ErrorData = {};
-            const formErrors = errors;
-            for (const error of formErrors) {
-                if (error.message.includes("User already exists")) newErrors.username = error.message;
-                if (error.message.includes("Email already in use")) newErrors.email = error.message;
-                if (error.message.includes("Password")) newErrors.password = error.message;
-            }
+        } catch (error: any) {
+            const newErrors: ErrorState = {
+                username: "",
+                email: "",
+                password: "",
+                unexpected: ""
+            };
+
+            error.forEach((msg: string) => {
+                if (msg.includes("User already exists")) newErrors.username = msg;
+                if (msg.includes("Email already in use")) newErrors.email = msg;
+                if (msg.includes("Password must be")) newErrors.password = msg;
+                if (msg.includes("Something went wrong")) newErrors.unexpected = msg;
+            });
+
             setErrors(newErrors);
-            return;
         }
     }
 
     const handleBack = () => {
-        navigate("/users/create/account/part-4-goal")
+        navigate(`/auth/${authEndpoints.part3Path}`)
     }
 
     const validateForm = (e: React.FormEvent) => {
@@ -174,6 +189,8 @@ const Signup: FC<SignupFormProps> = ({ signup }) => {
                     required />
             </div>
             {errors.password && <span className="text-red-500 ml-2 text-sm">{errors.password}</span>}
+            {errors.unexpected && <span className="text-red-500 ml-2 text-sm">{errors.unexpected}</span>}
+
             <div className="flex gap-5 mt-8">
                 <button
                     type="button"
