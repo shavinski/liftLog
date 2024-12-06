@@ -16,6 +16,7 @@ export const registerUserPart1 = async (req: Request, res: Response, next: NextF
     }
 };
 
+// TODO: Decide if I want to even keep this, used this earlier to attempt progress bar with multi part form
 export const registerUserPart2 = (req: Request, res: Response, next: NextFunction) => {
     try {
         const info = User.validatePartTwoForm(req.body);
@@ -25,6 +26,7 @@ export const registerUserPart2 = (req: Request, res: Response, next: NextFunctio
     }
 };
 
+// TODO: Decide if I want to even keep this, used this earlier to attempt progress bar with multi part form
 export const registerUserPart3 = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const info = await User.validatePartThreeForm(req.body);
@@ -34,6 +36,7 @@ export const registerUserPart3 = async (req: Request, res: Response, next: NextF
     }
 };
 
+// TODO: Decide if I want to even keep this, used this earlier to attempt progress bar with multi part form
 export const registerUserPart4 = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const info = await User.validatePartFourForm(req.body);
@@ -49,7 +52,6 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
         const token = createToken(user);
         return res.status(200).json({ message: "Sign up success", token });
     } catch (error: any) {
-        console.log(error)
         next(error);
     }
 };
