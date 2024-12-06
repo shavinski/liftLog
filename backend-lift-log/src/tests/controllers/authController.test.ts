@@ -93,7 +93,7 @@ describe(cyanBright("\nTesting auth controller"), () => {
             })
         })
 
-        test("Expect 401 on unauthorized login: Wrong password", async () => {
+        test("Expect 401 on unauthorized login: Valid username and wrong password", async () => {
             const res = await request(app)
                 .post("/auth/login")
                 .send({
@@ -109,11 +109,11 @@ describe(cyanBright("\nTesting auth controller"), () => {
             });
         });
 
-        test("Expect 401 on unauthorized login: Wrong username", async () => {
+        test("Expect 401 on unauthorized login: Non-existent username", async () => {
             const res = await request(app)
                 .post("/auth/login")
                 .send({
-                    username: "wrong-username",
+                    username: "non-existent-user",
                     password: "password"
                 });
 
