@@ -9,15 +9,15 @@ import {
 } from "../testCommon";
 
 import request from "supertest";
-import { magentaBright } from "chalk"
+import { cyanBright, yellowBright } from "chalk"
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
-describe(magentaBright("\nTesting auth controller"), () => {
-    describe("Endpoint: /auth/signup", () => {
+describe(cyanBright("\nTesting auth controller"), () => {
+    describe(yellowBright("Endpoint: /auth/signup"), () => {
         test("Expect 200 with successful signup", async () => {
             const res = await request(app)
                 .post("/auth/signup")
@@ -77,7 +77,7 @@ describe(magentaBright("\nTesting auth controller"), () => {
         });
     });
 
-    describe("Endpoint: /auth/login", () => {
+    describe(yellowBright("Endpoint: /auth/login"), () => {
         test("Expect 200 on successful login", async () => {
             const res = await request(app)
                 .post("/auth/login")
@@ -122,6 +122,22 @@ describe(magentaBright("\nTesting auth controller"), () => {
                 error: 'Unauthorized',
                 messages: ['Invalid username/password'],
                 context: {}
+            });
+        });
+
+        test("Expect 400 with empty inputs on login", async () => {
+            const res = await request(app)
+                .post("/auth/login")
+                .send({
+                    username: "",
+                    password: ""
+                });
+
+            expect(res.status).toBe(400);
+            expect(res.body).toMatchObject({
+                zod: 'Zod error',
+                error: 'Invalid data',
+                messages: ['Please enter a username', 'Please enter a password']
             });
         });
 
