@@ -51,15 +51,10 @@ export class LiftLogApi {
         }
     }
 
-
     // Get user method for setting current user on webpage
     static async getSingleUserData(username: string) {
-        try {
-            const user = await axios.get(`${BASE_URL}/users/${username}`);
-            return user.data;
-        } catch (errors) {
-            throw errors;
-        }
+        const res = await this.request(`users/${username}`);
+        return res;
     }
 
     // create a sign up method
@@ -70,7 +65,7 @@ export class LiftLogApi {
 
     // create a login method
     static async login(formData: loginData) {
-        const res = await this.request(`auth/${authEndpoints.loginPath}`, formData, "post")
+        const res = await this.request(`auth/${authEndpoints.loginPath}`, formData, "post");
         return res.token;
     }
 

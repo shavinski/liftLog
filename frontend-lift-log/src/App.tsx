@@ -37,6 +37,7 @@ function App() {
         localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
         const { username } = jwtDecode<CustomJwtPayload>(token);
         const userData = await LiftLogApi.getSingleUserData(username);
+        console.log(userData);
         setUser(userData.user);
       } else {
         localStorage.removeItem(LOCAL_STORAGE_TOKEN);

@@ -76,7 +76,6 @@ class User {
                 SELECT username,
                 first_name AS "firstName",
                 last_name AS "lastName",
-                email,
                 goal,
                 body_type AS "bodyType",
                 height_feet AS "heightFeet",
