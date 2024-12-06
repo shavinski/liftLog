@@ -37,8 +37,22 @@ describe("Testing auth routes", () => {
         });
 
         test("Return 200 with successful signup", async () => {
-
-        })
-
+            const res = await request(app)
+                .post("/auth/signup")
+                .send({
+                    "firstName": "First",
+                    "lastName": "Last",
+                    "heightFeet": 5,
+                    "heightInches": 10,
+                    "weight": 180,
+                    "bodyType": "ectomorph",
+                    "goal": "gain weight",
+                    "username": "test-user",
+                    "email": "test@gmail.com",
+                    "password": "password"
+                })
+            expect(res.status).toBe(200);
+        });
     })
-})
+
+});
