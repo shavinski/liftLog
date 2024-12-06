@@ -6,11 +6,11 @@ import Home from "./components/Home.tsx";
 
 import LoginForm from './components/forms/LoginForm.tsx';
 import SignupForm from './components/forms/MultiStepSignup/SignupForm.tsx';
-import Step1 from './components/forms/MultiStepSignup/Part1.tsx';
-import Step2 from './components/forms/MultiStepSignup/Part2.tsx';
-import Step3 from './components/forms/MultiStepSignup/Part3.tsx';
-import Step4 from './components/forms/MultiStepSignup/Part4.tsx';
-import FinalStep from './components/forms/MultiStepSignup/Signup.tsx';
+import Part1 from './components/forms/MultiStepSignup/Part1.tsx';
+import Part2 from './components/forms/MultiStepSignup/Part2.tsx';
+import Part3 from './components/forms/MultiStepSignup/Part3.tsx';
+import Part4 from './components/forms/MultiStepSignup/Part4.tsx';
+import Signup from './components/forms/MultiStepSignup/Signup.tsx';
 
 import { useEffect, useState } from 'react';
 
@@ -79,11 +79,11 @@ function App() {
       path: "/auth",
       element: <SignupForm />,
       children: [
-        { path: authEndpoints.part1Path, element: <Step1 /> },
-        { path: authEndpoints.part2Path, element: <Step2 /> },
-        { path: authEndpoints.part3Path, element: <Step3 /> },
-        { path: authEndpoints.part4Path, element: <Step4 /> },
-        { path: authEndpoints.signupPath, element: <FinalStep signup={signup} /> },
+        { path: authEndpoints.part1Path, element: <Part1 /> },
+        { path: authEndpoints.part2Path, element: <Part2 /> },
+        { path: authEndpoints.part3Path, element: <Part3 /> },
+        { path: authEndpoints.part4Path, element: <Part4 /> },
+        { path: authEndpoints.signupPath, element: <Signup signup={signup} /> },
       ]
     },
   ]);
