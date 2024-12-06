@@ -17,7 +17,7 @@ export const getSingleUserData = async (req: Request, res: Response, next: NextF
     const { username } = req.params
 
     if (!username) {
-        throw new BadRequestError({ logging: true })
+        throw new BadRequestError()
     }
 
     try {

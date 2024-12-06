@@ -26,7 +26,7 @@ app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/programs', programRouter)
 
-// ERROR HANDLER MIDDLEWARE
+// ERROR HANDLER MIDDLEWARE, WILL RUN THROUGHOUT WHOLE APPLICATION
 app.use(errorHandler)
 
 app.get('/', (req, res) => {

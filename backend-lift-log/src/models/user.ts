@@ -64,7 +64,7 @@ class User {
         const allUsers = result.rows;
 
         if (result.rows.length === 0) {
-            throw new NotFoundError({ logging: true })
+            throw new NotFoundError()
         }
 
         return allUsers;
@@ -90,7 +90,7 @@ class User {
         );
 
         if (result.rows.length === 0) {
-            throw new NotFoundError({ logging: true })
+            throw new NotFoundError()
         }
 
         return result.rows[0];
@@ -115,7 +115,7 @@ class User {
         }
 
         if (messages.length > 0) {
-            throw new BadRequestError({ logging: true, messages: messages });
+            throw new BadRequestError({ messages: messages });
         }
 
         return { firstName, lastName };
@@ -204,7 +204,7 @@ class User {
         if (checkDuplicateEmail.rows.length > 0) {
             messages.push(`Email already in use: ${email}`);
         }
-    
+
         if (password.length < 6 || password.length > 14) {
             messages.push('Password must be between 6 and 14 characters.')
         }
@@ -282,7 +282,7 @@ class User {
             messages.push("Invalid username/password");
         }
 
-        throw new UnauthorizedError({ messages, logging: true });
+        throw new UnauthorizedError({ messages });
     }
 }
 

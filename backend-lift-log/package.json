@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --verbose",
+    "testcov": "jest --coverage",
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
     "start": "node dist/server.js",

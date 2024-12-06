@@ -21,7 +21,6 @@ export function validateData(schema: z.ZodObject<any, any>) {
             } else {
                 res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
             }
-            console.log(error)
             next(error)
         }
     };
