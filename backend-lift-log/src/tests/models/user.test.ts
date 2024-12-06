@@ -1,5 +1,5 @@
-import User from "../models/user";
-import db from "../db";
+import User from "../../models/user";
+import db from "../../db";
 
 afterEach(async () => {
     try {
