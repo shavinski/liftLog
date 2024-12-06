@@ -8,7 +8,7 @@ interface LoginFormData {
     password: string;
 }
 
-interface ErrorState {
+export interface ErrorState {
     usernameErr: string;
     passwordErr: string;
     authErr: string;

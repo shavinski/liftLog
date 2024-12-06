@@ -15,6 +15,13 @@ interface ErrorData {
     password?: string,
 }
 
+export interface ErrorState {
+    username: string;
+    email: string,
+    password: string;
+    unexpected: string;
+}
+
 export interface CreateAccountData {
     firstName: string | "";
     lastName: string | "";
@@ -76,15 +83,21 @@ const Signup: FC<SignupFormProps> = ({ signup }) => {
             sessionStorage.clear();
             navigate("/");
         } catch (error: any) {
-            const newErrors: ErrorData = {};
-            const formErrors = error.messages;
-            for (const error of formErrors) {
-                if (error.includes("User already exists")) newErrors.username = error;
-                if (error.includes("Email already in use")) newErrors.email = error;
-                if (error.includes("Password")) newErrors.password = error;
-            }
+            const newErrors: ErrorState = {
+                username: "",
+                email: "",
+                password: "",
+                unexpected: ""
+            };
+
+            error.forEach((msg: string) => {
+                if (msg.includes("User already exists")) newErrors.username = msg;
+                if (msg.includes("Email already in use")) newErrors.email = msg;
+                if (msg.includes("Password must be")) newErrors.password = msg;
+                if (msg.includes("Something went wrong")) newErrors.unexpected = msg;
+            });
+
             setErrors(newErrors);
-            return;
         }
     }
 
@@ -176,6 +189,8 @@ const Signup: FC<SignupFormProps> = ({ signup }) => {
                     required />
             </div>
             {errors.password && <span className="text-red-500 ml-2 text-sm">{errors.password}</span>}
+            {errors.unexpected && <span className="text-red-500 ml-2 text-sm">{errors.unexpected}</span>}
+
             <div className="flex gap-5 mt-8">
                 <button
                     type="button"
