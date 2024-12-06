@@ -22,7 +22,4 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         res.status(403).json({ error: "Invalid or expired token" })
         return;
     }
-
-
-
 };
