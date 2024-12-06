@@ -75,6 +75,84 @@ describe(cyanBright("\nTesting auth controller"), () => {
                 ]
             });
         });
+
+        test("Expect 400 with duplicated username and email", async () => {
+            const res = await request(app)
+                .post("/auth/signup")
+                .send({
+                    "firstName": "First",
+                    "lastName": "Last",
+                    "heightFeet": 5,
+                    "heightInches": 10,
+                    "weight": 180,
+                    "bodyType": "ectomorph",
+                    "goal": "gain weight",
+                    "username": "user1",
+                    "email": "user1@gmail.com",
+                    "password": "password"
+                });
+
+            expect(res.status).toBe(400);
+            expect(res.body).toMatchObject({
+                error: 'Bad request',
+                messages: [
+                    'User already exists: user1',
+                    'Email already in use: user1@gmail.com'
+                ],
+                context: {}
+            });
+        });
+
+        test("Expect 400 with password less than 6 characters", async () => {
+            const res = await request(app)
+                .post("/auth/signup")
+                .send({
+                    "firstName": "First",
+                    "lastName": "Last",
+                    "heightFeet": 5,
+                    "heightInches": 10,
+                    "weight": 180,
+                    "bodyType": "ectomorph",
+                    "goal": "gain weight",
+                    "username": "user1",
+                    "email": "user1@gmail.com",
+                    "password": "1234"
+                });
+
+            expect(res.status).toBe(400);
+            expect(res.body).toMatchObject({
+                zod: 'Zod error',
+                error: 'Invalid data',
+                messages: ['Password must be between 6 and 14 characters.']
+            });
+        });
+
+        test("Expect 400 with password more than 14 characters", async () => {
+            const res = await request(app)
+                .post("/auth/signup")
+                .send({
+                    "firstName": "First",
+                    "lastName": "Last",
+                    "heightFeet": 5,
+                    "heightInches": 10,
+                    "weight": 180,
+                    "bodyType": "ectomorph",
+                    "goal": "gain weight",
+                    "username": "user1",
+                    "email": "user1@gmail.com",
+                    "password": "passwordthatistoolongwillreturnanerror"
+                });
+
+            expect(res.status).toBe(400);
+            expect(res.body).toMatchObject({
+                zod: 'Zod error',
+                error: 'Invalid data',
+                messages: ['Password must be between 6 and 14 characters.']
+            });
+        });
+
+
+
     });
 
     describe(yellowBright("Endpoint: /auth/login"), () => {
