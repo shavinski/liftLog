@@ -6,7 +6,6 @@ import { SECRET_KEY } from '../config';
 
 interface LoginToken {
     username: string,
-    userId: number,
     isAdmin: boolean
 }
 
@@ -18,7 +17,6 @@ export function createToken(user: SignupData | LoginToken | null): string {
 
     let payload = {
         username: user.username,
-        userId: user.userId,
         isAdmin: user.isAdmin || false,
     }
 

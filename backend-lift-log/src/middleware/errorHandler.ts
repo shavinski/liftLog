@@ -2,9 +2,10 @@
 
 import { NextFunction, Request, Response } from "express";
 import { CustomError } from "../errors/CustomError";
+import { ZodError } from "zod";
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    // Handled errors
+    // Handled custom errors
     if (err instanceof CustomError) {
         const { statusCode, errors, logging } = err;
         if (logging) {
@@ -16,6 +17,11 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
         }
 
         return res.status(statusCode).send({ ...errors });
+    }
+
+    // Handles Zod errors, we will return early to avoid getting console logs for Zod errors
+    else if (err instanceof ZodError) {
+        return;
     }
 
     // Unhandled errors

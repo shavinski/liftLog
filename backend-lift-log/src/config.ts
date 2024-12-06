@@ -2,6 +2,7 @@
 
 /** Shared config for application; can be required many places. */
 require("dotenv").config();
+import { blueBright, greenBright, blue, yellowBright, redBright, cyan, italic } from "chalk";
 
 export const SECRET_KEY = process.env.SECRET_KEY || "secret-dev";
 
@@ -18,11 +19,11 @@ export function getDatabaseUri() {
 export const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
 
 console.log("\n");
-console.log("----------------------------------------------------------------------");
-console.log("Lift Log Config:");
-console.log("SECRET_KEY:", SECRET_KEY);
-console.log("PORT:", PORT.toString());
-console.log("BCRYPT_WORK_FACTOR", BCRYPT_WORK_FACTOR);
-console.log("Database:", getDatabaseUri());
-console.log("----------------------------------------------------------------------");
+console.log(blue("----------------------------------------------------------------------"));
+console.log(italic(greenBright("Lift Log Config:\n")));
+console.log(blueBright("SECRET_KEY:"), SECRET_KEY);
+console.log(redBright("PORT:"), PORT.toString());
+console.log(yellowBright("BCRYPT_WORK_FACTOR"), BCRYPT_WORK_FACTOR);
+console.log(cyan("Database:"), getDatabaseUri());
+console.log(blue("----------------------------------------------------------------------"));
 

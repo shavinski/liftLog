@@ -26,7 +26,7 @@ app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/programs', programRouter)
 
-// ERROR HANDLER MIDDLEWARE
+// ERROR HANDLER MIDDLEWARE, WILL RUN THROUGHOUT WHOLE APPLICATION
 app.use(errorHandler)
 
 app.get('/', (req, res) => {
@@ -35,11 +35,6 @@ app.get('/', (req, res) => {
 
 app.post("/test", async (req: Request, res: Response) => {
     res.send("Testing this for coverage")
-});
-
-
-app.listen(3000, () => {
-    console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;

@@ -19,11 +19,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         res.locals.user = jwt.verify(userToken, SECRET_KEY);
         next();
     } catch (err) {
-        console.error(err)
         res.status(403).json({ error: "Invalid or expired token" })
         return;
     }
-
-
-
 };
