@@ -37,9 +37,4 @@ app.post("/test", async (req: Request, res: Response) => {
     res.send("Testing this for coverage")
 });
 
-
-app.listen(3000, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
 export default app;
