@@ -1,6 +1,5 @@
 "use strict";
 
-import exp from "constants";
 import app from "../../app";
 import {
     commonAfterAll,
@@ -10,15 +9,14 @@ import {
 } from "../testCommon";
 
 import request from "supertest";
-import { string } from "zod";
-import { exec } from "child_process";
+import { magentaBright } from "chalk"
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
 afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
-describe("Testing auth controller", () => {
+describe(magentaBright("\nTesting auth controller"), () => {
     describe("Endpoint: /auth/signup", () => {
         test("Expect 200 with successful signup", async () => {
             const res = await request(app)
@@ -95,19 +93,37 @@ describe("Testing auth controller", () => {
             })
         })
 
-        test("Expect 403 on unauthorized login", async () => {
+        test("Expect 401 on unauthorized login: Wrong password", async () => {
             const res = await request(app)
                 .post("/auth/login")
                 .send({
                     username: "user1",
+                    password: "wrong-password"
+                });
+
+            expect(res.status).toBe(401);
+            expect(res.body).toMatchObject({
+                error: 'Unauthorized',
+                messages: ['Invalid username/password'],
+                context: {}
+            });
+        });
+
+        test("Expect 401 on unauthorized login: Wrong username", async () => {
+            const res = await request(app)
+                .post("/auth/login")
+                .send({
+                    username: "wrong-username",
                     password: "password"
                 });
 
-            console.log(res.body)
-            expect(res.status).toBe(200);
+            expect(res.status).toBe(401);
             expect(res.body).toMatchObject({
+                error: 'Unauthorized',
+                messages: ['Invalid username/password'],
+                context: {}
+            });
+        });
 
-            })
-        })
-    })
+    });
 });
