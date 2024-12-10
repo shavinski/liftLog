@@ -46,6 +46,8 @@ export async function commonBeforeAll() {
         "password": "password",
         "isAdmin": false
     });
+    // TODO:
+    // Input user programs and program exercises for testing
 }
 
 export async function commonBeforeEach() {
@@ -60,6 +62,7 @@ export async function commonAfterAll() {
     await db.end();
 }
 
+// TODO: Will need to query and get the correct user id and put in the token
 export const u1Token = createToken({ username: "u1", isAdmin: false });
 export const u2Token = createToken({ username: "u2", isAdmin: false });
 

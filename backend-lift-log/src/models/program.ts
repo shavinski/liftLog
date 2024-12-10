@@ -50,7 +50,6 @@ class Program {
 
         const userProgram = programResult.rows[0];
 
-        // If no user program found then return not found error
         if (!userProgram) throw new NotFoundError({ messages: [`No exercise program found with this id: ${programId}`] })
 
         const exercises = await db.query(`

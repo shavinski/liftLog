@@ -7,9 +7,8 @@ import { BadRequestError } from '../errors/BadRequestError';
 
 export const getUserWorkoutPrograms = async (req: Request, res: Response, next: NextFunction) => {
     const userId = res.locals.user.id
-    console.log(userId)
 
-    if (!userId) throw new UnauthorizedError({ messages: ["No user identification was supplied"] });
+    if (!userId) throw new UnauthorizedError({ messages: ["No user id was supplied"] });
 
     try {
         const programs = await Program.getAllUserPrograms(userId);
@@ -22,7 +21,7 @@ export const getUserWorkoutPrograms = async (req: Request, res: Response, next: 
 export const getSingleUserProgram = async (req: Request, res: Response, next: NextFunction) => {
     const id = Number(req.params.id)
 
-    if (!id) throw new BadRequestError({ messages: ["No program id was supplied."] })
+    if (!id) throw new BadRequestError({ messages: ["A non-valid program id was supplied."] })
 
     try {
         const program = await Program.getSingleUserProgram(id);
