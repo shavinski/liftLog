@@ -25,6 +25,8 @@ export interface SignupData {
     email: string;
     password: string;
     isAdmin?: boolean;
+    // FIXME: Can figure out a workaround for this
+    // UserId thrown on here to send back token with userId attached
     userId?: number;
 }
 

@@ -6,7 +6,8 @@ import { SECRET_KEY } from '../config';
 
 interface LoginToken {
     username: string,
-    isAdmin: boolean
+    isAdmin: boolean,
+    userId?: number
 }
 
 export function createToken(user: SignupData | LoginToken | null): string {
@@ -18,6 +19,7 @@ export function createToken(user: SignupData | LoginToken | null): string {
     let payload = {
         username: user.username,
         isAdmin: user.isAdmin || false,
+        id: user.userId
     }
 
     return jwt.sign(payload, SECRET_KEY, {expiresIn: '1h'});
