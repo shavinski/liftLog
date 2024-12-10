@@ -2,25 +2,32 @@
 
 import { NextFunction, Request, Response } from 'express'
 import Program from '../models/program';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
+import { BadRequestError } from '../errors/BadRequestError';
 
 export const getUserWorkoutPrograms = async (req: Request, res: Response, next: NextFunction) => {
+    const userId = res.locals.user.id
+    console.log(userId)
+
+    if (!userId) throw new UnauthorizedError({ messages: ["No user identification was supplied"] });
+
     try {
-        const userId = res.locals.user.userId
         const programs = await Program.getAllUserPrograms(userId);
         res.status(200).json({ programs });
     } catch (error) {
-        console.log(error)
         next(error);
     }
 }
 
 export const getSingleUserProgram = async (req: Request, res: Response, next: NextFunction) => {
+    const id = Number(req.params.id)
+
+    if (!id) throw new BadRequestError({ messages: ["No program id was supplied."] })
+
     try {
-        const id = Number(req.params.id)
         const program = await Program.getSingleUserProgram(id);
         res.status(200).json({ program })
     } catch (error) {
-        console.log(error)
         next(error);
     }
 }

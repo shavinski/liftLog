@@ -2,6 +2,7 @@
 
 import db from '../db'
 import { NotFoundError } from '../errors/NotFoundError';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
 
 class Program {
 
