@@ -4,10 +4,18 @@ import db from "../db";
 import User from "../models/user";
 import { createToken } from "../helpers/tokens";
 
-export async function commonBeforeAll() {
-    await db.query("DELETE FROM users");
+export let u1Token = "";
+export let u2Token = "";
 
-    await User.signup({
+export async function commonBeforeAll() {
+    // await db.query(`
+    //     TRUNCATE TABLE users, programs, program_exercises, exercises RESTART IDENTITY CASCADE;
+    // `);
+    
+    await db.query("DELETE FROM users")
+
+    // Set up User 1 account for testing 
+    const user1 = await User.signup({
         "firstName": "F1",
         "lastName": "L1",
         "heightFeet": 5,
@@ -20,7 +28,15 @@ export async function commonBeforeAll() {
         "password": "password",
         "isAdmin": false
     });
-    await User.signup({
+
+    const user1Result = await User.getSingleUserData(user1.username);
+    const user1Id = user1Result.userId;
+    u1Token = createToken({ username: "u1", userId: user1Id, isAdmin: false });
+
+    // TODO: Create a create programs method for users
+
+    // Set up User 2 account for testing 
+    const user2 = await User.signup({
         "firstName": "F2",
         "lastName": "L2",
         "heightFeet": 6,
@@ -33,21 +49,10 @@ export async function commonBeforeAll() {
         "password": "password",
         "isAdmin": false
     });
-    await User.signup({
-        "firstName": "F3",
-        "lastName": "L3",
-        "heightFeet": 5,
-        "heightInches": 0,
-        "weight": 120,
-        "bodyType": "ectomorph",
-        "goal": "gain weight",
-        "username": "user3",
-        "email": "user3@gmail.com",
-        "password": "password",
-        "isAdmin": false
-    });
-    // TODO:
-    // Input user programs and program exercises for testing
+
+    const user2Result = await User.getSingleUserData(user2.username);
+    const user2Id = user2Result.userId;
+    u2Token = createToken({ username: "u1", userId: user2Id, isAdmin: false });
 }
 
 export async function commonBeforeEach() {
@@ -62,8 +67,5 @@ export async function commonAfterAll() {
     await db.end();
 }
 
-// TODO: Will need to query and get the correct user id and put in the token
-export const u1Token = createToken({ username: "u1", isAdmin: false });
-export const u2Token = createToken({ username: "u2", isAdmin: false });
 
 

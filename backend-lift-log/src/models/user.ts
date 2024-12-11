@@ -50,6 +50,7 @@ class User {
     static async getSingleUserData(username: string) {
         const result = await db.query(`
                 SELECT username,
+                user_id as "userId",
                 first_name AS "firstName",
                 last_name AS "lastName",
                 goal,
@@ -66,7 +67,7 @@ class User {
         );
 
         if (result.rows.length === 0) {
-            throw new NotFoundError()
+            throw new NotFoundError({ messages: ["User not found with this id"] })
         }
 
         return result.rows[0];
