@@ -31,3 +31,12 @@ export const getSingleUserProgram = async (req: Request, res: Response, next: Ne
     }
 }
 
+export const createUserWorkoutProgram = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const program = await Program.createUserWorkoutProgram();
+        res.status(200).json({ program })
+    } catch (error) {
+        next(error);
+    }
+}
+

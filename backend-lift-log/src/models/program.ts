@@ -2,7 +2,6 @@
 
 import db from '../db'
 import { NotFoundError } from '../errors/NotFoundError';
-import { UnauthorizedError } from '../errors/UnauthorizedError';
 
 class Program {
 
@@ -15,7 +14,7 @@ class Program {
      */
 
     static async getAllUserPrograms(userId: number): Promise<object[]> {
-        const result = await db.query(`
+        const res = await db.query(`
             SELECT * 
             FROM programs 
             WHERE user_id = $1
@@ -25,7 +24,7 @@ class Program {
             ]
         )
 
-        return result.rows;
+        return res.rows;
     }
 
     /**
@@ -38,7 +37,7 @@ class Program {
      */
 
     static async getSingleUserProgram(programId: number): Promise<object[]> {
-        const programResult = await db.query(`
+        const res = await db.query(`
                 SELECT *
                 FROM programs
                 WHERE program_id = $1
@@ -48,7 +47,7 @@ class Program {
             ]
         )
 
-        const userProgram = programResult.rows[0];
+        const userProgram = res.rows[0];
 
         if (!userProgram) throw new NotFoundError({ messages: [`No exercise program found with this id: ${programId}`] })
 
@@ -71,6 +70,12 @@ class Program {
         userProgram.exercises = programExercises;
 
         return userProgram;
+    }
+
+    static async createUserWorkoutProgram() {
+        const res = 
+
+        return true;
     }
 
 }
