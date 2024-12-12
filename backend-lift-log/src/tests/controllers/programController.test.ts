@@ -1,45 +1,42 @@
-// "use strict";
+"use strict";
 
-// import app from "../../app";
-// import {
-//     commonAfterAll,
-//     commonAfterEach,
-//     commonBeforeAll,
-//     commonBeforeEach,
-//     u1Token,
-//     u2Token
-// } from "../testCommon";
+import app from "../../app";
+import {
+    commonAfterAll,
+    commonAfterEach,
+    commonBeforeAll,
+    commonBeforeEach,
+    u1Token,
+} from "../testCommon";
 
-// import request from "supertest";
-// import { cyanBright, yellowBright } from "chalk"
+import request from "supertest";
+import { yellowBright } from "chalk"
 
-// beforeAll(commonBeforeAll);
-// beforeEach(commonBeforeEach);
-// afterEach(commonAfterEach);
-// afterAll(commonAfterAll);
+beforeAll(commonBeforeAll);
+beforeEach(commonBeforeEach);
+afterEach(commonAfterEach);
+afterAll(commonAfterAll);
 
-// describe(cyanBright("\nTesting program controller"), () => {
 
-//     describe(yellowBright("Endpoint: /programs"), () => {
+describe(yellowBright("Endpoint: /programs"), () => {
 
-//         test("200 with a user getting all their programs (NO PROGRAMS)", async () => {
-//             const res = await request(app)
-//                 .get("/programs")
-//                 .set("Authorization", `Bearer ${u1Token}`)
+    // test("200 with a user getting all their programs (NO PROGRAMS)", async () => {
+    //     const res = await request(app)
+    //         .get("/programs")
+    //         .set("Authorization", `Bearer ${u1Token}`)
 
-//             expect(res.body).toMatchObject({
-//                 programs: []
-//             });
-//         });
+    //     expect(res.body).toMatchObject({
+    //         programs: []
+    //     });
+    // });
 
-//         // test("200 with a user getting all their programs (NO PROGRAMS)", async () => {
-//         //     const res = await request(app)
-//         //         .get("/programs")
-//         //         .set("Authorization", `Bearer ${u1Token}`)
+    // test("200 with a user getting all their programs (NO PROGRAMS)", async () => {
+    //     const res = await request(app)
+    //         .get("/programs")
+    //         .set("Authorization", `Bearer ${u1Token}`)
 
-//         //     expect(res.body).toMatchObject({
-//         //         programs: []
-//         //     });
-//         // });
-//     });
-// });
+    //     expect(res.body).toMatchObject({
+    //         programs: []
+    //     });
+    // });
+});

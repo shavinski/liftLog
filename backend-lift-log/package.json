@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest",
     "testcov": "jest --coverage",
     "build": "rimraf dist && npx tsc",
     "prestart": "npm run build",
