@@ -1,6 +1,8 @@
 "use strict";
 
 import db from '../db'
+import { NotFoundError } from '../errors/NotFoundError';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
 
 class Program {
 
@@ -47,6 +49,8 @@ class Program {
         )
 
         const userProgram = programResult.rows[0];
+
+        if (!userProgram) throw new NotFoundError({ messages: [`No exercise program found with this id: ${programId}`] })
 
         const exercises = await db.query(`
             SELECT

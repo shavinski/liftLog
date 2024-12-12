@@ -61,7 +61,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const user = await User.login({ ...req.body });
         const token = createToken(user);
         return res.status(200).json({ message: "Log in success", token });
-    } catch (err: any) {
-        next(err);
+    } catch (error: any) {
+        next(error);
     }
 };

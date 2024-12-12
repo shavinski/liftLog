@@ -4,9 +4,14 @@ import db from "../db";
 import User from "../models/user";
 import { createToken } from "../helpers/tokens";
 
-export async function commonBeforeAll() {
-    await db.query("DELETE FROM users");
+export let u1Token = "";
 
+
+export async function commonBeforeEach() {
+    await db.query("DELETE FROM users");
+    await db.query("START TRANSACTION");
+
+    // Set up User 1 account for testing 
     await User.signup({
         "firstName": "F1",
         "lastName": "L1",
@@ -15,41 +20,15 @@ export async function commonBeforeAll() {
         "weight": 162,
         "bodyType": "ectomorph",
         "goal": "gain weight",
-        "username": "user1",
-        "email": "user1@gmail.com",
+        "username": `user1`,
+        "email": `user1@gmail.com`,
         "password": "password",
         "isAdmin": false
     });
-    await User.signup({
-        "firstName": "F2",
-        "lastName": "L2",
-        "heightFeet": 6,
-        "heightInches": 0,
-        "weight": 180,
-        "bodyType": "ectomorph",
-        "goal": "gain weight",
-        "username": "user2",
-        "email": "user2@gmail.com",
-        "password": "password",
-        "isAdmin": false
-    });
-    await User.signup({
-        "firstName": "F3",
-        "lastName": "L3",
-        "heightFeet": 5,
-        "heightInches": 0,
-        "weight": 120,
-        "bodyType": "ectomorph",
-        "goal": "gain weight",
-        "username": "user3",
-        "email": "user3@gmail.com",
-        "password": "password",
-        "isAdmin": false
-    });
-}
 
-export async function commonBeforeEach() {
-    await db.query("BEGIN");
+    const user1Result = await User.getSingleUserData("user1");
+    const user1Id = user1Result.userId;
+    u1Token = createToken({ username: "u1", userId: user1Id, isAdmin: false });
 }
 
 export async function commonAfterEach() {
@@ -57,10 +36,9 @@ export async function commonAfterEach() {
 }
 
 export async function commonAfterAll() {
+    console.log("ENDING TEST DB CONNECTION");
     await db.end();
 }
 
-export const u1Token = createToken({ username: "u1", isAdmin: false });
-export const u2Token = createToken({ username: "u2", isAdmin: false });
 
 

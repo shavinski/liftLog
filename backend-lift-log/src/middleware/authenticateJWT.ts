@@ -3,13 +3,13 @@
 import jwt from 'jsonwebtoken';
 import { SECRET_KEY } from '../config';
 import { Request, Response, NextFunction } from 'express';
+import { UnauthorizedError } from '../errors/UnauthorizedError';
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction): void => {
     const authHeader = req.headers?.authorization;
 
     if (!authHeader) {
-        res.status(401).json({ error: "Authorization header is missing" })
-        return;
+        throw new UnauthorizedError({ messages: ["Authorization header is missing"] })
     }
 
     // Singles out token and leaves out the Bearer or bearer 
@@ -19,7 +19,6 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         res.locals.user = jwt.verify(userToken, SECRET_KEY);
         next();
     } catch (err) {
-        res.status(403).json({ error: "Invalid or expired token" })
-        return;
+        throw new UnauthorizedError({messages: ["Invalid or expired token"]})
     }
 };
