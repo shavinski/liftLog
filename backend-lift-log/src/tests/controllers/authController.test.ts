@@ -4,7 +4,6 @@ import app from "../../app";
 import {
     commonAfterAll,
     commonAfterEach,
-    commonBeforeAll,
     commonBeforeEach,
     u1Token
 } from "../testCommon";
@@ -12,12 +11,11 @@ import {
 import request from "supertest";
 import { cyanBright } from "chalk"
 
-beforeAll(commonBeforeAll);
-beforeEach(commonBeforeEach); // Runs before each test in describe block
-afterEach(commonAfterEach);
-afterAll(commonAfterAll);
-
 describe("Auth endpoints", () => {
+
+    beforeEach(commonBeforeEach);
+    afterEach(commonAfterEach);
+    afterAll(commonAfterAll);
 
     describe(cyanBright("Endpoint: /auth/signup"), () => {
         test("200 with successful signup", async () => {

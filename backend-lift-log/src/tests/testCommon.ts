@@ -6,13 +6,10 @@ import { createToken } from "../helpers/tokens";
 
 export let u1Token = "";
 
-export async function commonBeforeAll() {
-    // const users = await db.query("SELECT * FROM users");
-    // console.log(users.rows);
 
-    const usersBeforeTest = await db.query("SELECT * FROM users");
-    console.log("Before test: Users in DB", usersBeforeTest.rows);
+export async function commonBeforeEach() {
     await db.query("DELETE FROM users");
+    await db.query("START TRANSACTION");
 
     // Set up User 1 account for testing 
     await User.signup({
@@ -34,15 +31,12 @@ export async function commonBeforeAll() {
     u1Token = createToken({ username: "u1", userId: user1Id, isAdmin: false });
 }
 
-export async function commonBeforeEach() {
-    await db.query("START TRANSACTION")
-}
-
 export async function commonAfterEach() {
     await db.query("ROLLBACK");
 }
 
 export async function commonAfterAll() {
+    console.log("ENDING TEST DB CONNECTION");
     await db.end();
 }
 
