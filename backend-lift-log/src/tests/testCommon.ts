@@ -3,7 +3,6 @@
 import db from "../db";
 import User from "../models/user";
 import { createToken } from "../helpers/tokens";
-import { v4 as uuidv4 } from 'uuid';
 
 export let u1Token = "";
 
@@ -24,8 +23,8 @@ export async function commonBeforeAll() {
         "weight": 162,
         "bodyType": "ectomorph",
         "goal": "gain weight",
-        "username": `user${uuidv4}`,
-        "email": `user${uuidv4}@gmail.com`,
+        "username": `user1`,
+        "email": `user1@gmail.com`,
         "password": "password",
         "isAdmin": false
     });
