@@ -1,6 +1,8 @@
 "use strict";
 
+import { number } from "zod";
 import app from "../../app";
+import db from "../../db";
 import {
     commonAfterAll,
     commonAfterEach,
@@ -40,6 +42,75 @@ describe("Endpoint: /programs", () => {
                 messages: ["Invalid or expired token"],
             });
         });
+    });
+
+    describe("User adding workout programs", () => {
+        it("should return 200 on creation of workout program", async () => {
+            const res = await request(app)
+                .post("/programs")
+                .set("Authorization", `Bearer ${u1Token}`)
+                .send({
+                    "title": "Test workout program"
+                });
+
+            expect(res.statusCode).toBe(200);
+            expect(res.body).toMatchObject({
+                "program": {
+                    "title": "Test workout program",
+                    "userId": expect.any(Number)
+                },
+                "message": "Successfully created a workout program"
+            });
+        });
+
+        it("should return 200 with extra white spaces and trim input", async () => {
+            const res = await request(app)
+                .post("/programs")
+                .set("Authorization", `Bearer ${u1Token}`)
+                .send({
+                    "title": "  Test and trim input  "
+                });
+
+            expect(res.statusCode).toBe(200);
+            expect(res.body).toMatchObject({
+                "program": {
+                    "title": "Test and trim input",
+                    "userId": expect.any(Number)
+                },
+                "message": "Successfully created a workout program"
+            });
+        });
+
+        it("should return 400 with missing title (zod error)", async () => {
+            const res = await request(app)
+                .post("/programs")
+                .set("Authorization", `Bearer ${u1Token}`)
+                .send({
+                    "title": ""
+                });
+
+            expect(res.statusCode).toBe(400);
+            expect(res.body).toMatchObject({
+                "error": "Invalid data",
+                "messages": ["A title is required."],
+                "zod": "Zod error",
+            });
+        });
+
+        it("should return 400 with missing title (custom error)", async () => {
+            const res = await request(app)
+                .post("/programs")
+                .set("Authorization", `Bearer ${u1Token}`)
+                .send({
+                    "title": "    "
+                });
+
+            expect(res.statusCode).toBe(400);
+            expect(res.body).toMatchObject({
+                "messages": ["A title is required."],
+            });
+        });
+
     });
 });
 
