@@ -37,13 +37,11 @@ export const createUserWorkoutProgram = async (req: Request, res: Response, next
     const trimmedTitle = title.trim();
     const userId = res.locals.user.id;
     
-    console.log('Title: ', trimmedTitle)
-    if (!userId) throw new UnauthorizedError();
     if (!trimmedTitle) throw new BadRequestError({ messages: ["A title is required."] });
 
     try {
         const program = await Program.createUserWorkoutProgram(trimmedTitle, userId);
-        res.status(200).json({ program })
+        res.status(200).json({ program, message: "Successfully created a workout program" });
     } catch (error) {
         next(error);
     }
