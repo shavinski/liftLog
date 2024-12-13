@@ -1,8 +1,6 @@
 "use strict";
 
-import { number } from "zod";
 import app from "../../app";
-import db from "../../db";
 import {
     commonAfterAll,
     commonAfterEach,
@@ -110,7 +108,6 @@ describe("Endpoint: /programs", () => {
                 "messages": ["A title is required."],
             });
         });
-
     });
 });
 

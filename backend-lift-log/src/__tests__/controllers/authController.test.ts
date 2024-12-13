@@ -1,7 +1,6 @@
 "use strict";
 
 import app from "../../app";
-import db from "../../db";
 import {
     commonAfterAll,
     commonAfterEach,
