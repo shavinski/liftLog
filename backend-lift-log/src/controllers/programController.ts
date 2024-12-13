@@ -1,6 +1,7 @@
 "use strict";
 
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express';
+
 import Program from '../models/program';
 import { UnauthorizedError } from '../errors/UnauthorizedError';
 import { BadRequestError } from '../errors/BadRequestError';
@@ -32,8 +33,16 @@ export const getSingleUserProgram = async (req: Request, res: Response, next: Ne
 }
 
 export const createUserWorkoutProgram = async (req: Request, res: Response, next: NextFunction) => {
+    const { title } = req.body
+    const trimmedTitle = title.trim();
+    const userId = res.locals.user.id;
+    
+    console.log('Title: ', trimmedTitle)
+    if (!userId) throw new UnauthorizedError();
+    if (!trimmedTitle) throw new BadRequestError({ messages: ["A title is required."] });
+
     try {
-        const program = await Program.createUserWorkoutProgram();
+        const program = await Program.createUserWorkoutProgram(trimmedTitle, userId);
         res.status(200).json({ program })
     } catch (error) {
         next(error);

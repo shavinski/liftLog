@@ -5,6 +5,8 @@ const programRouter = express.Router();
 
 import { getUserWorkoutPrograms, getSingleUserProgram, createUserWorkoutProgram } from '../controllers/programController';
 import { authenticateJWT } from '../middleware/authenticateJWT';
+import { validateData } from '../middleware/validationMiddleware';
+import { programsSchema } from '../schemas/programSchemas';
 
 // Arguments in order for routes
 // First arg  will be the endpoint we want
@@ -12,8 +14,23 @@ import { authenticateJWT } from '../middleware/authenticateJWT';
 // Second arg ... nth arg can be middle ware
 // Final arg will be the function that we want to run, located in the controllers
 
-programRouter.get('/', authenticateJWT, getUserWorkoutPrograms);
-programRouter.post('/', authenticateJWT, createUserWorkoutProgram);
-programRouter.get('/:id', authenticateJWT, getSingleUserProgram);
+programRouter.get(
+    '/',
+    authenticateJWT,
+    getUserWorkoutPrograms
+);
+
+programRouter.post(
+    '/',
+    authenticateJWT,
+    validateData(programsSchema),
+    createUserWorkoutProgram
+);
+
+programRouter.get(
+    '/:id',
+    authenticateJWT,
+    getSingleUserProgram
+);
 
 export default programRouter;

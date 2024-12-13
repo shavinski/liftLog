@@ -40,8 +40,7 @@ class Program {
         const res = await db.query(`
                 SELECT *
                 FROM programs
-                WHERE program_id = $1
-            `,
+                WHERE program_id = $1`,
             [
                 programId
             ]
@@ -60,11 +59,10 @@ class Program {
                 INNER JOIN program_exercises ON program_exercises.program_id = programs.program_id
                 INNER JOIN exercises ON exercises.exercise_id = program_exercises.exercise_id
             WHERE
-                programs.program_id = $1;
-            `,
+                programs.program_id = $1;`,
             [
                 programId
-            ])
+            ]);
 
         const programExercises = exercises.rows;
         userProgram.exercises = programExercises;
@@ -72,10 +70,22 @@ class Program {
         return userProgram;
     }
 
-    static async createUserWorkoutProgram() {
-        const res = 
+    static async createUserWorkoutProgram(userId: number, title: string) {
+        const res = await db.query(`
+            INSERT INTO programs
+                (title, user_id)
+            VALUES 
+                ($1, $2)
+            RETURNING
+                title,
+                user_id as "userId"`,
+            [
+                userId,
+                title
+            ]);
 
-        return true;
+
+        return res.rows[0];
     }
 
 }

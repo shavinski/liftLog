@@ -59,8 +59,7 @@ class User {
                 height_inches AS "hFeightInches",
                 is_admin AS "isAdmin"
                 FROM users
-                WHERE username = $1
-                `,
+                WHERE username = $1`,
             [
                 username
             ]
@@ -111,8 +110,9 @@ class User {
         const result = await db.query(
             `
             INSERT INTO users
-            (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password, is_admin)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+                (first_name, last_name, height_feet, height_inches, weight, body_type, goal, username, email, password, is_admin)
+            VALUES 
+                ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
             RETURNING
                 first_name AS "firstName",
                 last_name AS "lastName",
@@ -151,8 +151,10 @@ class User {
                     user_id AS "userId",
                     is_admin AS "isAdmin"
             FROM users
-            WHERE username = $1
-        `, [username]);
+            WHERE username = $1`, 
+            [
+                username
+            ]);
 
         const user = result.rows[0];
 
